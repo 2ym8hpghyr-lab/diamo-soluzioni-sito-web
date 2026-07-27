@@ -29,13 +29,11 @@ export default function ContattiPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <a
             href="tel:+393444619461"
-            className="flex flex-col gap-3 p-6 rounded-xl transition-colors"
+            className="flex flex-col gap-3 p-6 rounded-xl transition-colors hover:border-[rgba(197,160,89,0.3)]"
             style={{
               backgroundColor: '#1A1D24',
               border: '1px solid rgba(255,255,255,0.08)',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(197,160,89,0.3)')}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
           >
             <span className="text-3xl">📞</span>
             <span className="font-semibold" style={{ color: '#F3F4F6' }}>Chiamaci</span>
@@ -43,13 +41,11 @@ export default function ContattiPage() {
           </a>
           <a
             href="mailto:pellumbmurgu@gmail.com"
-            className="flex flex-col gap-3 p-6 rounded-xl transition-colors"
+            className="flex flex-col gap-3 p-6 rounded-xl transition-colors hover:border-[rgba(197,160,89,0.3)]"
             style={{
               backgroundColor: '#1A1D24',
               border: '1px solid rgba(255,255,255,0.08)',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(197,160,89,0.3)')}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
           >
             <span className="text-3xl">✉</span>
             <span className="font-semibold" style={{ color: '#F3F4F6' }}>Scrivici</span>

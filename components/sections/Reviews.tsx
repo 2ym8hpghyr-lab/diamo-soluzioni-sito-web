@@ -106,7 +106,7 @@ export default function Reviews() {
                   className="text-sm leading-relaxed flex-1 line-clamp-4"
                   style={{ color: '#D1D5DB' }}
                 >
-                  "{r.text}"
+                  &ldquo;{r.text}&rdquo;
                 </p>
                 <div>
                   <p className="text-sm font-semibold" style={{ color: '#F3F4F6' }}>

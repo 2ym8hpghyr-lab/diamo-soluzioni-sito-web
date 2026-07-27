@@ -7,23 +7,6 @@ const stats = [
   { value: '15+', label: 'Anni di Esperienza' },
 ]
 
-const images = [
-  {
-    src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80',
-    alt: 'Cantiere edile Lodi — Diamo Soluzioni',
-    className: 'row-span-2',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=600&q=80',
-    alt: 'Ristrutturazione interni Milano — Diamo Soluzioni',
-    className: '',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80',
-    alt: 'Pavimentazione gres porcellanato — Diamo Soluzioni',
-    className: '',
-  },
-]
 
 export default function AboutPreview() {
   return (
