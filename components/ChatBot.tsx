@@ -12,8 +12,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content:
-        'Ciao! Sono l\'assistente virtuale di Diamo Soluzioni.\nPer poterti fornire una stima precisa, iniziamo con i tuoi contatti.',
+      content: 'Ciao! Sono l\'assistente di Diamo Soluzioni.\nDescrivimi il tuo progetto e riceverai una stima personalizzata.',
     },
   ])
   const [input, setInput] = useState('')
@@ -33,19 +32,11 @@ export default function ChatBot() {
       setFormError('Inserisci un\'email e un numero di telefono validi.')
       return
     }
-
-    // Invia subito il lead con i contatti (il riassunto verrà aggiornato dopo la chat)
     await fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email,
-        phone,
-        summary: 'Contatto appena acquisito — conversazione in corso.',
-        priceRange: 'Da definire',
-      }),
+      body: JSON.stringify({ email, phone, summary: 'Contatto appena acquisito — conversazione in corso.', priceRange: 'Da definire' }),
     })
-
     setStep('chat')
   }
 
@@ -56,7 +47,6 @@ export default function ChatBot() {
     setMessages(updatedMessages)
     setInput('')
     setLoading(true)
-
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
@@ -65,8 +55,6 @@ export default function ChatBot() {
       })
       const data = await res.json()
       setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
-
-      // Invia riassunto SOLO quando l'AI fornisce una fascia di prezzo (una volta sola)
       const priceMatch = data.reply.match(/€[\d\.,\s]+\s*[–\-]\s*€?[\d\.,\s]+/)
       if (priceMatch) {
         const conversationText = [...updatedMessages, { role: 'assistant' as const, content: data.reply }]
@@ -75,49 +63,66 @@ export default function ChatBot() {
         fetch('/api/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            phone,
-            summary: conversationText.slice(0, 2000),
-            priceRange: priceMatch[0],
-          }),
+          body: JSON.stringify({ email, phone, summary: conversationText.slice(0, 2000), priceRange: priceMatch[0] }),
         })
       }
     } catch {
-      setMessages(prev => [
-        ...prev,
-        { role: 'assistant', content: 'Errore di connessione. Riprova o chiamaci al +39 344 461 9461.' },
-      ])
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Errore di connessione. Chiamaci al +39 344 461 9461.' }])
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
+    <div
+      className="w-full max-w-md overflow-hidden"
+      style={{
+        backgroundColor: 'rgba(26, 29, 36, 0.95)',
+        borderRadius: '16px',
+        border: '1px solid rgba(197, 160, 89, 0.25)',
+        boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(8px)',
+      }}
+    >
       {/* Header */}
-      <div className="bg-brand-accent px-5 py-4 flex items-center gap-3">
-        <div className="text-2xl">🤖</div>
+      <div
+        className="px-5 py-4 flex items-center gap-3"
+        style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+      >
+        <div
+          className="w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0"
+          style={{ backgroundColor: 'rgba(197,160,89,0.15)', border: '1px solid rgba(197,160,89,0.3)' }}
+        >
+          ✦
+        </div>
         <div>
-          <p className="font-bold text-brand-dark text-sm uppercase tracking-wide">
-            Chiedi alla nostra Intelligenza Artificiale
+          <p
+            className="font-bold text-sm"
+            style={{ color: '#F3F4F6', fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+          >
+            Assistente AI — Preventivo Istantaneo
           </p>
-          <p className="text-xs text-brand-dark/70">
-            Raccontaci il tuo progetto e ricevi una stima personalizzata
+          <p className="text-xs" style={{ color: '#9CA3AF' }}>
+            Descrivi il tuo progetto, ti stimiamo i costi
           </p>
+        </div>
+        <div className="ml-auto flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-green-400 inline-block" />
+          <span className="text-xs" style={{ color: '#9CA3AF' }}>Online</span>
         </div>
       </div>
 
-      {/* Body */}
-      <div className="h-80 overflow-y-auto p-4 flex flex-col gap-3 bg-gray-50">
+      {/* Messages */}
+      <div className="h-72 overflow-y-auto p-4 flex flex-col gap-3" style={{ backgroundColor: '#0F1115' }}>
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div
-              className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm whitespace-pre-wrap ${
+              className="max-w-[82%] rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap leading-relaxed"
+              style={
                 m.role === 'user'
-                  ? 'bg-brand-primary text-white rounded-br-none'
-                  : 'bg-white text-brand-dark shadow rounded-bl-none'
-              }`}
+                  ? { backgroundColor: '#C5A059', color: '#0F1115', borderBottomRightRadius: '4px', fontWeight: 500 }
+                  : { backgroundColor: '#1A1D24', color: '#F3F4F6', border: '1px solid rgba(255,255,255,0.08)', borderBottomLeftRadius: '4px' }
+              }
             >
               {m.content}
             </div>
@@ -125,7 +130,10 @@ export default function ChatBot() {
         ))}
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-white shadow rounded-2xl rounded-bl-none px-4 py-2 text-sm text-gray-400">
+            <div
+              className="rounded-2xl rounded-bl-sm px-4 py-2.5 text-sm"
+              style={{ backgroundColor: '#1A1D24', color: '#9CA3AF', border: '1px solid rgba(255,255,255,0.08)' }}
+            >
               Sto scrivendo...
             </div>
           </div>
@@ -133,59 +141,61 @@ export default function ChatBot() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Footer: form o input chat */}
-      {step === 'form' ? (
-        <form onSubmit={handleFormSubmit} className="p-4 bg-white border-t border-gray-100 flex flex-col gap-2">
-          <input
-            type="email"
-            placeholder="✉ La tua email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-accent"
-            required
-          />
-          <input
-            type="tel"
-            placeholder="📞 Il tuo numero di telefono"
-            value={phone}
-            onChange={e => setPhone(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-accent"
-            required
-          />
-          {formError && <p className="text-red-500 text-xs">{formError}</p>}
-          <button
-            type="submit"
-            className="bg-brand-accent text-brand-dark font-bold py-2 rounded-lg text-sm hover:opacity-90 transition"
-          >
-            INVIA E CONTINUA →
-          </button>
-          <p className="text-xs text-gray-400 text-center">
-            🔒 I tuoi dati sono al sicuro e verranno usati solo per ricontattarti.
-          </p>
-        </form>
-      ) : (
-        <div className="p-4 bg-white border-t border-gray-100 flex gap-2">
-          <input
-            type="text"
-            placeholder="Scrivi un messaggio..."
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && sendMessage()}
-            className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-accent"
-          />
-          <button
-            onClick={sendMessage}
-            disabled={loading}
-            className="bg-brand-accent text-brand-dark font-bold px-4 py-2 rounded-lg text-sm hover:opacity-90 transition disabled:opacity-50"
-          >
-            →
-          </button>
-        </div>
-      )}
-
-      <div className="px-4 pb-2 bg-white flex justify-between text-xs text-gray-400">
-        <span>Powered by AI</span>
-        <span className="text-green-500">● Online</span>
+      {/* Footer: form o input */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', backgroundColor: '#1A1D24' }}>
+        {step === 'form' ? (
+          <form onSubmit={handleFormSubmit} className="p-4 flex flex-col gap-3">
+            <input
+              type="email"
+              placeholder="La tua email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className="w-full rounded-lg px-3 py-2.5 text-sm outline-none transition-colors"
+              style={{ backgroundColor: '#0F1115', border: '1px solid rgba(255,255,255,0.12)', color: '#F3F4F6' }}
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Il tuo numero di telefono"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              className="w-full rounded-lg px-3 py-2.5 text-sm outline-none transition-colors"
+              style={{ backgroundColor: '#0F1115', border: '1px solid rgba(255,255,255,0.12)', color: '#F3F4F6' }}
+              required
+            />
+            {formError && <p className="text-red-400 text-xs">{formError}</p>}
+            <button
+              type="submit"
+              className="w-full font-semibold py-3 rounded-lg text-sm transition-colors duration-200"
+              style={{ backgroundColor: '#C5A059', color: '#0F1115' }}
+            >
+              Inizia la Chat →
+            </button>
+            <p className="text-xs text-center" style={{ color: '#9CA3AF' }}>
+              🔒 I tuoi dati sono al sicuro e verranno usati solo per ricontattarti.
+            </p>
+          </form>
+        ) : (
+          <div className="p-4 flex gap-2">
+            <input
+              type="text"
+              placeholder="Scrivi un messaggio..."
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && sendMessage()}
+              className="flex-1 rounded-lg px-3 py-2.5 text-sm outline-none"
+              style={{ backgroundColor: '#0F1115', border: '1px solid rgba(255,255,255,0.12)', color: '#F3F4F6' }}
+            />
+            <button
+              onClick={sendMessage}
+              disabled={loading}
+              className="font-bold px-4 py-2.5 rounded-lg text-sm transition-colors duration-200 disabled:opacity-40"
+              style={{ backgroundColor: '#C5A059', color: '#0F1115' }}
+            >
+              →
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )
