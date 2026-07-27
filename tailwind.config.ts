@@ -10,13 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          primary: '#3D5066',
-          accent: '#F5C03E',
-          text: '#1A1A1A',
-          dark: '#1A1A1A',
+          bg: '#0F1115',
+          surface: '#1A1D24',
+          accent: '#C5A059',
+          'accent-hover': '#D4AF37',
+          light: '#F8F9FA',
+          text: '#F3F4F6',
+          muted: '#9CA3AF',
+          border: 'rgba(255, 255, 255, 0.08)',
         },
       },
       fontFamily: {
+        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
         sans: ['Inter', 'sans-serif'],
       },
     },

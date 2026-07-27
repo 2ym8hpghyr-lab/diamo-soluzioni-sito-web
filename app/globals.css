@@ -1,19 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --brand-primary: #3D5066;
-  --brand-accent: #F5C03E;
-  --brand-text: #1A1A1A;
+  --brand-bg: #0F1115;
+  --brand-surface: #1A1D24;
+  --brand-accent: #C5A059;
+  --brand-accent-hover: #D4AF37;
+  --brand-text: #F3F4F6;
+  --brand-muted: #9CA3AF;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
+  background-color: var(--brand-bg);
+  color: var(--brand-text);
   font-family: 'Inter', sans-serif;
-  color: #1A1A1A;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
