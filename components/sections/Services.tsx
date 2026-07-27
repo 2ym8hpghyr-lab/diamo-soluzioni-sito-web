@@ -123,7 +123,8 @@ export default function Services() {
                 {s.desc}
               </p>
               <p className="text-xs font-medium" style={{ color: 'rgba(197,160,89,0.7)' }}>
-                📍 {s.keyword}
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 inline mr-1 relative -top-px"><path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.402 3.218-6.853C19.5 5.507 16.036 2 12 2S4.5 5.507 4.5 10.474c0 2.451 1.274 4.774 3.218 6.853a19.58 19.58 0 002.683 2.282 16.975 16.975 0 001.144.742z" clipRule="evenodd" /><path fillRule="evenodd" d="M12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" /></svg>
+                {s.keyword}
               </p>
             </div>
           ))}
