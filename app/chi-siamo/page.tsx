@@ -14,7 +14,7 @@ export default function ChiSiamoPage() {
       </h1>
       <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed space-y-4">
         <p>
-          Diamo Soluzioni è un'impresa edile con sede a Merlino (LO), Lombardia. Da oltre 15 anni
+          Diamo Soluzioni &egrave; un&apos;impresa edile con sede a Merlino (LO), Lombardia. Da oltre 15 anni
           realizziamo ristrutturazioni complete, pavimentazioni, impianti idraulici ed elettrici
           con competenza artigianale e attenzione ai dettagli.
         </p>

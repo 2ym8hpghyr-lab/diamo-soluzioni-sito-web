@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Progetti',
@@ -26,7 +27,7 @@ export default function ProgettiPage() {
           {projects.map(p => (
             <div key={p.title} className="rounded-2xl overflow-hidden shadow hover:shadow-lg transition">
               <div className="bg-gray-200 h-48 flex items-center justify-center text-gray-400">
-                {p.image ? <img src={p.image} alt={p.title} className="w-full h-full object-cover" /> : '📸'}
+                {p.image ? <Image src={p.image} alt={p.title} fill className="w-full h-full object-cover" /> : '📸'}
               </div>
               <div className="p-4">
                 <span className="text-brand-accent text-xs font-bold uppercase">{p.category}</span>

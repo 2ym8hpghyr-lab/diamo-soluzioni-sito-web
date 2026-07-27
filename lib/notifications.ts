@@ -2,8 +2,6 @@
 import { Resend } from 'resend'
 import twilio from 'twilio'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export interface LeadData {
   email: string
   phone: string
@@ -13,6 +11,7 @@ export interface LeadData {
 }
 
 export async function sendEmailNotification(lead: LeadData): Promise<void> {
+  const resend = new Resend(process.env.RESEND_API_KEY || 'dummy')
   await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL!,
     to: process.env.NOTIFICATION_EMAIL!,

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import localFont from 'next/font/local'
 import './globals.css'
 import Navbar from '@/components/Navbar'
@@ -37,6 +38,42 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it">
+      <Script
+        id="schema-local-business"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'LocalBusiness',
+            name: 'Diamo Soluzioni',
+            description: 'Impresa edile specializzata in ristrutturazioni complete, pavimentazioni e impianti a Merlino (LO)',
+            url: 'https://www.diamosoluzioni.it',
+            telephone: '+393444619461',
+            email: 'pellumbmurgu@gmail.com',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Via Roma 1',
+              addressLocality: 'Merlino',
+              addressRegion: 'LO',
+              postalCode: '26833',
+              addressCountry: 'IT',
+            },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: 45.4039,
+              longitude: 9.5072,
+            },
+            openingHoursSpecification: {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+              opens: '08:00',
+              closes: '18:00',
+            },
+            priceRange: '€€',
+            areaServed: ['Merlino', 'Lodi', 'Melegnano', 'Lombardia'],
+          }),
+        }}
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
