@@ -2,6 +2,10 @@
 import { Resend } from 'resend'
 import twilio from 'twilio'
 
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
 export interface LeadData {
   email: string
   phone: string
@@ -18,8 +22,8 @@ export async function sendEmailNotification(lead: LeadData): Promise<void> {
     subject: `📋 Nuovo contatto — Diamo Soluzioni`,
     html: `
       <h2>📋 Nuovo contatto — Diamo Soluzioni</h2>
-      <p><strong>👤 Email:</strong> ${lead.email}</p>
-      <p><strong>📞 Telefono:</strong> ${lead.phone}</p>
+      <p><strong>👤 Email:</strong> ${escapeHtml(lead.email)}</p>
+      <p><strong>📞 Telefono:</strong> ${escapeHtml(lead.phone)}</p>
       <hr/>
       <h3>💬 Riassunto conversazione</h3>
       <pre style="background:#f5f5f5;padding:12px;border-radius:6px">${lead.summary}</pre>

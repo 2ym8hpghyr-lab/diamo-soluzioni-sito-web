@@ -12,8 +12,8 @@ const SUSPICIOUS_PATTERNS = [
   /what\s+are\s+your\s+instructions/i,
   /jailbreak/i,
   /DAN\b/,
-  /bypass/i,
-  /override/i,
+  /bypass\s*(the\s+)?(system|instructions|ai|bot|rules)/i,
+  /override\s*(the\s+)?(system|instructions|ai|bot|rules)/i,
   /admin\s+mode/i,
 ]
 

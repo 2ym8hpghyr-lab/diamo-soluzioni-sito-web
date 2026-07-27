@@ -18,7 +18,6 @@ export default function ChatBot() {
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [suspiciousCount, setSuspiciousCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -62,10 +61,9 @@ export default function ChatBot() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updatedMessages, suspiciousCount }),
+        body: JSON.stringify({ messages: updatedMessages }),
       })
       const data = await res.json()
-      setSuspiciousCount(data.suspiciousCount ?? suspiciousCount)
       setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
 
       // Invia riassunto SOLO quando l'AI fornisce una fascia di prezzo (una volta sola)

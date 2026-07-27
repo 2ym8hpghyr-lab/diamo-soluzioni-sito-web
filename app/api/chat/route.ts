@@ -6,7 +6,7 @@ import { buildChatResponse, Message } from '@/lib/claude'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { messages, suspiciousCount = 0 }: { messages: Message[]; suspiciousCount: number } = body
+    const { messages }: { messages: Message[] } = body
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json({ error: 'Messaggi non validi' }, { status: 400 })
@@ -21,15 +21,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Nessun messaggio utente' }, { status: 400 })
     }
 
-    const isSuspicious = detectSuspiciousMessage(lastUserMessage.content)
-    const newSuspiciousCount = isSuspicious ? suspiciousCount + 1 : suspiciousCount
+    const suspiciousCount = messages
+      .filter((m: Message) => m.role === 'user')
+      .filter((m: Message) => detectSuspiciousMessage(m.content))
+      .length
 
-    if (isSuspicious && newSuspiciousCount === 1) {
-      return NextResponse.json({ reply: REDIRECT_MESSAGE, suspiciousCount: newSuspiciousCount })
+    const isSuspicious = detectSuspiciousMessage(lastUserMessage.content)
+
+    if (isSuspicious && suspiciousCount === 1) {
+      return NextResponse.json({ reply: REDIRECT_MESSAGE })
     }
 
-    const reply = await buildChatResponse(messages, newSuspiciousCount)
-    return NextResponse.json({ reply, suspiciousCount: newSuspiciousCount })
+    const reply = await buildChatResponse(messages, suspiciousCount)
+    return NextResponse.json({ reply })
   } catch (error) {
     console.error('Chat API error:', error)
     return NextResponse.json({ reply: 'Si è verificato un errore. Chiamaci al +39 344 461 9461.' })
