@@ -1,5 +1,3 @@
-'use client'
-
 const services = [
   {
     icon: (
@@ -95,19 +93,8 @@ export default function Services() {
           {services.map(s => (
             <div
               key={s.title}
-              className="p-6 rounded-xl transition-all duration-300 group cursor-default"
-              style={{
-                backgroundColor: '#1A1D24',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)'
-                ;(e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(197,160,89,0.3)'
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'
-                ;(e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.08)'
-              }}
+              className="p-6 rounded-xl transition-all duration-300 cursor-default border border-white/[0.08] hover:-translate-y-1 hover:border-brand-accent/30"
+              style={{ backgroundColor: '#1A1D24' }}
             >
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center mb-5"

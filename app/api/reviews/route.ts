@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 
+export const revalidate = 86400 // 24 ore — cache persistente a livello Next.js Data Cache
+
 interface GoogleReview {
   author_name: string
   rating: number
@@ -7,14 +9,6 @@ interface GoogleReview {
   time: number
   profile_photo_url: string
 }
-
-interface CacheEntry {
-  data: { reviews: GoogleReview[]; rating: number }
-  fetchedAt: number
-}
-
-let cache: CacheEntry | null = null
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 ore
 
 const FALLBACK_REVIEWS: GoogleReview[] = [
   {
@@ -55,10 +49,6 @@ export async function GET() {
     return NextResponse.json({ reviews: FALLBACK_REVIEWS, rating: 5.0 })
   }
 
-  if (cache && Date.now() - cache.fetchedAt < CACHE_TTL_MS) {
-    return NextResponse.json(cache.data)
-  }
-
   try {
     const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating&key=${apiKey}&language=it&reviews_sort=newest`
     const res = await fetch(url, { next: { revalidate: 86400 } })
@@ -71,9 +61,7 @@ export async function GET() {
     const fiveStarReviews: GoogleReview[] = (json.result.reviews ?? []).filter(
       (r: GoogleReview) => r.rating === 5
     )
-    const data = { reviews: fiveStarReviews, rating: json.result.rating ?? 5.0 }
-    cache = { data, fetchedAt: Date.now() }
-    return NextResponse.json(data)
+    return NextResponse.json({ reviews: fiveStarReviews, rating: json.result.rating ?? 5.0 })
   } catch {
     return NextResponse.json({ reviews: FALLBACK_REVIEWS, rating: 5.0 })
   }

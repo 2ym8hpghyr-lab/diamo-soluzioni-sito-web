@@ -90,6 +90,13 @@ export default function Reviews() {
               />
             ))}
           </div>
+        ) : reviews.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-sm" style={{ color: '#9CA3AF' }}>
+              Nessuna recensione disponibile al momento.{' '}
+              <a href="/contatti" style={{ color: '#C5A059' }}>Contattaci</a> per saperne di più.
+            </p>
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {reviews.slice(0, 8).map((r, i) => (
@@ -123,7 +130,7 @@ export default function Reviews() {
 
         <div className="text-center mt-10">
           <a
-            href="https://g.page/r/diamo-soluzioni/review"
+            href="https://www.google.com/maps/search/Diamo+Soluzioni+Merlino+LO/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200"

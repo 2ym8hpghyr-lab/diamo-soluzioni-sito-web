@@ -72,7 +72,7 @@ export default function Footer() {
                 <li key={s}>
                   <Link
                     href="/servizi"
-                    className="text-sm transition-colors duration-200"
+                    className="text-sm transition-colors duration-200 hover:text-brand-accent"
                     style={{ color: '#9CA3AF' }}
                   >
                     {s}
