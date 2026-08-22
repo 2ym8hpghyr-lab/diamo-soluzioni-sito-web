@@ -1,89 +1,119 @@
 import type { Metadata } from 'next'
+import { Manrope } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import MobileActionBar from '@/components/MobileActionBar'
+import { business } from '@/config/business'
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
+const siteUrl = business.siteUrl
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Diamo Soluzioni — Impresa Edile Merlino (LO) | Ristrutturazioni Lodi e Milano',
+    default: 'Diamo Soluzioni — Impresa Edile a Merlino (Lodi)',
     template: '%s | Diamo Soluzioni',
   },
   description:
-    'Impresa edile specializzata in ristrutturazioni chiavi in mano, infissi, imbiancatura, facciate e pavimentazioni a Merlino (LO), Lodi, Milano, Monza, Pavia, Crema, San Donato Milanese, Melegnano e tutta la Lombardia. Preventivo gratuito.',
-  keywords: [
-    'impresa edile Merlino', 'ristrutturazioni Lodi', 'ristrutturazioni Milano',
-    'ristrutturazioni chiavi in mano Lodi', 'rifacimento facciate Monza',
-    'cappotto termico Pavia', 'infissi serramenti Crema', 'pavimentazioni Lodi',
-    'imbiancatura tinteggiatura Milano', 'impianti idraulici Lodi',
-    'impresa edile San Donato Milanese', 'ristrutturazioni Melegnano',
-    'impresa edile Lombardia', 'ristrutturazione appartamento Lodi',
-  ],
+    'Impresa edile a Merlino (LO). Ristrutturazioni complete, pavimentazioni, infissi, facciate e impianti a Lodi, Melegnano e Milano Sud. Sopralluogo gratuito.',
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     siteName: 'Diamo Soluzioni',
     locale: 'it_IT',
     type: 'website',
-    title: 'Diamo Soluzioni — Impresa Edile Leader in Lombardia',
-    description: 'Ristrutturazioni complete, infissi, facciate, pavimentazioni a Lodi, Milano e tutta la Lombardia.',
+    url: siteUrl,
+    title: 'Diamo Soluzioni — Impresa Edile a Merlino (Lodi)',
+    description:
+      'Ristrutturazioni, pavimentazioni, infissi e impianti a Lodi e Milano Sud. Sopralluogo gratuito, preventivo chiaro.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
-const schemaData = {
+const schemaOrg = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'Diamo Soluzioni',
-  description: 'Impresa edile specializzata in ristrutturazioni complete, infissi, imbiancatura, facciate e pavimentazioni. Sede a Merlino (LO), operiamo in tutta la Lombardia.',
-  url: 'https://www.diamosoluzioni.it',
-  telephone: '+393444619461',
-  email: 'pellumbmurgu@gmail.com',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Via Roma 1',
-    addressLocality: 'Merlino',
-    addressRegion: 'LO',
-    postalCode: '26833',
-    addressCountry: 'IT',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 45.4039,
-    longitude: 9.5072,
-  },
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    opens: '08:00',
-    closes: '18:00',
-  },
-  priceRange: '€€',
-  areaServed: [
-    'Merlino', 'Lodi', 'Milano', 'Monza', 'Pavia', 'Crema',
-    'San Donato Milanese', 'Melegnano', 'Lombardia',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: business.name,
+      inLanguage: 'it-IT',
+    },
+    {
+      '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
+      '@id': `${siteUrl}/#business`,
+      name: business.name,
+      legalName: business.legalName,
+      url: siteUrl,
+      telephone: business.phone.primaryRaw,
+      email: business.email,
+      vatID: business.vatId,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: business.address.street,
+        addressLocality: business.address.city,
+        addressRegion: business.address.province,
+        postalCode: business.address.postalCode,
+        addressCountry: business.address.country,
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: business.geo.latitude,
+        longitude: business.geo.longitude,
+      },
+      openingHoursSpecification: business.hours.schema.map(h => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: h.dayOfWeek,
+        opens: h.opens,
+        closes: h.closes,
+      })),
+      priceRange: '€€',
+      areaServed: business.areas.map(area => ({
+        '@type': 'City',
+        name: area,
+      })),
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Servizi Edili',
+        itemListElement: [
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ristrutturazioni Chiavi in Mano' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Rifacimento Bagno' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Pavimentazioni e Rivestimenti' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Infissi e Serramenti' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Facciate e Cappotto Termico' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Tinteggiatura' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Impianti Idraulici' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Impianti Elettrici' } },
+        ],
+      },
+    },
   ],
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Servizi Edili',
-    itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ristrutturazioni Chiavi in Mano' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Infissi e Serramenti' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Imbiancatura e Tinteggiatura' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Facciate e Cappotto Termico' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Pavimentazioni e Rivestimenti' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Impianti Idraulici ed Elettrici' } },
-    ],
-  },
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="it">
+    <html lang="it" className={manrope.variable}>
       <body className="antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <MobileActionBar />
       </body>
     </html>
   )

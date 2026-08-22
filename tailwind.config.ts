@@ -9,20 +9,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          bg: '#0F1115',
-          surface: '#1A1D24',
-          accent: '#C5A059',
-          'accent-hover': '#D4AF37',
-          light: '#F8F9FA',
-          text: '#F3F4F6',
-          muted: '#9CA3AF',
-          border: 'rgba(255, 255, 255, 0.08)',
+        teal: {
+          DEFAULT: '#1F4852',
+          dark: '#15363E',
         },
+        gold: {
+          DEFAULT: '#F4BE12',
+          hi: '#FFC515',
+        },
+        graphite: '#1E2A2E',
+        'warm-white': '#F8F8F5',
+        concrete: '#ECEDE9',
       },
       fontFamily: {
-        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
-        sans: ['Inter', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
+      },
+      boxShadow: {
+        card: '0 2px 8px rgba(30,42,46,0.08)',
+        'card-hover': '0 8px 24px rgba(30,42,46,0.14)',
+        gold: '0 0 0 3px rgba(244,190,18,0.35)',
       },
     },
   },

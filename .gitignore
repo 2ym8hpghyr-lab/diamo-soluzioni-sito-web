@@ -34,3 +34,24 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.automation/
+
+# Claude Code / graphify — generati localmente
+.claude/
+graphify-out/
+public/.claude/
+public/graphify-out/
+public/CLAUDE.md
+
+# Documenti di pianificazione interni
+AUDIT_BEFORE.md
+CAPABILITY_MAP.md
+CONTENT_TO_VERIFY.md
+GITHUB_SKILLS_RESEARCH.md
+IMAGE_REPLACEMENT_PLAN.md
+LAUNCH_CHECKLIST.md
+LOCAL_SEO_ACTION_PLAN.md
+SEARCH_CONSOLE_SETUP.md
+TOOLS_INSTALLED.md
+docs/
+"app/progetti/page 2.tsx"

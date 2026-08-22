@@ -1,25 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --brand-bg: #0F1115;
-  --brand-surface: #1A1D24;
-  --brand-accent: #C5A059;
-  --brand-accent-hover: #D4AF37;
-  --brand-text: #F3F4F6;
-  --brand-muted: #9CA3AF;
+  --teal:        #1F4852;
+  --teal-dark:   #15363E;
+  --gold:        #F4BE12;
+  --gold-hi:     #FFC515;
+  --warm-white:  #F8F8F5;
+  --concrete:    #ECEDE9;
+  --graphite:    #1E2A2E;
+  --white:       #FFFFFF;
+
+  /* Aliases utili */
+  --bg:          var(--warm-white);
+  --surface:     var(--white);
+  --text:        var(--graphite);
+  --text-muted:  #4A5568;
+  --border:      #D4D8D2;
 }
 
-* { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  background-color: var(--brand-bg);
-  color: var(--brand-text);
-  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+/* Riduce le animazioni per chi preferisce */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Focus visibile per accessibilità */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Utilità blueprint */
+.blueprint-line {
+  position: relative;
+}
+.blueprint-line::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.4s ease;
+}
+.blueprint-line:hover::after,
+.blueprint-line:focus-visible::after {
+  width: 100%;
+}
+
+/* Animazione reveal al scroll */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* Doppio bordo card — teal 3px esterno + ottone 1px interno */
+.ds-card {
+  border: 3px solid #1F4852;
+  outline: 1px solid #B88A32;
+  outline-offset: -11px;
+  transition: border-color 0.2s ease, outline-color 0.2s ease;
+}
+.ds-card:hover {
+  border-color: #265f6e;
+  outline-color: #c99a42;
+}
+
+/* Skeleton loading */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--concrete) 25%, var(--warm-white) 50%, var(--concrete) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 6px;
+}
+
+/* Hero home — background-position responsive */
+.hero-bg-img { background-position: 70% 50%; }
+@media (min-width: 768px) { .hero-bg-img { background-position: 62% 50%; } }
+@media (min-width: 1024px) { .hero-bg-img { background-position: 58% 50%; } }
+
+/* Chi siamo hero — object-position responsive */
+.chi-siamo-hero { object-position: 68% 50%; }
+@media (min-width: 1024px) { .chi-siamo-hero { object-position: 72% 50%; } }
+
+/* Sezione Servizi — sfondo panoramico città cantiere */
+.services-bg {
+  background-image: url('/assets/diamo/citta-panoramica-diamo.webp');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+/* Mobile (< 640px): ritaglia la porzione centrale mantenendo dimensioni visibili */
+@media (max-width: 639px) {
+  .services-bg {
+    background-position: center bottom;
+    background-size: cover;
+    opacity: 0.40;
+  }
+}
+
+/* Tablet (640–1023px): crop centrale, città leggibile */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .services-bg {
+    background-position: center bottom;
+    background-size: cover;
+    opacity: 0.48;
+  }
 }

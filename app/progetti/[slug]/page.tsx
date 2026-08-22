@@ -1,0 +1,160 @@
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
+import { projects, getProjectBySlug } from '@/data/projects'
+import { business } from '@/config/business'
+
+interface Props {
+  params: Promise<{ slug: string }>
+}
+
+export async function generateStaticParams() {
+  return projects.filter(p => p.isReal).map(p => ({ slug: p.slug }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const project = getProjectBySlug(slug)
+  if (!project) return {}
+  return {
+    title: `${project.title} — Diamo Soluzioni`,
+    description: project.description,
+    alternates: { canonical: `${business.siteUrl}/progetti/${slug}` },
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      url: `${business.siteUrl}/progetti/${slug}`,
+      images: [{ url: `${business.siteUrl}${project.cover}` }],
+    },
+  }
+}
+
+export default async function ProgettoPage({ params }: Props) {
+  const { slug } = await params
+  const project = getProjectBySlug(slug)
+  if (!project || !project.isReal) notFound()
+
+  const gallery = project.gallery ?? [project.cover]
+
+  return (
+    <>
+      {/* Header */}
+      <section
+        className="relative py-16"
+        style={{ background: 'linear-gradient(135deg, #1F4852 0%, #15363E 100%)' }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <nav className="flex items-center gap-2 text-xs text-white/50 mb-8" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
+            <span>/</span>
+            <Link href="/progetti" className="hover:text-white/80 transition-colors">Progetti</Link>
+            <span>/</span>
+            <span className="text-white/80">{project.title}</span>
+          </nav>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold mb-4">{project.category}</p>
+          <h1
+            className="font-extrabold text-white mb-3"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+          >
+            {project.title}
+          </h1>
+          <p className="text-white/60 text-sm">📍 {project.location}</p>
+        </div>
+      </section>
+
+      {/* Cover + galleria */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
+          {/* Foto cover grande */}
+          <div className="relative w-full rounded-2xl overflow-hidden mb-6" style={{ aspectRatio: '16/9' }}>
+            <Image
+              src={gallery[0]}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 1200px"
+            />
+          </div>
+
+          {/* Galleria griglia */}
+          {gallery.length > 1 && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {gallery.slice(1).map((img, i) => (
+                <div key={i} className="relative rounded-xl overflow-hidden" style={{ aspectRatio: '4/3' }}>
+                  <Image
+                    src={img}
+                    alt={`${project.title} — foto ${i + 2}`}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 50vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Descrizione + CTA */}
+      <section className="py-12 bg-concrete">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div>
+              <h2 className="font-extrabold text-graphite text-xl mb-4">Il progetto</h2>
+              <p className="text-gray-600 leading-relaxed mb-6">{project.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map(tag => (
+                  <span key={tag} className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-graphite border border-concrete">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl p-8">
+              <p className="font-extrabold text-graphite text-lg mb-2">Hai un progetto simile?</p>
+              <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+                Contattaci per un sopralluogo gratuito. Ti forniamo un preventivo scritto senza impegno.
+              </p>
+              <div className="space-y-3">
+                <a
+                  href={business.whatsapp.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-full py-3.5 rounded-xl font-bold text-sm"
+                  style={{ backgroundColor: '#F4BE12', color: '#1E2A2E' }}
+                >
+                  Scrivi su WhatsApp
+                </a>
+                <a
+                  href={`tel:${business.phone.primaryRaw}`}
+                  className="flex items-center justify-center w-full py-3 rounded-xl font-semibold text-sm border border-concrete hover:border-teal transition-colors text-graphite"
+                >
+                  {business.phone.primary}
+                </a>
+              </div>
+              <p className="text-xs text-gray-400 mt-4 text-center">Sopralluogo gratuito · Preventivo scritto · Senza impegno</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Torna al portfolio */}
+      <section className="py-10 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <Link
+            href="/progetti"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-teal hover:gap-3 transition-all"
+          >
+            <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            Tutti i progetti
+          </Link>
+        </div>
+      </section>
+    </>
+  )
+}
