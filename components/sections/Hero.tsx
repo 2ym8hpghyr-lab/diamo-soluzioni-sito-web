@@ -51,16 +51,23 @@ export default function Hero() {
             </p>
 
             <h1
-              className="font-extrabold leading-[1.1] text-white mb-6"
+              className="font-extrabold leading-[1.1] text-white mb-4"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)' }}
             >
-              Costruiamo soluzioni<br />
-              <span style={{ color: '#F4BE12' }}>destinate a durare.</span>
+              Ristrutturazioni a Lodi<br />
+              <span style={{ color: '#F4BE12' }}>e Milano Sud.</span>
             </h1>
 
-            <p className="text-lg leading-relaxed mb-8 max-w-lg text-white/70">
-              Ristrutturazioni complete, edilizia, interni e impianti con un unico interlocutore.
-              Dal sopralluogo alla consegna finale.
+            <p
+              className="font-extrabold leading-[1.15] text-white/80 mb-6"
+              style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.55rem)' }}
+            >
+              Costruiamo soluzioni destinate a durare —<br />
+              edilizia e impianti chiavi in mano.
+            </p>
+
+            <p className="text-lg leading-relaxed mb-8 max-w-lg text-white/65">
+              Un unico interlocutore per ogni fase: sopralluogo gratuito, preventivo scritto, consegna nei tempi concordati.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-10">

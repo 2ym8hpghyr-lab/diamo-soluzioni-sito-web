@@ -18,11 +18,11 @@ const siteUrl = business.siteUrl
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Diamo Soluzioni — Impresa Edile a Merlino (Lodi)',
+    default: 'Impresa Edile Lodi | Ristrutturazioni Chiavi in Mano | Diamo Soluzioni',
     template: '%s | Diamo Soluzioni',
   },
   description:
-    'Impresa edile a Merlino (LO). Ristrutturazioni complete, pavimentazioni, infissi, facciate e impianti a Lodi, Melegnano e Milano Sud. Sopralluogo gratuito.',
+    'Impresa edile a Lodi e Milano Sud. Ristrutturazioni complete chiavi in mano, pavimentazioni, infissi, facciate e impianti. Un unico referente dal sopralluogo alla consegna. Sede a Merlino (LO). Sopralluogo gratuito.',
   alternates: {
     canonical: siteUrl,
   },
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     locale: 'it_IT',
     type: 'website',
     url: siteUrl,
-    title: 'Diamo Soluzioni — Impresa Edile a Merlino (Lodi)',
+    title: 'Impresa Edile Lodi | Ristrutturazioni Chiavi in Mano | Diamo Soluzioni',
     description:
-      'Ristrutturazioni, pavimentazioni, infissi e impianti a Lodi e Milano Sud. Sopralluogo gratuito, preventivo chiaro.',
+      'Impresa edile a Lodi e Milano Sud. Ristrutturazioni complete, pavimentazioni, infissi e impianti con un unico referente. Preventivo scritto, sopralluogo gratuito.',
   },
   robots: {
     index: true,
@@ -110,8 +110,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-gold focus:text-graphite focus:font-bold focus:rounded-lg"
+        >
+          Vai al contenuto principale
+        </a>
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         <MobileActionBar />
       </body>

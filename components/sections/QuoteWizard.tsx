@@ -306,7 +306,11 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
           serviceLabel: effectiveServiceLabel,
           city: state.city,
           size: state.size === 'unknown' ? '' : state.size,
-          description: state.description,
+          description: [
+            state.description,
+            `Canale preferito: ${{ phone: 'Telefono', whatsapp: 'WhatsApp', email: 'Email' }[contactMethod] ?? contactMethod}`,
+            `Aggiornamenti email: ${marketingOk ? 'Sì' : 'No'}`,
+          ].filter(Boolean).join('\n\n'),
           timing: state.timing + (state.timingNote ? ' — ' + state.timingNote : ''),
           contactMethod,
           marketing: marketingOk,
@@ -356,15 +360,15 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div>
                     <p className="font-extrabold text-graphite text-[17px] leading-tight">
-                      Crea la tua prima stima grazie all'IA
+                      Scopri quanto può costare il tuo progetto
                     </p>
-                    <p className="text-xs text-graphite/50 mt-0.5">Bastano poche informazioni.</p>
+                    <p className="text-xs text-graphite/50 mt-0.5">Ottieni una prima stima indicativa in circa 2 minuti.</p>
                   </div>
                   <span
                     className="text-[10px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 rounded-full whitespace-nowrap"
                     style={{ backgroundColor: 'rgba(244,190,18,0.18)', color: '#8A6A0F' }}
                   >
-                    Stima guidata
+                    Preventivatore AI
                   </span>
                 </div>
 
@@ -850,6 +854,9 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                           placeholder="+39 344 461 9461"
                           className={inputCls}
                         />
+                        <p className="text-[11px] text-graphite/45 mt-1.5 leading-relaxed">
+                          Usiamo il tuo numero solo per contattarti riguardo a questa richiesta.
+                        </p>
                       </div>
 
                       <div>
@@ -967,6 +974,9 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                           <>Ricevi la tua stima {IconArrowRight}</>
                         )}
                       </button>
+                      <p className="text-center text-[11px] text-graphite/50 mt-1">
+                        Risposta entro poche ore · Nessun impegno
+                      </p>
 
                       <div className="text-center pt-1">
                         <a
@@ -1002,7 +1012,10 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     </div>
                     <p className="font-extrabold text-graphite text-lg mb-1">Richiesta inviata!</p>
                     <p className="text-sm text-graphite/60 mb-1">
-                      Ti contatteremo entro poche ore per concordare il sopralluogo gratuito.
+                      Ti contatteremo al numero inserito per concordare il sopralluogo gratuito.
+                    </p>
+                    <p className="text-xs text-graphite/50 mb-1">
+                      Il sopralluogo è gratuito, senza impegno e senza burocrazia.
                     </p>
                     <p className="text-xs text-graphite/45 mb-5">
                       Rif. <strong>{leadId}</strong>

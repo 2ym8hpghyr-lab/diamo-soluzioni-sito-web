@@ -45,7 +45,7 @@ export const services: Service[] = [
         a: 'Il preventivo che ti consegniamo dopo sopralluogo è dettagliato e scritto. Ogni variazione viene discussa e approvata prima di essere eseguita.',
       },
     ],
-    seoTitle: 'Ristrutturazioni Chiavi in Mano a Lodi e Lombardia | Diamo Soluzioni',
+    seoTitle: 'Ristrutturazioni Chiavi in Mano a Lodi e Milano Sud',
     seoDesc:
       'Ristrutturazioni complete a Lodi, Merlino, Melegnano e Milano Sud. Un solo interlocutore dalla progettazione alla consegna. Sopralluogo gratuito.',
   },
@@ -69,7 +69,7 @@ export const services: Service[] = [
     faq: [
       {
         q: 'Quanto costa rifare un bagno?',
-        a: 'Un bagno fino a 6 mq parte da circa €3.000–€7.000 chiavi in mano. Dipende da dimensioni, materiali e impianti. Ti diamo una stima precisa dopo sopralluogo.',
+        a: 'Per un bagno fino a 6 mq, il costo indicativo può variare da 3.000 a 7.000 €, in base a materiali, impianti e lavorazioni. Ti diamo una stima precisa dopo sopralluogo.',
       },
       {
         q: 'Quanti giorni ci vogliono?',
@@ -80,7 +80,7 @@ export const services: Service[] = [
         a: 'Sì, puoi portare i materiali acquistati da te oppure lasciare che li selezioniamo noi in base al tuo budget e gusto.',
       },
     ],
-    seoTitle: 'Rifacimento Bagno a Lodi e Merlino | Diamo Soluzioni',
+    seoTitle: 'Rifacimento Bagno a Lodi e Merlino',
     seoDesc:
       'Ristrutturazione bagno completa a Lodi, Merlino, Crema e Milano Sud. Demolizione, impianti, posa, sanitari. Preventivo gratuito.',
   },
@@ -95,7 +95,7 @@ export const services: Service[] = [
     icon: 'grid',
     features: [
       'Rimozione pavimento esistente se necessario',
-      'Massetto o preparation del sottofondo',
+      'Massetto o preparazione del sottofondo',
       'Posa gres, grandi formati, parquet, resine',
       'Rivestimenti bagno e cucina',
       'Stuccatura e sigillatura',
@@ -111,7 +111,7 @@ export const services: Service[] = [
         a: 'I grandi formati (60×60 cm o 120×60 cm) danno un effetto più moderno e continuo, ma richiedono un sottofondo più curato e più tempo di posa.',
       },
     ],
-    seoTitle: 'Pavimentazioni e Rivestimenti a Lodi e Lombardia | Diamo Soluzioni',
+    seoTitle: 'Pavimentazioni e Rivestimenti a Lodi e Milano Sud',
     seoDesc:
       'Posa professionale gres, parquet e resine a Lodi, Merlino, Melegnano. Rivestimenti bagno e cucina. Preventivo gratuito.',
   },
@@ -128,21 +128,21 @@ export const services: Service[] = [
       'Sopralluogo e presa misure',
       'Infissi PVC, alluminio o legno/alluminio',
       'Rimozione infissi esistenti',
-      'Posa con taglio termico',
+      'Posa con serramento a taglio termico',
       'Porte interne e portoni',
       'Zanzariere e persiane su misura',
     ],
     faq: [
       {
         q: 'Conviene PVC o alluminio?',
-        a: 'Il PVC ha migliori performance termiche a costo inferiore. L\'alluminio è più sottile, leggero e durevole estetica. L\'alluminio con taglio termico è la soluzione premium per edifici moderni.',
+        a: 'Il PVC ha migliori performance termiche a costo inferiore. L\'alluminio è più sottile, leggero e con migliore resa estetica nel tempo. L\'alluminio con taglio termico è la soluzione premium per edifici moderni.',
       },
       {
         q: 'Quanto tempo ci vuole a sostituire le finestre?',
         a: 'In media 1–2 giorni per un appartamento. Il tempo di produzione su misura è di 3–5 settimane.',
       },
     ],
-    seoTitle: 'Infissi e Serramenti a Lodi e Crema | Diamo Soluzioni',
+    seoTitle: 'Infissi e Serramenti a Lodi e Crema',
     seoDesc:
       'Fornitura e posa infissi PVC e alluminio a Lodi, Crema, Merlino e Milano Sud. Finestre, porte, zanzariere. Preventivo gratuito.',
   },
@@ -173,7 +173,7 @@ export const services: Service[] = [
         a: 'Con materiali certificati e posa corretta, 25–30 anni. La qualità della posa è fondamentale: è per questo che non usiamo scorciatoie.',
       },
     ],
-    seoTitle: 'Cappotto Termico e Facciate a Lodi e Lombardia | Diamo Soluzioni',
+    seoTitle: 'Cappotto Termico e Facciate a Lodi e Milano Sud',
     seoDesc:
       'Cappotto termico, risanamento facciate e impermeabilizzazioni a Lodi, Melegnano, Milano Sud. Risparmio energetico certificato. Sopralluogo gratuito.',
   },
@@ -204,7 +204,7 @@ export const services: Service[] = [
         a: 'Sì, se usi pitture ad acqua a basse emissioni. Consigliamo comunque di arieggiare bene gli ambienti.',
       },
     ],
-    seoTitle: 'Tinteggiatura e Pittura a Lodi e Lombardia | Diamo Soluzioni',
+    seoTitle: 'Tinteggiatura e Pittura a Lodi e Milano Sud',
     seoDesc:
       'Tinteggiatura interni ed esterni, rasature e finiture decorative a Lodi, Merlino, San Donato Milanese. Preventivo gratuito.',
   },
@@ -231,7 +231,7 @@ export const services: Service[] = [
         a: 'Generalmente ogni 30–40 anni, o prima se compaiono perdite frequenti, pressione irregolare, rumore nelle tubazioni o in caso di ristrutturazione totale.',
       },
     ],
-    seoTitle: 'Impianti Idraulici a Lodi e Merlino | Diamo Soluzioni',
+    seoTitle: 'Impianti Idraulici a Lodi e Merlino',
     seoDesc:
       'Rifacimento e adeguamento impianti idraulici a Lodi, Merlino, Milano Sud. Certificazione inclusa. Sopralluogo gratuito.',
   },
@@ -258,7 +258,7 @@ export const services: Service[] = [
         a: 'Sì, per ogni intervento sull\'impianto elettrico è obbligatoria per legge. La rilasciamo noi a fine lavori.',
       },
     ],
-    seoTitle: 'Impianti Elettrici a Lodi e Merlino | Diamo Soluzioni',
+    seoTitle: 'Impianti Elettrici a Lodi e Merlino',
     seoDesc:
       'Rifacimento impianti elettrici a norma CEI a Lodi, Merlino, Milano Sud. Dichiarazione di conformità inclusa. Preventivo gratuito.',
   },

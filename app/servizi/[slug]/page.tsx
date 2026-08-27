@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { services, getServiceBySlug } from '@/data/services'
+import { projects } from '@/data/projects'
 import { business } from '@/config/business'
 
 const servicePhotos: Record<string, string> = {
@@ -46,6 +47,7 @@ export default async function ServizioPage({ params }: Props) {
   if (!service) notFound()
 
   const heroBg = servicePhotos[slug]
+  const relatedProject = projects.find(p => p.caseStudy?.serviceSlug === slug && p.isReal)
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -106,7 +108,8 @@ export default async function ServizioPage({ params }: Props) {
               className="font-extrabold text-white mb-5"
               style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
             >
-              {service.name}
+              {service.name}<br />
+              <span style={{ color: '#F4BE12', fontSize: '0.75em', fontWeight: 700 }}>a Lodi e Milano Sud</span>
             </h1>
             <p className="text-lg text-white/70 leading-relaxed mb-8">{service.description}</p>
             <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold" style={{ backgroundColor: 'rgba(244,190,18,0.15)', color: '#F4BE12', border: '1px solid rgba(244,190,18,0.3)' }}>
@@ -171,6 +174,46 @@ export default async function ServizioPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Lavoro reale correlato */}
+      {relatedProject && (
+        <section className="py-10" style={{ backgroundColor: '#F8F8F5' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <p className="text-xs font-bold uppercase tracking-widest mb-5" style={{ color: '#9CA3AF' }}>
+              Un lavoro che abbiamo realizzato
+            </p>
+            <Link
+              href={`/progetti/${relatedProject.slug}`}
+              className="group flex flex-col sm:flex-row gap-0 rounded-2xl overflow-hidden bg-white border border-concrete hover:shadow-card transition-all"
+            >
+              <div className="relative sm:w-72 h-48 sm:h-auto flex-shrink-0">
+                <Image
+                  src={relatedProject.cover}
+                  alt={relatedProject.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, 288px"
+                />
+              </div>
+              <div className="p-6 flex flex-col justify-center">
+                <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: '#B88A32' }}>
+                  {relatedProject.category}
+                </p>
+                <p className="font-bold text-graphite group-hover:text-teal transition-colors mb-1 text-base">
+                  {relatedProject.title}
+                </p>
+                <p className="text-xs text-gray-400 mb-4">📍 {relatedProject.location}</p>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-teal group-hover:gap-2 transition-all">
+                  Vedi il progetto completo
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Zone servite */}
       <section className="py-10 bg-concrete">

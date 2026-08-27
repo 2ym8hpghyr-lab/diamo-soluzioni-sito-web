@@ -2,6 +2,14 @@
 import { useState, useId } from 'react'
 import { business } from '@/config/business'
 
+type GtagFn = (...args: unknown[]) => void
+function trackEvent(name: string, params?: Record<string, unknown>) {
+  const w = window as unknown as { gtag?: GtagFn }
+  if (typeof window !== 'undefined' && w.gtag) {
+    w.gtag('event', name, params)
+  }
+}
+
 const faqs = [
   {
     q: 'Come funziona il sopralluogo gratuito?',
@@ -114,7 +122,10 @@ export default function FAQ() {
                       id={btnId}
                       className="w-full text-left px-6 py-5 flex items-start justify-between gap-4 transition-colors"
                       style={{ backgroundColor: isOpen ? '#F8F8F5' : undefined }}
-                      onClick={() => setOpen(isOpen ? null : i)}
+                      onClick={() => {
+                        if (!isOpen) trackEvent('faq_open', { question: faq.q })
+                        setOpen(isOpen ? null : i)
+                      }}
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                     >

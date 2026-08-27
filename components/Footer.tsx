@@ -123,6 +123,9 @@ export default function Footer() {
                 <p className="text-xs" style={{ color: 'rgba(248,248,245,0.40)' }}>
                   Lun–Ven {business.hours.weekdays}
                 </p>
+                <p className="text-xs mt-0.5" style={{ color: 'rgba(248,248,245,0.30)' }}>
+                  Disponibili anche il weekend
+                </p>
               </div>
             </div>
           </div>

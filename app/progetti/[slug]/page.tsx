@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getProjectBySlug(slug)
   if (!project) return {}
   return {
-    title: `${project.title} — Diamo Soluzioni`,
+    title: `${project.title} a ${project.location}`,
     description: project.description,
     alternates: { canonical: `${business.siteUrl}/progetti/${slug}` },
     openGraph: {
@@ -57,7 +57,8 @@ export default async function ProgettoPage({ params }: Props) {
             className="font-extrabold text-white mb-3"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
           >
-            {project.title}
+            {project.title}<br />
+            <span style={{ color: '#F4BE12', fontSize: '0.65em', fontWeight: 700 }}>a {project.location}</span>
           </h1>
           <p className="text-white/60 text-sm">📍 {project.location}</p>
         </div>
@@ -103,15 +104,55 @@ export default async function ProgettoPage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="font-extrabold text-graphite text-xl mb-4">Il progetto</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map(tag => (
-                  <span key={tag} className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-graphite border border-concrete">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              {project.caseStudy ? (
+                <div className="space-y-6">
+                  <div>
+                    <h2 className="font-extrabold text-graphite text-xl mb-3">Il progetto</h2>
+                    <p className="text-gray-600 leading-relaxed">{project.description}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-graphite text-sm uppercase tracking-wide mb-2">La situazione di partenza</h3>
+                    <p className="text-gray-600 leading-relaxed text-sm">{project.caseStudy.problem}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-graphite text-sm uppercase tracking-wide mb-2">Come l&apos;abbiamo affrontato</h3>
+                    <p className="text-gray-600 leading-relaxed text-sm">{project.caseStudy.solution}</p>
+                  </div>
+                  {project.caseStudy.materials && project.caseStudy.materials.length > 0 && (
+                    <div>
+                      <h3 className="font-bold text-graphite text-sm uppercase tracking-wide mb-2">Materiali utilizzati</h3>
+                      <ul className="space-y-1">
+                        {project.caseStudy.materials.map(m => (
+                          <li key={m} className="flex items-start gap-2 text-sm text-gray-600">
+                            <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#F4BE12' }} />
+                            {m}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(31,72,82,0.06)', border: '1px solid rgba(31,72,82,0.12)' }}>
+                    <h3 className="font-bold text-graphite text-sm uppercase tracking-wide mb-2">Il risultato</h3>
+                    <p className="text-gray-600 leading-relaxed text-sm">{project.caseStudy.result}</p>
+                  </div>
+                  {project.caseStudy.serviceSlug && (
+                    <Link
+                      href={`/servizi/${project.caseStudy.serviceSlug}`}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-teal hover:gap-3 transition-all"
+                    >
+                      Scopri il servizio correlato
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <h2 className="font-extrabold text-graphite text-xl mb-4">Il progetto</h2>
+                  <p className="text-gray-600 leading-relaxed">{project.description}</p>
+                </>
+              )}
             </div>
             <div className="bg-white rounded-2xl p-8">
               <p className="font-extrabold text-graphite text-lg mb-2">Hai un progetto simile?</p>

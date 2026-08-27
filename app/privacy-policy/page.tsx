@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { business } from '@/config/business'
 
 export const metadata: Metadata = {
-  title: 'Informativa sulla Privacy — Diamo Soluzioni',
+  title: 'Informativa sulla Privacy',
   description: 'Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR).',
   alternates: { canonical: `${business.siteUrl}/privacy-policy` },
   robots: { index: false },
@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
             Informativa sulla Privacy
           </h1>
           <p className="mt-3 text-sm" style={{ color: 'rgba(248,248,245,0.60)' }}>
-            Ultimo aggiornamento: agosto 2025
+            Ultimo aggiornamento: agosto 2026
           </p>
         </div>
       </section>

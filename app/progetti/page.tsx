@@ -5,7 +5,7 @@ import { getRealProjects } from '@/data/projects'
 import { business } from '@/config/business'
 
 export const metadata: Metadata = {
-  title: 'Portfolio Progetti',
+  title: 'Ristrutturazioni Realizzate a Lodi e Milano Sud',
   description:
     'Lavori reali di Diamo Soluzioni: ristrutturazioni, pavimentazioni, infissi, bagni e impianti a Lodi, Merlino e Milano Sud.',
   alternates: { canonical: `${business.siteUrl}/progetti` },

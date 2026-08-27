@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { business } from '@/config/business'
+import { business, whatsappUrl } from '@/config/business'
 
 export const metadata: Metadata = {
   title: 'Contatti — Preventivo Gratuito',
@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `${business.siteUrl}/contatti` },
   openGraph: { url: `${business.siteUrl}/contatti` },
 }
+
+const WA_MESSAGE = 'Buongiorno, ho visitato il vostro sito e vorrei informazioni per un sopralluogo gratuito.'
 
 const PHONE_SVG = (
   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -52,7 +54,7 @@ export default function ContattiPage() {
           <nav className="flex items-center gap-2 text-xs mb-8" style={{ color: 'rgba(248,248,245,0.55)' }} aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
-            <span style={{ color: 'rgba(248,248,245,0.85)' }}>Contatti</span>
+            <span aria-current="page" style={{ color: 'rgba(248,248,245,0.85)' }}>Contatti</span>
           </nav>
           <div className="flex items-start gap-4 mb-10">
             <div className="w-1 self-stretch rounded-full flex-shrink-0 mt-1" style={{ backgroundColor: '#F4BE12' }} aria-hidden />
@@ -65,7 +67,7 @@ export default function ContattiPage() {
                 Il tuo progetto merita<br />un confronto concreto.
               </h1>
               <p className="text-base leading-relaxed max-w-xl" style={{ color: 'rgba(248,248,245,0.72)' }}>
-                Sopralluogo gratuito senza impegno. Ti rispondiamo entro poche ore, dal lunedì al venerdì.
+                Sopralluogo gratuito senza impegno. Ti rispondiamo entro poche ore, anche nei weekend.
               </p>
             </div>
           </div>
@@ -92,7 +94,7 @@ export default function ContattiPage() {
             </a>
 
             <a
-              href={business.whatsapp.url}
+              href={whatsappUrl(WA_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
               className="ds-card group flex flex-col gap-4 p-7 rounded-2xl bg-warm-white hover:shadow-card-hover transition-all"
@@ -205,8 +207,7 @@ export default function ContattiPage() {
 
               <div className="pb-5 mb-5" style={{ borderBottom: '1px solid rgba(248,248,245,0.08)' }}>
                 <p className="text-xs font-bold uppercase tracking-wide mb-3" style={{ color: '#B88A32' }}>Disponibilità</p>
-                <p className="font-semibold text-white text-sm">Sempre reperibili</p>
-                <p className="text-xs mt-1" style={{ color: 'rgba(248,248,245,0.55)' }}>Rispondiamo entro poche ore, anche nei weekend.</p>
+                <p className="font-semibold text-white text-sm">Rispondiamo entro poche ore, anche nel weekend.</p>
               </div>
 
               <div>

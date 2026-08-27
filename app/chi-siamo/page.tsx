@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { business } from '@/config/business'
 
 export const metadata: Metadata = {
-  title: 'Chi Siamo — Diamo Soluzioni',
+  title: 'Chi Siamo',
   description: 'Diamo Soluzioni è un\'impresa edile con sede a Merlino (LO). Ristrutturazioni complete, pavimentazioni, infissi e impianti in provincia di Lodi e Milano Sud.',
   alternates: { canonical: `${business.siteUrl}/chi-siamo` },
   openGraph: { url: `${business.siteUrl}/chi-siamo` },
