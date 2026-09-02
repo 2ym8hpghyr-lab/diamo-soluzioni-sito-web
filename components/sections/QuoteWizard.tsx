@@ -186,8 +186,8 @@ export default function QuoteWizard() {
     // Micro-delay per attendere il ridisegno
     const t = setTimeout(() => {
       const first = el.querySelector<HTMLElement>('[data-autofocus="true"]')
-      if (first) first.focus()
-      else el.focus()
+      if (first) first.focus({ preventScroll: true })
+      else el.focus({ preventScroll: true })
     }, 30)
     return () => clearTimeout(t)
   }, [step])

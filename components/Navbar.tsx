@@ -84,13 +84,23 @@ export default function Navbar() {
 
   return (
     <header
-      className="sticky top-0 z-50 transition-shadow duration-300"
+      className="sticky top-0 z-50"
       style={{
         backgroundColor: scrolled ? 'rgba(255,255,255,0.97)' : '#ffffff',
-        boxShadow: scrolled ? '0 2px 16px rgba(30,42,46,0.1)' : '0 1px 0 #ECEDE9',
         backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid #ECEDE9',
       }}
     >
+      {/* Shadow overlay — opacity transition è composita (GPU), non richiede repaint */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        style={{
+          boxShadow: '0 2px 16px rgba(30,42,46,0.1)',
+          opacity: scrolled ? 1 : 0,
+          transition: 'opacity 300ms',
+        }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
 
         {/* Logo */}
