@@ -26,7 +26,7 @@ export default function Hero() {
           fetchPriority="high"
           className="object-cover hero-lcp-img"
           sizes="100vw"
-          quality={85}
+          quality={70}
         />
       </div>
       {/* Overlay caldo: forte a sinistra, trasparente a destra + vignettatura inferiore */}
