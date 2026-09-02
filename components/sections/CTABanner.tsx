@@ -34,6 +34,7 @@ export default function CTABanner() {
         <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
           <Link
             href="/contatti"
+            prefetch={false}
             className="font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200 text-center text-sm whitespace-nowrap"
             style={{ backgroundColor: '#C5A059', color: '#0F1115', borderRadius: '8px' }}
           >

@@ -87,6 +87,7 @@ export default function Hero() {
               </Link>
               <Link
                 href="/contatti"
+                prefetch={false}
                 className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-semibold text-sm border border-white/30 text-white hover:border-gold hover:text-gold transition-all"
               >
                 Parla con un tecnico

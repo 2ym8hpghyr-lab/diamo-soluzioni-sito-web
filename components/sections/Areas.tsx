@@ -56,6 +56,7 @@ export default function Areas() {
 
           <Link
             href="/contatti"
+            prefetch={false}
             className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold text-sm transition-all hover:-translate-y-0.5"
             style={{ backgroundColor: '#F4BE12', color: '#1E2A2E' }}
           >
