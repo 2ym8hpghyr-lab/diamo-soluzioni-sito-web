@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useId } from 'react'
 import { business, whatsappUrl } from '@/config/business'
 import { formatEur } from '@/config/pricing'
+import { trackEvent } from '@/lib/analytics'
 
 /* ─────────────────────────────────────────────────────────────
    TIPI
@@ -197,6 +198,8 @@ export default function QuoteWizard() {
     setState(s => ({ ...s, [k]: v }))
 
   function goToStep(next: WizardStep) {
+    if (next === 2 && step === 1) trackEvent('estimator_start', { service: state.serviceId })
+    if (next === 'summary') trackEvent('estimator_complete', { service: state.serviceId, city: state.city })
     setStep(next)
   }
 
@@ -320,6 +323,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
         }),
       })
       if (!res.ok) throw new Error('HTTP ' + res.status)
+      trackEvent('form_submit', { service: effectiveServiceLabel, contact_method: contactMethod })
       setStep('sent')
     } catch {
       setStep('error')
@@ -362,11 +366,11 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     <p className="font-extrabold text-graphite text-[17px] leading-tight">
                       Scopri quanto può costare il tuo progetto
                     </p>
-                    <p className="text-xs text-graphite/50 mt-0.5">Ottieni una prima stima indicativa in circa 2 minuti.</p>
+                    <p className="text-xs text-graphite/75 mt-0.5">Ottieni una prima stima indicativa in circa 2 minuti.</p>
                   </div>
                   <span
                     className="text-[10px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 rounded-full whitespace-nowrap"
-                    style={{ backgroundColor: 'rgba(244,190,18,0.18)', color: '#8A6A0F' }}
+                    style={{ backgroundColor: 'rgba(244,190,18,0.18)', color: '#6B5209' }}
                   >
                     Preventivatore AI
                   </span>
@@ -374,20 +378,21 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
 
                 {/* Progress */}
                 <div>
-                  <p className="text-[11px] font-semibold text-graphite/55 mb-1.5">
+                  <p className="text-[11px] font-semibold text-graphite/75 mb-1.5">
                     Domanda {Math.min(progressStep, TOTAL_STEPS)} di {TOTAL_STEPS}
                   </p>
                   <div
                     className="h-1.5 rounded-full overflow-hidden"
                     style={{ backgroundColor: '#ECEDE9' }}
                     role="progressbar"
+                    aria-label={`Avanzamento del preventivatore: domanda ${Math.min(progressStep, TOTAL_STEPS)} di ${TOTAL_STEPS}`}
                     aria-valuemin={0}
                     aria-valuemax={TOTAL_STEPS}
                     aria-valuenow={Math.min(progressStep, TOTAL_STEPS)}
                   >
                     <div
-                      className="h-full transition-[width] duration-300 ease-out"
-                      style={{ width: `${progressPct}%`, backgroundColor: '#F4BE12' }}
+                      className="h-full w-full origin-left motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out"
+                      style={{ backgroundColor: '#F4BE12', transform: `scaleX(${progressPct / 100})` }}
                     />
                   </div>
                 </div>
@@ -983,6 +988,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                           href={whatsappUrl(buildWhatsAppMessage())}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label="Richiedi un preventivo su WhatsApp"
                           className="text-xs font-semibold text-graphite/60 hover:text-teal transition-colors underline underline-offset-4"
                         >
                           Preferisci parlarne con noi? → Contattaci su WhatsApp

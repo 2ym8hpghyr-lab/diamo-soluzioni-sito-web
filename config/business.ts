@@ -48,9 +48,9 @@ export const business = {
     'Pandino',
   ] as const,
   social: {
-    googleBusiness: '«DA FORNIRE»',
+    googleBusiness: 'https://share.google/qwv8GhtjgXb64lFTK',
   },
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://diamo-soluzioni-sito-web.vercel.app',
+  siteUrl: 'https://www.diamosoluzioni.com',
 } as const
 
 export type BusinessArea = (typeof business.areas)[number]

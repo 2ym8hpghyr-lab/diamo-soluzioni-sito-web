@@ -4,10 +4,13 @@ export interface Service {
   shortDesc: string
   description: string
   benefit: string
-  pricingRef?: string       // chiave in config/pricing.ts
-  heroImage?: string        // da sostituire con foto reali — vedere IMAGE_REPLACEMENT_PLAN.md
-  icon: string              // emoji o SVG path id
+  pricingRef?: string
+  heroImage?: string
+  icon: string
   features: string[]
+  exclusions?: string[]
+  process: string[]
+  priceNote: string
   faq: { q: string; a: string }[]
   seoTitle: string
   seoDesc: string
@@ -31,6 +34,20 @@ export const services: Service[] = [
       'Pavimenti, rivestimenti, pittura',
       'Consegna chiavi in mano con collaudo',
     ],
+    exclusions: [
+      'Arredi, cucina e complementi d\'arredo (salvo accordo specifico)',
+      'Pratiche edilizie e CILA (coordiniamo con il tecnico del cliente)',
+      'Smaltimento amianto o materiali speciali (richiede ditta specializzata)',
+    ],
+    process: [
+      'Sopralluogo gratuito e analisi dello stato di fatto',
+      'Progetto esecutivo e preventivo scritto dettagliato',
+      'Pianificazione del cantiere con cronoprogramma',
+      'Esecuzione: demolizioni, impianti, finiture',
+      'Controllo qualità e collaudo finale',
+      'Consegna chiavi in mano con garanzia',
+    ],
+    priceNote: 'Ristrutturazione completa: indicativamente da 500 a 900 €/mq a seconda dello stato di partenza e dei materiali. Preventivo scritto dopo sopralluogo gratuito.',
     faq: [
       {
         q: 'Quanto dura una ristrutturazione completa?',
@@ -45,7 +62,7 @@ export const services: Service[] = [
         a: 'Il preventivo che ti consegniamo dopo sopralluogo è dettagliato e scritto. Ogni variazione viene discussa e approvata prima di essere eseguita.',
       },
     ],
-    seoTitle: 'Ristrutturazioni Chiavi in Mano a Lodi e Milano Sud',
+    seoTitle: 'Ristrutturazioni Chiavi in Mano — Lodi',
     seoDesc:
       'Ristrutturazioni complete a Lodi, Merlino, Melegnano e Milano Sud. Un solo interlocutore dalla progettazione alla consegna. Sopralluogo gratuito.',
   },
@@ -66,21 +83,35 @@ export const services: Service[] = [
       'Box doccia o vasca su misura',
       'Accessori e finiture',
     ],
+    exclusions: [
+      'Piastrelle e sanitari non inclusi nel preventivo (possibilità di fornitura su richiesta)',
+      'Impianto elettrico del bagno (preventivato separatamente se necessario)',
+      'Lavori su strutture portanti o modifiche distributive significative',
+    ],
     faq: [
       {
         q: 'Quanto costa rifare un bagno?',
-        a: 'Per un bagno fino a 6 mq, il costo indicativo può variare da 3.000 a 7.000 €, in base a materiali, impianti e lavorazioni. Ti diamo una stima precisa dopo sopralluogo.',
+        a: 'Per un rinnovo parziale la fascia indicativa è 2.500–4.500 €; per un rifacimento completo standard (impianti, pavimento, rivestimenti, sanitari) si parte da 5.000–7.000 € fino a 11.000 € e oltre, in base a materiali e lavorazioni. Stima precisa solo dopo sopralluogo.',
       },
       {
         q: 'Quanti giorni ci vogliono?',
-        a: 'Per un bagno standard: 5–10 giorni lavorativi. Con interventi sull\'impianto o modifiche layout si può arrivare a 2 settimane.',
+        a: 'Per un rifacimento completo ben organizzato: 10–15 giorni lavorativi. Lavorazioni su misura, asciugature o imprevisti possono portare il cantiere a 3–4 settimane.',
       },
       {
         q: 'Posso scegliere io i materiali?',
         a: 'Sì, puoi portare i materiali acquistati da te oppure lasciare che li selezioniamo noi in base al tuo budget e gusto.',
       },
     ],
-    seoTitle: 'Rifacimento Bagno a Lodi e Merlino',
+    process: [
+      'Sopralluogo gratuito: misuriamo e valutiamo lo stato dell\'impianto',
+      'Progetto e scelta dei materiali con il cliente',
+      'Demolizione e rimozione del vecchio bagno',
+      'Rifacimento impianto idraulico ed elettrico',
+      'Posa rivestimenti, pavimento e sanitari',
+      'Rifinitura, collaudo e consegna',
+    ],
+    priceNote: 'Rinnovo parziale: 2.500–4.500 €. Rifacimento completo standard: 5.000–11.000 €. Il prezzo dipende da impianti, materiali e lavorazioni — preventivo scritto dopo sopralluogo gratuito.',
+    seoTitle: 'Ristrutturazione Bagno a Lodi e Milano Sud',
     seoDesc:
       'Ristrutturazione bagno completa a Lodi, Merlino, Crema e Milano Sud. Demolizione, impianti, posa, sanitari. Preventivo gratuito.',
   },
@@ -101,7 +132,16 @@ export const services: Service[] = [
       'Stuccatura e sigillatura',
       'Battiscopa e profili di raccordo',
     ],
+    exclusions: [
+      'Piastrelle e pavimenti (il cliente può fornirli o richiederli separatamente)',
+      'Spostamento o rifacimento impianti sotto traccia',
+      'Massetti di risanamento su sottofondi gravemente ammalorati (preventivati a parte)',
+    ],
     faq: [
+      {
+        q: 'Quanto tempo ci vuole per posare il pavimento?',
+        a: 'Per un appartamento di 80–100 mq, indicativamente 5–8 giorni lavorativi, inclusi i tempi di asciugatura degli adesivi. Grandi formati o resine richiedono qualche giorno in più.',
+      },
       {
         q: 'Posso tenere i mobili in casa durante la posa?',
         a: 'Valutiamo stanza per stanza. Spesso si lavora per zone, liberando un ambiente alla volta.',
@@ -111,7 +151,16 @@ export const services: Service[] = [
         a: 'I grandi formati (60×60 cm o 120×60 cm) danno un effetto più moderno e continuo, ma richiedono un sottofondo più curato e più tempo di posa.',
       },
     ],
-    seoTitle: 'Pavimentazioni e Rivestimenti a Lodi e Milano Sud',
+    process: [
+      'Sopralluogo e verifica del sottofondo esistente',
+      'Eventuale rimozione del pavimento vecchio',
+      'Preparazione del piano di posa (massetto o livellamento)',
+      'Posa del pavimento o rivestimento con adesivi di qualità',
+      'Stuccatura e sigillatura delle fughe',
+      'Pulizia finale e controllo qualità',
+    ],
+    priceNote: 'Posa gres standard: indicativamente da 35 a 70 €/mq (manodopera inclusa, materiale escluso). Grandi formati o resine: preventivo su misura.',
+    seoTitle: 'Pavimentazioni e Rivestimenti — Lodi',
     seoDesc:
       'Posa professionale gres, parquet e resine a Lodi, Merlino, Melegnano. Rivestimenti bagno e cucina. Preventivo gratuito.',
   },
@@ -132,6 +181,11 @@ export const services: Service[] = [
       'Porte interne e portoni',
       'Zanzariere e persiane su misura',
     ],
+    exclusions: [
+      'Opere murarie estese (eventuali tamponamenti minimi inclusi, murature maggiori a parte)',
+      'Tinteggiatura dei vani attorno agli infissi (preventivabile separatamente)',
+      'Permessi condominiali (a carico del cliente)',
+    ],
     faq: [
       {
         q: 'Conviene PVC o alluminio?',
@@ -142,7 +196,16 @@ export const services: Service[] = [
         a: 'In media 1–2 giorni per un appartamento. Il tempo di produzione su misura è di 3–5 settimane.',
       },
     ],
-    seoTitle: 'Infissi e Serramenti a Lodi e Crema',
+    process: [
+      'Sopralluogo e presa misure precisa di ogni vano',
+      'Scelta del materiale e del profilo con il cliente',
+      'Ordinazione e produzione su misura (3–5 settimane)',
+      'Rimozione degli infissi esistenti',
+      'Posa con kit di sigillatura e taglio termico',
+      'Collaudo apertura/chiusura e consegna',
+    ],
+    priceNote: 'Infisso in PVC standard (finestra singola): indicativamente da 400 a 800 € fornitura e posa. Alluminio con taglio termico: preventivo su misura.',
+    seoTitle: 'Infissi e Serramenti a Lodi e Milano Sud',
     seoDesc:
       'Fornitura e posa infissi PVC e alluminio a Lodi, Crema, Merlino e Milano Sud. Finestre, porte, zanzariere. Preventivo gratuito.',
   },
@@ -163,17 +226,35 @@ export const services: Service[] = [
       'Risanamento umidità di risalita',
       'Documentazione energetica su richiesta',
     ],
+    exclusions: [
+      'Certificazione energetica APE (su richiesta, coordiniamo con tecnico abilitato)',
+      'Lavori su strutture portanti o copertura integrale del tetto',
+      'Ponteggi per altezze superiori a quelle standard (preventivati a parte)',
+    ],
     faq: [
+      {
+        q: 'Quanto tempo ci vuole per il cappotto termico?',
+        a: 'Per una facciata di condominio medio, indicativamente 3–5 settimane, variabile in base all\'altezza, all\'accesso e alle condizioni meteo. Su abitazioni singole i tempi si riducono.',
+      },
       {
         q: 'Il cappotto termico dà diritto a detrazioni fiscali?',
         a: 'Sì, nella maggior parte dei casi. Le normative cambiano: ti aiutiamo a identificare gli incentivi applicabili al tuo caso e coordiniamo con il tuo commercialista se necessario.',
       },
       {
         q: 'Quanto dura il cappotto termico?',
-        a: 'Con materiali certificati e posa corretta, 25–30 anni. La qualità della posa è fondamentale: è per questo che non usiamo scorciatoie.',
+        a: 'Con materiali certificati e posa corretta, un cappotto termico può durare molti anni. La qualità della posa è fondamentale: è per questo che seguiamo le specifiche tecniche del produttore senza scorciatoie.',
       },
     ],
-    seoTitle: 'Cappotto Termico e Facciate a Lodi e Milano Sud',
+    process: [
+      'Sopralluogo e analisi termica della struttura',
+      'Progetto e scelta dell\'isolante certificato',
+      'Pulizia e preparazione della facciata',
+      'Posa pannelli isolanti con tassellatura a norma',
+      'Rasatura armata e strato di finitura',
+      'Tinteggiatura e collaudo finale',
+    ],
+    priceNote: 'Cappotto termico: indicativamente da 80 a 150 €/mq posa inclusa (materiale dipende dalla tipologia). Preventivo scritto dopo sopralluogo.',
+    seoTitle: 'Cappotto Termico e Facciate — Lodi',
     seoDesc:
       'Cappotto termico, risanamento facciate e impermeabilizzazioni a Lodi, Melegnano, Milano Sud. Risparmio energetico certificato. Sopralluogo gratuito.',
   },
@@ -194,6 +275,11 @@ export const services: Service[] = [
       'Tinteggiatura facciate esterne',
       'Finiture decorative (stucco veneziano, grassello)',
     ],
+    exclusions: [
+      'Smontaggio e rimontaggio di mobili fissi (possibile su richiesta)',
+      'Ponteggi per facciate alte (inclusi nel preventivo esterno)',
+      'Riparazione strutturale di crepe o distacchi profondi (rilevati al sopralluogo)',
+    ],
     faq: [
       {
         q: 'Quanto tempo ci vuole a pitturare un appartamento?',
@@ -204,7 +290,16 @@ export const services: Service[] = [
         a: 'Sì, se usi pitture ad acqua a basse emissioni. Consigliamo comunque di arieggiare bene gli ambienti.',
       },
     ],
-    seoTitle: 'Tinteggiatura e Pittura a Lodi e Milano Sud',
+    process: [
+      'Sopralluogo e valutazione dello stato delle pareti',
+      'Protezione di pavimenti, mobili e infissi',
+      'Stuccatura e rasatura delle imperfezioni',
+      'Trattamento anti-muffa dove necessario',
+      'Applicazione della pittura (1–2 mani)',
+      'Rimozione protezioni e pulizia finale',
+    ],
+    priceNote: 'Tinteggiatura interni: indicativamente da 8 a 18 €/mq (manodopera e materiale inclusi). Rasatura a gesso o stucco veneziano: preventivo su misura.',
+    seoTitle: 'Tinteggiatura e Pittura — Lodi',
     seoDesc:
       'Tinteggiatura interni ed esterni, rasature e finiture decorative a Lodi, Merlino, San Donato Milanese. Preventivo gratuito.',
   },
@@ -225,13 +320,31 @@ export const services: Service[] = [
       'Certificazione impianto',
       'Pronto intervento su guasti',
     ],
+    exclusions: [
+      'Opere murarie di chiusura tracce (incluse nel preventivo standard, specificate caso per caso)',
+      'Fornitura di sanitari e rubinetteria (il cliente può fornirli o richiederli)',
+      'Collaudo gas e pratiche ASL (coordiniamo con i tecnici abilitati)',
+    ],
     faq: [
+      {
+        q: 'Quanto tempo ci vuole per il rifacimento idraulico?',
+        a: 'Per un appartamento di 70–90 mq, indicativamente 5–10 giorni lavorativi. I tempi variano in base alla complessità delle tracce e alla presenza di impianto a pavimento.',
+      },
       {
         q: 'Quando è necessario rifare l\'impianto idraulico?',
         a: 'Generalmente ogni 30–40 anni, o prima se compaiono perdite frequenti, pressione irregolare, rumore nelle tubazioni o in caso di ristrutturazione totale.',
       },
     ],
-    seoTitle: 'Impianti Idraulici a Lodi e Merlino',
+    process: [
+      'Sopralluogo e valutazione dell\'impianto esistente',
+      'Progetto del nuovo impianto con tracciamento',
+      'Apertura tracce e posa delle tubazioni',
+      'Installazione sanitari, caldaia e raccordi',
+      'Collaudo pressione e tenuta dell\'impianto',
+      'Rilascio della certificazione di conformità',
+    ],
+    priceNote: 'Rifacimento impianto idraulico completo (appartamento 70–90 mq): indicativamente da 4.000 a 9.000 €. Preventivo scritto dopo sopralluogo gratuito.',
+    seoTitle: 'Impianti Idraulici a Lodi e Milano Sud',
     seoDesc:
       'Rifacimento e adeguamento impianti idraulici a Lodi, Merlino, Milano Sud. Certificazione inclusa. Sopralluogo gratuito.',
   },
@@ -252,13 +365,31 @@ export const services: Service[] = [
       'Messa a terra e protezioni differenziali',
       'Dichiarazione di conformità CEI',
     ],
+    exclusions: [
+      'Opere murarie di chiusura tracce (incluse nel preventivo standard, specificate caso per caso)',
+      'Fornitura di corpi illuminanti e plafoniere (il cliente sceglie e fornisce i punti luce)',
+      'Impianti speciali (antintrusione, controllo accessi): preventivati separatamente',
+    ],
     faq: [
+      {
+        q: 'Quanto tempo ci vuole per il rifacimento elettrico?',
+        a: 'Per un appartamento di 70–90 mq, indicativamente 4–8 giorni lavorativi. Dipende dal numero di punti luce, prese e dalla lunghezza delle tracce da aprire.',
+      },
       {
         q: 'È obbligatorio avere la dichiarazione di conformità?',
         a: 'Sì, per ogni intervento sull\'impianto elettrico è obbligatoria per legge. La rilasciamo noi a fine lavori.',
       },
     ],
-    seoTitle: 'Impianti Elettrici a Lodi e Merlino',
+    process: [
+      'Sopralluogo e analisi dell\'impianto esistente',
+      'Progetto elettrico con calcolo dei carichi',
+      'Apertura tracce e posa dei cavi a norma CEI',
+      'Installazione quadro, prese, interruttori e punti luce',
+      'Collaudo e verifica di messa a terra',
+      'Rilascio dichiarazione di conformità',
+    ],
+    priceNote: 'Rifacimento impianto elettrico completo (appartamento 70–90 mq): indicativamente da 3.500 a 8.000 €. Preventivo scritto dopo sopralluogo gratuito.',
+    seoTitle: 'Impianti Elettrici a Lodi e Milano Sud',
     seoDesc:
       'Rifacimento impianti elettrici a norma CEI a Lodi, Merlino, Milano Sud. Dichiarazione di conformità inclusa. Preventivo gratuito.',
   },

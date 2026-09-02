@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t.seoTitle,
       description: t.seoDesc,
       url: `${business.siteUrl}/${territorio}`,
+      images: [{ url: `${business.siteUrl}/progetti/ristrutturazione-appartamento-lodi/camera-letto-finita.jpg`, alt: `Diamo Soluzioni — Ristrutturazioni a ${t.city}` }],
     },
   }
 }

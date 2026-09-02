@@ -17,6 +17,17 @@ const servicePhotos: Record<string, string> = {
   'impianti-elettrici':              '/illustrazioni/impianti-elettrici.png',
 }
 
+const serviceOgImages: Record<string, string> = {
+  'ristrutturazioni-chiavi-in-mano': '/ChatGPT/01-ristrutturazioni.jpg',
+  'ristrutturazione-bagno':          '/ChatGPT/02-bagno.jpg',
+  'pavimentazioni-rivestimenti':     '/ChatGPT/03-pavimentazioni.jpg',
+  'infissi-serramenti':              '/ChatGPT/04-infissi.jpg',
+  'facciate-cappotto-termico':       '/ChatGPT/05-facciate.jpg',
+  'tinteggiatura':                   '/ChatGPT/06-tinteggiatura.jpg',
+  'impianti-idraulici':              '/ChatGPT/07-impianti-idraulici.jpg',
+  'impianti-elettrici':              '/ChatGPT/08-impianti-elettrici.jpg',
+}
+
 interface Props {
   params: Promise<{ slug: string }>
 }
@@ -29,6 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const service = getServiceBySlug(slug)
   if (!service) return {}
+  const ogImgPath = serviceOgImages[slug] ?? '/progetti/ristrutturazione-appartamento-lodi/camera-letto-finita.jpg'
   return {
     title: service.seoTitle,
     description: service.seoDesc,
@@ -37,6 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: service.seoTitle,
       description: service.seoDesc,
       url: `${business.siteUrl}/servizi/${slug}`,
+      images: [{ url: `${business.siteUrl}${ogImgPath}`, alt: `${service.name} — Diamo Soluzioni` }],
     },
   }
 }
@@ -137,6 +150,23 @@ export default async function ServizioPage({ params }: Props) {
                   </li>
                 ))}
               </ul>
+              {service.exclusions && service.exclusions.length > 0 && (
+                <div className="mt-6">
+                  <h3 className="font-bold text-graphite text-sm mb-3">Cosa NON comprende</h3>
+                  <ul className="space-y-2">
+                    {service.exclusions.map(e => (
+                      <li key={e} className="flex items-start gap-3">
+                        <span className="w-4 h-4 rounded flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: '#F3F4F6' }}>
+                          <svg className="w-2.5 h-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
+                          </svg>
+                        </span>
+                        <span className="text-sm text-gray-500 leading-relaxed">{e}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* CTA laterale */}
@@ -211,6 +241,34 @@ export default async function ServizioPage({ params }: Props) {
                 </span>
               </div>
             </Link>
+          </div>
+        </section>
+      )}
+
+      {/* Come lavoriamo */}
+      {service.process.length > 0 && (
+        <section className="py-16" style={{ backgroundColor: '#F8F8F5' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 className="font-extrabold text-graphite text-xl mb-2">Come lavoriamo</h2>
+            <p className="text-sm text-gray-500 mb-8 max-w-lg">
+              {service.priceNote}
+            </p>
+            <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {service.process.map((step, i) => (
+                <li
+                  key={i}
+                  className="flex gap-4 bg-white rounded-2xl p-5 border border-concrete"
+                >
+                  <span
+                    className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-extrabold"
+                    style={{ backgroundColor: '#1F4852', color: '#F4BE12' }}
+                  >
+                    {i + 1}
+                  </span>
+                  <p className="text-sm text-gray-600 leading-relaxed pt-1">{step}</p>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
       )}

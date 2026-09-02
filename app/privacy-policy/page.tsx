@@ -3,10 +3,14 @@ import Link from 'next/link'
 import { business } from '@/config/business'
 
 export const metadata: Metadata = {
-  title: 'Informativa sulla Privacy',
+  title: 'Privacy Policy',
   description: 'Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR).',
   alternates: { canonical: `${business.siteUrl}/privacy-policy` },
-  robots: { index: false },
+  openGraph: {
+    url: `${business.siteUrl}/privacy-policy`,
+    images: [{ url: `${business.siteUrl}/progetti/ristrutturazione-appartamento-lodi/camera-letto-finita.jpg`, alt: 'Diamo Soluzioni — Informativa Privacy' }],
+  },
+  robots: { index: true },
 }
 
 export default function PrivacyPolicyPage() {
@@ -147,12 +151,41 @@ export default function PrivacyPolicyPage() {
               </p>
             </Section>
 
-            <Section title="7. Cookie">
+            <Section title="7. Cookie e analytics">
               <p>
-                Il sito non utilizza cookie di profilazione o di tracciamento di terze parti.
-                Vengono utilizzati esclusivamente cookie tecnici strettamente necessari al
-                funzionamento del sito (es. sessione), che non richiedono consenso ai sensi
-                dell'art. 122 del D.Lgs. 196/2003.
+                Il sito utilizza due categorie di cookie e tecnologie di tracciamento:
+              </p>
+              <ul>
+                <li>
+                  <strong>Cookie tecnici necessari</strong> — strettamente indispensabili al
+                  funzionamento del sito (es. preferenze UI, sessione). Non richiedono consenso
+                  ai sensi dell&apos;art. 122 del D.Lgs. 196/2003.
+                </li>
+                <li>
+                  <strong>Google Analytics 4 (opzionale, previo consenso)</strong> — servizio di
+                  analisi statistica delle visite fornito da Google LLC. Raccoglie dati anonimi
+                  su pagine visitate, durata, provenienza e dispositivo, senza identificare
+                  l&apos;utente. GA4 viene caricato <em>soltanto</em> dopo che l&apos;utente
+                  clicca &quot;Accetta analytics&quot; nel banner presente sul sito. Chi clicca
+                  &quot;Rifiuta&quot; non trasmette alcun dato a Google. La scelta è memorizzata
+                  nel browser e può essere modificata in qualsiasi momento cancellando i dati
+                  locali del sito. Informativa Google:{' '}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#1F4852', fontWeight: 600 }}>
+                    policies.google.com/privacy
+                  </a>.
+                </li>
+              </ul>
+              <p>
+                Non vengono utilizzati cookie di profilazione o di marketing.
+              </p>
+            </Section>
+
+            <Section title="8. Comunicazione e revoca del consenso analytics">
+              <p>
+                Il consenso all&apos;analytics è libero, facoltativo e revocabile in qualsiasi
+                momento. Per revocare: apri le impostazioni del browser, cancella i dati locali
+                per il dominio <strong>www.diamosoluzioni.com</strong> — al prossimo accesso il
+                banner apparirà di nuovo e potrai scegliere nuovamente.
               </p>
             </Section>
 

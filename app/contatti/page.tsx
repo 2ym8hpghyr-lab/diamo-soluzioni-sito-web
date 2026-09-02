@@ -6,9 +6,12 @@ import { business, whatsappUrl } from '@/config/business'
 export const metadata: Metadata = {
   title: 'Contatti — Preventivo Gratuito',
   description:
-    'Contatta Diamo Soluzioni: sopralluogo gratuito senza impegno a Lodi, Merlino, Melegnano e Milano Sud. Chiama, scrivi su WhatsApp o richiedi una stima con il preventivatore AI.',
+    'Contatta Diamo Soluzioni: sopralluogo gratuito a Lodi, Merlino, Melegnano e Milano Sud. Chiama, scrivi su WhatsApp o usa il preventivatore AI.',
   alternates: { canonical: `${business.siteUrl}/contatti` },
-  openGraph: { url: `${business.siteUrl}/contatti` },
+  openGraph: {
+    url: `${business.siteUrl}/contatti`,
+    images: [{ url: `${business.siteUrl}/assets/diamo/contatti-cantiere-bg.webp`, alt: 'Contatta Diamo Soluzioni — Sopralluogo gratuito a Lodi e Milano Sud' }],
+  },
 }
 
 const WA_MESSAGE = 'Buongiorno, ho visitato il vostro sito e vorrei informazioni per un sopralluogo gratuito.'

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { business } from '@/config/business'
 import { services } from '@/data/services'
+import CookieSettingsButton from './CookieSettingsButton'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -61,6 +62,7 @@ export default function Footer() {
                 { href: '/', label: 'Home' },
                 { href: '/chi-siamo', label: 'Chi siamo' },
                 { href: '/progetti', label: 'Portfolio progetti' },
+                { href: '/blog', label: 'Blog' },
                 { href: '/contatti', label: 'Contatti' },
                 { href: '/#preventivatore', label: 'Preventivo AI' },
               ].map(l => (
@@ -97,6 +99,7 @@ export default function Footer() {
                 href={business.whatsapp.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Scrivici su WhatsApp"
                 className="flex items-center gap-2.5 text-sm"
                 style={{ color: 'rgba(248,248,245,0.75)' }}
               >
@@ -120,10 +123,10 @@ export default function Footer() {
                 {business.email}
               </a>
               <div style={{ borderTop: '1px solid rgba(248,248,245,0.08)', paddingTop: '12px' }}>
-                <p className="text-xs" style={{ color: 'rgba(248,248,245,0.40)' }}>
+                <p className="text-xs" style={{ color: 'rgba(248,248,245,0.65)' }}>
                   Lun–Ven {business.hours.weekdays}
                 </p>
-                <p className="text-xs mt-0.5" style={{ color: 'rgba(248,248,245,0.30)' }}>
+                <p className="text-xs mt-0.5" style={{ color: 'rgba(248,248,245,0.65)' }}>
                   Disponibili anche il weekend
                 </p>
               </div>
@@ -132,11 +135,25 @@ export default function Footer() {
         </div>
 
         {/* Zone servite */}
-        <div className="mt-10 pt-8" style={{ borderTop: '1px solid #ECEDE9' }}>
-          <p className="text-xs uppercase tracking-wider mb-2" style={{ color: '#9CA3AF' }}>Zone servite</p>
-          <p className="text-xs" style={{ color: '#6B7280' }}>
-            {business.areas.join(' · ')}
-          </p>
+        <div className="mt-10 pt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4" style={{ borderTop: '1px solid #ECEDE9' }}>
+          <div>
+            <p className="text-xs uppercase tracking-wider mb-2" style={{ color: '#9CA3AF' }}>Zone servite</p>
+            <p className="text-xs" style={{ color: '#6B7280' }}>
+              {business.areas.join(' · ')}
+            </p>
+          </div>
+          <a
+            href={business.social.googleBusiness}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors"
+            style={{ color: '#F4BE12' }}
+          >
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Lascia una recensione
+          </a>
         </div>
       </div>
 
@@ -145,7 +162,9 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs" style={{ color: '#9CA3AF' }}>
           <p>© {year} {business.legalName} — P.IVA {business.vatId}</p>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-graphite transition-colors">Privacy</Link>
+            <a href={business.social.googleBusiness} target="_blank" rel="noopener noreferrer" className="hover:text-graphite transition-colors">Recensioni Google</a>
+            <Link href="/privacy-policy" className="hover:text-graphite transition-colors">Privacy</Link>
+            <CookieSettingsButton />
             <Link href="/sitemap.xml" className="hover:text-graphite transition-colors">Sitemap</Link>
           </div>
         </div>

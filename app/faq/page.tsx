@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   description:
     'Risposte chiare su preventivi, sopralluogo gratuito, tempi di lavoro e zone operative di Diamo Soluzioni a Lodi, Merlino e Milano Sud.',
   alternates: { canonical: `${business.siteUrl}/faq` },
-  openGraph: { url: `${business.siteUrl}/faq` },
+  openGraph: {
+    url: `${business.siteUrl}/faq`,
+    images: [{ url: `${business.siteUrl}/progetti/ristrutturazione-appartamento-lodi/camera-letto-finita.jpg`, alt: 'FAQ Diamo Soluzioni — Domande frequenti su ristrutturazioni a Lodi' }],
+  },
 }
 
 export default function FAQPage() {

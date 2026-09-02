@@ -89,7 +89,7 @@ export default function TrustStrip() {
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-bold text-graphite leading-tight">{s.label}</p>
-                <p className="text-xs text-gray-500 leading-tight">{s.desc}</p>
+                <p className="text-xs text-gray-600 leading-tight">{s.desc}</p>
               </div>
             </div>
           ))}

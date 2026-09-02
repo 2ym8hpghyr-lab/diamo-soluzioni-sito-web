@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   description:
     'Ristrutturazioni chiavi in mano, pavimentazioni, infissi, facciate, impianti e tinteggiatura a Lodi, Merlino, Melegnano e Milano Sud. Sopralluogo gratuito.',
   alternates: { canonical: `${business.siteUrl}/servizi` },
-  openGraph: { url: `${business.siteUrl}/servizi` },
+  openGraph: {
+    url: `${business.siteUrl}/servizi`,
+    images: [{ url: `${business.siteUrl}/ChatGPT/01-ristrutturazioni.jpg`, alt: 'Servizi edili Diamo Soluzioni — Lodi e Milano Sud' }],
+  },
 }
 
 export default function ServiziPage() {

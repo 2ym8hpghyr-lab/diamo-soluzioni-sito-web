@@ -5,11 +5,14 @@ import { getRealProjects } from '@/data/projects'
 import { business } from '@/config/business'
 
 export const metadata: Metadata = {
-  title: 'Ristrutturazioni Realizzate a Lodi e Milano Sud',
+  title: 'Lavori Realizzati a Lodi e Milano Sud',
   description:
     'Lavori reali di Diamo Soluzioni: ristrutturazioni, pavimentazioni, infissi, bagni e impianti a Lodi, Merlino e Milano Sud.',
   alternates: { canonical: `${business.siteUrl}/progetti` },
-  openGraph: { url: `${business.siteUrl}/progetti` },
+  openGraph: {
+    url: `${business.siteUrl}/progetti`,
+    images: [{ url: `${business.siteUrl}/progetti/ristrutturazione-appartamento-lodi/camera-letto-finita.jpg`, alt: 'Progetti di ristrutturazione realizzati da Diamo Soluzioni' }],
+  },
 }
 
 export default function ProgettiPage() {

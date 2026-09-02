@@ -25,7 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: project.title,
       description: project.description,
       url: `${business.siteUrl}/progetti/${slug}`,
-      images: [{ url: `${business.siteUrl}${project.cover}` }],
+      images: [{
+        url: `${business.siteUrl}${project.cover}`,
+        width: 1200,
+        height: 630,
+        alt: project.coverAlt,
+      }],
     },
   }
 }
@@ -36,9 +41,50 @@ export default async function ProgettoPage({ params }: Props) {
   if (!project || !project.isReal) notFound()
 
   const gallery = project.gallery ?? [project.cover]
+  const galleryAlts = project.galleryAlts ?? gallery.map((_, i) => i === 0 ? project.coverAlt : `${project.title} — immagine ${i + 1}`)
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: business.siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Progetti', item: `${business.siteUrl}/progetti` },
+          { '@type': 'ListItem', position: 3, name: project.title, item: `${business.siteUrl}/progetti/${project.slug}` },
+        ],
+      },
+      {
+        '@type': 'CreativeWork',
+        '@id': `${business.siteUrl}/progetti/${project.slug}`,
+        name: project.title,
+        description: project.description,
+        image: `${business.siteUrl}${project.cover}`,
+        ...(project.year ? { dateCreated: String(project.year) } : {}),
+        creator: {
+          '@type': 'Organization',
+          name: business.name,
+          url: business.siteUrl,
+        },
+        locationCreated: {
+          '@type': 'Place',
+          name: project.location,
+        },
+        ...(project.caseStudy?.serviceSlug ? {
+          about: {
+            '@type': 'Service',
+            url: `${business.siteUrl}/servizi/${project.caseStudy.serviceSlug}`,
+            name: project.category,
+          },
+        } : {}),
+      },
+    ],
+  }
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       {/* Header */}
       <section
         className="relative py-16"
@@ -72,7 +118,7 @@ export default async function ProgettoPage({ params }: Props) {
           <div className="relative w-full rounded-2xl overflow-hidden mb-6" style={{ aspectRatio: '16/9' }}>
             <Image
               src={gallery[0]}
-              alt={project.title}
+              alt={galleryAlts[0]}
               fill
               className="object-cover"
               priority
@@ -87,7 +133,7 @@ export default async function ProgettoPage({ params }: Props) {
                 <div key={i} className="relative rounded-xl overflow-hidden" style={{ aspectRatio: '4/3' }}>
                   <Image
                     src={img}
-                    alt={`${project.title} — foto ${i + 2}`}
+                    alt={galleryAlts[i + 1] ?? `${project.title} — immagine ${i + 2}`}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 50vw, 33vw"
@@ -110,6 +156,25 @@ export default async function ProgettoPage({ params }: Props) {
                     <h2 className="font-extrabold text-graphite text-xl mb-3">Il progetto</h2>
                     <p className="text-gray-600 leading-relaxed">{project.description}</p>
                   </div>
+
+                  {/* Durata e fascia costo */}
+                  {(project.caseStudy.duration || project.caseStudy.costRange) && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {project.caseStudy.duration && (
+                        <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(31,72,82,0.06)', border: '1px solid rgba(31,72,82,0.12)' }}>
+                          <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: '#1F4852' }}>Durata</p>
+                          <p className="text-sm text-gray-700">{project.caseStudy.duration}</p>
+                        </div>
+                      )}
+                      {project.caseStudy.costRange && (
+                        <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(244,190,18,0.08)', border: '1px solid rgba(244,190,18,0.2)' }}>
+                          <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: '#B88A32' }}>Fascia indicativa</p>
+                          <p className="text-sm text-gray-700">{project.caseStudy.costRange}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <div>
                     <h3 className="font-bold text-graphite text-sm uppercase tracking-wide mb-2">La situazione di partenza</h3>
                     <p className="text-gray-600 leading-relaxed text-sm">{project.caseStudy.problem}</p>
@@ -164,6 +229,7 @@ export default async function ProgettoPage({ params }: Props) {
                   href={business.whatsapp.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Scrivi a Diamo Soluzioni su WhatsApp"
                   className="flex items-center justify-center w-full py-3.5 rounded-xl font-bold text-sm"
                   style={{ backgroundColor: '#F4BE12', color: '#1E2A2E' }}
                 >

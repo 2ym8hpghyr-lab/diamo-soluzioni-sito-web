@@ -18,6 +18,7 @@ const WA_MESSAGE = 'Buongiorno, ho visitato il vostro sito e vorrei informazioni
 const mainLinks = [
   { href: '/chi-siamo', label: 'Chi siamo' },
   { href: '/progetti', label: 'Progetti' },
+  { href: '/blog', label: 'Blog' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contatti', label: 'Contatti' },
 ]
@@ -217,7 +218,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden border-t border-concrete bg-white px-4 pb-6 pt-4">
           <nav aria-label="Menu mobile">
-            <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 px-1">Servizi</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 px-1">Servizi</p>
             {services.map(s => (
               <Link
                 key={s.slug}

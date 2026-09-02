@@ -4,6 +4,8 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import MobileActionBar from '@/components/MobileActionBar'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
+import CookieBanner from '@/components/CookieBanner'
 import { business } from '@/config/business'
 
 const manrope = Manrope({
@@ -18,26 +20,27 @@ const siteUrl = business.siteUrl
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Impresa Edile Lodi | Ristrutturazioni Chiavi in Mano | Diamo Soluzioni',
+    default: 'Ristrutturazioni Lodi | Impresa Edile | Diamo Soluzioni',
     template: '%s | Diamo Soluzioni',
   },
   description:
-    'Impresa edile a Lodi e Milano Sud. Ristrutturazioni complete chiavi in mano, pavimentazioni, infissi, facciate e impianti. Un unico referente dal sopralluogo alla consegna. Sede a Merlino (LO). Sopralluogo gratuito.',
-  alternates: {
-    canonical: siteUrl,
-  },
+    'Impresa edile a Lodi e Milano Sud. Ristrutturazioni complete, pavimentazioni, infissi e impianti. Referente unico, preventivo scritto, sopralluogo gratuito.',
   openGraph: {
     siteName: 'Diamo Soluzioni',
     locale: 'it_IT',
     type: 'website',
     url: siteUrl,
-    title: 'Impresa Edile Lodi | Ristrutturazioni Chiavi in Mano | Diamo Soluzioni',
+    title: 'Ristrutturazioni Lodi | Impresa Edile | Diamo Soluzioni',
     description:
       'Impresa edile a Lodi e Milano Sud. Ristrutturazioni complete, pavimentazioni, infissi e impianti con un unico referente. Preventivo scritto, sopralluogo gratuito.',
-  },
-  robots: {
-    index: true,
-    follow: true,
+    images: [
+      {
+        url: `${siteUrl}/progetti/ristrutturazione-appartamento-lodi/camera-letto-finita.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'Diamo Soluzioni — Ristrutturazioni a Lodi e Milano Sud',
+      },
+    ],
   },
 }
 
@@ -84,6 +87,7 @@ const schemaOrg = {
         '@type': 'City',
         name: area,
       })),
+      sameAs: [business.social.googleBusiness],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Servizi Edili',
@@ -105,7 +109,9 @@ const schemaOrg = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="it" className={manrope.variable}>
+      <head />
       <body className="antialiased">
+        <GoogleAnalytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
@@ -120,6 +126,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main-content">{children}</main>
         <Footer />
         <MobileActionBar />
+        <CookieBanner />
       </body>
     </html>
   )

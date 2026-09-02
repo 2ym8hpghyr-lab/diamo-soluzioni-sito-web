@@ -10,7 +10,10 @@ import FinalCTA from '@/components/sections/FinalCTA'
 
 export const metadata: Metadata = {
   alternates: { canonical: business.siteUrl },
-  openGraph: { url: business.siteUrl },
+  openGraph: {
+    url: business.siteUrl,
+    images: [{ url: `${business.siteUrl}/progetti/ristrutturazione-appartamento-lodi/camera-letto-finita.jpg`, alt: 'Diamo Soluzioni — Ristrutturazioni a Lodi e Milano Sud' }],
+  },
 }
 
 export default function HomePage() {

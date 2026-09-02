@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { business } from '@/config/business'
+
+export const metadata: Metadata = {
+  title: 'Pagina non trovata',
+}
 
 export default function NotFound() {
   return (

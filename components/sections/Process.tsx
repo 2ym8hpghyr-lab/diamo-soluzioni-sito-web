@@ -25,7 +25,7 @@ export default function Process() {
               Un processo ordinato,<br />nessuna sorpresa
             </h2>
           </div>
-          <p className="text-sm max-w-xs leading-relaxed lg:text-right" style={{ color: 'rgba(202,175,122,0.70)' }}>
+          <p className="text-sm max-w-xs leading-relaxed lg:text-right" style={{ color: 'rgba(202,175,122,0.95)' }}>
             Un unico referente dall&apos;inizio alla consegna. Sai sempre cosa succederà e quando.
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function Process() {
                 {/* Descrizione */}
                 <p
                   className="text-xs leading-relaxed"
-                  style={{ color: 'rgba(202,175,122,0.60)' }}
+                  style={{ color: 'rgba(202,175,122,0.95)' }}
                 >
                   {step.desc}
                 </p>

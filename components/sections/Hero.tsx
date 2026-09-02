@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { business } from '@/config/business'
 import QuoteWizard from '@/components/sections/QuoteWizard'
@@ -15,16 +16,19 @@ export default function Hero() {
       className="relative overflow-hidden"
       aria-label="Hero principale"
     >
-      {/* Foto di sfondo LCP */}
-      <div
-        className="absolute inset-0 pointer-events-none hero-bg-img"
-        aria-hidden
-        style={{
-          backgroundImage: 'url(/assets/diamo/hero-home-materiali-lavorazione-v2.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: '70% 50%',
-        }}
-      />
+      {/* Foto di sfondo LCP — img element per priorità massima */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <Image
+          src="/assets/diamo/hero-home-materiali-lavorazione-v2.webp"
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          className="object-cover hero-lcp-img"
+          sizes="100vw"
+          quality={85}
+        />
+      </div>
       {/* Overlay caldo: forte a sinistra, trasparente a destra + vignettatura inferiore */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -106,6 +110,7 @@ export default function Hero() {
                 href={business.whatsapp.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Contatta Diamo Soluzioni su WhatsApp"
                 className="flex items-center gap-2 text-sm font-semibold text-white/85 hover:text-gold transition-colors"
               >
                 <span className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(37,211,102,0.15)' }}>
