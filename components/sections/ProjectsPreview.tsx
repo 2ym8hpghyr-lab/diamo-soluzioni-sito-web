@@ -1,3 +1,5 @@
+'use client'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getRealProjects } from '@/data/projects'
@@ -15,11 +17,24 @@ const BLUEPRINT_BG = (
 )
 
 export default function ProjectsPreview() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [imagesReady, setImagesReady] = useState(false)
   const realProjects = getRealProjects()
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setImagesReady(true); obs.disconnect() } },
+      { rootMargin: '300px', threshold: 0 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
   if (realProjects.length === 0) {
     return (
-      <section className="py-20 relative overflow-hidden" style={{ backgroundColor: '#F5EFE8' }} aria-labelledby="projects-heading">
+      <section ref={sectionRef} className="py-20 relative overflow-hidden" style={{ backgroundColor: '#F5EFE8' }} aria-labelledby="projects-heading">
         {BLUEPRINT_BG}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6" style={{ zIndex: 10 }}>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -35,6 +50,7 @@ export default function ProjectsPreview() {
             </div>
             <Link
               href="/progetti"
+              prefetch={false}
               className="text-sm font-semibold text-teal hover:text-teal-dark transition-colors flex-shrink-0 flex items-center gap-1"
             >
               Vedi portfolio
@@ -55,7 +71,7 @@ export default function ProjectsPreview() {
   }
 
   return (
-    <section className="py-20 relative overflow-hidden" style={{ backgroundColor: '#F5EFE8' }} aria-labelledby="projects-heading">
+    <section ref={sectionRef} className="py-20 relative overflow-hidden" style={{ backgroundColor: '#F5EFE8' }} aria-labelledby="projects-heading">
       {BLUEPRINT_BG}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6" style={{ zIndex: 10 }}>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -71,6 +87,7 @@ export default function ProjectsPreview() {
           </div>
           <Link
             href="/progetti"
+            prefetch={false}
             className="text-sm font-semibold text-teal flex-shrink-0 flex items-center gap-1"
           >
             Vedi portfolio
@@ -84,17 +101,22 @@ export default function ProjectsPreview() {
             <Link
               key={p.slug}
               href={`/progetti/${p.slug}`}
+              prefetch={false}
               className="ds-card group rounded-2xl overflow-hidden bg-white hover:shadow-card-hover transition-shadow"
             >
               <div className="relative h-52 overflow-hidden bg-concrete">
-                <Image
-                  src={p.cover}
-                  alt={p.title}
-                  fill
-                  quality={50}
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+                {imagesReady ? (
+                  <Image
+                    src={p.cover}
+                    alt={p.title}
+                    fill
+                    quality={50}
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0" style={{ backgroundColor: '#E8DED2' }} aria-hidden />
+                )}
               </div>
               <div className="p-5">
                 <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: '#6B5209' }}>{p.category}</p>
