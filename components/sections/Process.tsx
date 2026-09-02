@@ -59,8 +59,9 @@ export default function Process() {
                   }}
                 />
 
-                {/* Numero ghost */}
+                {/* Numero ghost — decorativo, nascosto agli screen reader */}
                 <span
+                  aria-hidden
                   className="block font-black leading-none mb-2.5 select-none"
                   style={{
                     fontSize: 'clamp(2rem,3.5vw,2.8rem)',

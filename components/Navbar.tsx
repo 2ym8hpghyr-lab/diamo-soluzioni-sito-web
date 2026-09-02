@@ -101,7 +101,6 @@ export default function Navbar() {
             width={40}
             height={40}
             className="rounded-lg"
-            priority
           />
           <div className="leading-tight">
             <p className="font-extrabold text-sm uppercase tracking-wide text-graphite">
