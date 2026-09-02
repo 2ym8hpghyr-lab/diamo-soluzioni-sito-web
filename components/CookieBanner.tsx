@@ -23,13 +23,17 @@ export default function CookieBanner() {
     setVisible(false)
   }
 
-  if (!visible) return null
-
   return (
     <div
       className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-5"
       role="region"
       aria-label="Gestione consenso cookie"
+      aria-hidden={!visible}
+      style={{
+        transform: visible ? 'translateY(0)' : 'translateY(110%)',
+        transition: 'transform 300ms ease-out',
+        pointerEvents: visible ? 'auto' : 'none',
+      }}
     >
       <div
         className="max-w-3xl mx-auto rounded-2xl shadow-2xl px-5 py-5 space-y-4"
