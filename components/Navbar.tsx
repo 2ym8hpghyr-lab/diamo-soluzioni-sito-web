@@ -116,7 +116,7 @@ export default function Navbar() {
             <p className="font-extrabold text-sm uppercase tracking-wide text-graphite">
               Diamo Soluzioni
             </p>
-            <p className="text-[10px] uppercase tracking-widest" style={{ color: '#F4BE12' }}>
+            <p className="text-[10px] uppercase tracking-widest" style={{ color: '#6B5209' }}>
               Impresa Edile
             </p>
           </div>
