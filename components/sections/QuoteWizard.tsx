@@ -347,7 +347,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
   const ghostBtn =
     'inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm text-graphite/70 hover:text-graphite transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/40'
   const inputCls =
-    'w-full px-4 py-3 rounded-xl border border-concrete text-sm bg-white text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/30 transition-colors'
+    'w-full px-4 py-3 rounded-xl border border-concrete text-sm bg-white text-graphite placeholder:text-graphite/75 focus:outline-none focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/30 transition-colors'
 
   /* ── CARD WIZARD ─────────────────────────────────────────────── */
 
@@ -442,7 +442,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
 
                     {state.serviceId === 'altro' && (
                       <div className="mt-3 motion-safe:animate-[fadeIn_.15s_ease-out]">
-                        <label htmlFor="qw-other" className="block text-xs font-semibold text-graphite/60 mb-1.5">
+                        <label htmlFor="qw-other" className="block text-xs font-semibold text-graphite/75 mb-1.5">
                           Descrivi brevemente il tipo di lavoro
                         </label>
                         <input
@@ -478,7 +478,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     <label htmlFor="qw-city" className="block text-sm font-semibold text-graphite mb-2">
                       Dove si trova l’immobile?
                     </label>
-                    <p className="text-xs text-graphite/50 mb-3">Ci aiuta a valutare tempi e trasferte.</p>
+                    <p className="text-xs text-graphite/75 mb-3">Ci aiuta a valutare tempi e trasferte.</p>
                     <input
                       id="qw-city"
                       type="text"
@@ -515,7 +515,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     <label htmlFor="qw-size" className="block text-sm font-semibold text-graphite mb-2">
                       Quanto è grande l’area?
                     </label>
-                    <p className="text-xs text-graphite/50 mb-3">Anche una stima approssimativa va bene.</p>
+                    <p className="text-xs text-graphite/75 mb-3">Anche una stima approssimativa va bene.</p>
 
                     <div className="relative">
                       <input
@@ -530,7 +530,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                         placeholder="es. 75"
                         className={inputCls + ' pr-14'}
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-graphite/50 pointer-events-none">
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-graphite/75 pointer-events-none">
                         mq
                       </span>
                     </div>
@@ -590,7 +590,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     <label htmlFor="qw-desc" className="block text-sm font-semibold text-graphite mb-2">
                       Descrivici la situazione attuale
                     </label>
-                    <p className="text-xs text-graphite/50 mb-3">
+                    <p className="text-xs text-graphite/75 mb-3">
                       Descrivi brevemente lo stato attuale e cosa vorresti realizzare.
                     </p>
                     <textarea
@@ -603,7 +603,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                       placeholder="es. Bagno anni '90 da rifare completamente, pareti con umidità..."
                       className={inputCls + ' resize-none'}
                     />
-                    <p className="text-[11px] text-graphite/40 text-right mt-1">
+                    <p className="text-[11px] text-graphite/75 text-right mt-1">
                       {state.description.length}/1000
                     </p>
 
@@ -654,8 +654,8 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                       })}
                     </div>
 
-                    <label htmlFor="qw-timing-note" className="block text-xs font-semibold text-graphite/60 mb-1.5">
-                      Note aggiuntive <span className="font-normal text-graphite/40">— facoltative</span>
+                    <label htmlFor="qw-timing-note" className="block text-xs font-semibold text-graphite/75 mb-1.5">
+                      Note aggiuntive <span className="font-normal text-graphite/75">— facoltative</span>
                     </label>
                     <input
                       id="qw-timing-note"
@@ -677,7 +677,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                         <span style={{ color: '#1F4852' }}>{IconUpload}</span>
                         <span className="text-sm">
                           <span className="font-semibold">Aggiungi foto</span>{' '}
-                          <span className="text-graphite/50">— facoltativo, aiuta a stimare meglio</span>
+                          <span className="text-graphite/75">— facoltativo, aiuta a stimare meglio</span>
                         </span>
                       </label>
                       <input
@@ -692,7 +692,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                         }}
                       />
                       {state.photos.length > 0 && (
-                        <p className="text-xs text-graphite/55 mt-2">
+                        <p className="text-xs text-graphite/75 mt-2">
                           {state.photos.length} file selezionat{state.photos.length === 1 ? 'o' : 'i'} — li invierai a
                           fine invio via WhatsApp o email.
                         </p>
@@ -721,7 +721,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                 {step === 'summary' && (
                   <div className="motion-safe:animate-[fadeIn_.15s_ease-out]">
                     <p className="font-extrabold text-graphite text-base mb-1">Ecco cosa abbiamo raccolto</p>
-                    <p className="text-xs text-graphite/55 mb-5">
+                    <p className="text-xs text-graphite/75 mb-5">
                       Rif. <strong>{leadId}</strong>. Puoi modificare qualsiasi risposta.
                     </p>
 
@@ -767,20 +767,20 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                               <span style={{ color: '#F4BE12' }}>{IconSpinner}</span>
                               L&apos;AI sta analizzando le tue informazioni…
                             </div>
-                            <p className="text-[11px]" style={{ color: 'rgba(248,248,245,0.40)' }}>
+                            <p className="text-[11px]" style={{ color: 'rgba(248,248,245,0.75)' }}>
                               Elaborazione in corso, un momento.
                             </p>
                           </div>
                         ) : estimate ? (
                           <>
-                            <p className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(248,248,245,0.50)' }}>
+                            <p className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(248,248,245,0.75)' }}>
                               Fascia orientativa stimata dall&apos;AI
                             </p>
                             <p className="font-extrabold" style={{ fontSize: '1.7rem', color: '#F4BE12', lineHeight: 1.1 }}>
                               {formatEur(estimate.minTotal)}&nbsp;–&nbsp;{formatEur(estimate.maxTotal)}
                             </p>
                             <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(248,248,245,0.08)' }}>
-                              <p className="text-[11px] leading-relaxed" style={{ color: 'rgba(248,248,245,0.50)' }}>
+                              <p className="text-[11px] leading-relaxed" style={{ color: 'rgba(248,248,245,0.75)' }}>
                                 Questa stima è prodotta dall&apos;AI sulla base dei dati che hai fornito.
                                 Il costo reale dipende da difficoltà tecniche, condizioni dell&apos;immobile,
                                 materiali scelti e accessi al cantiere. Il preventivo definitivo viene
@@ -793,7 +793,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                             <p className="text-sm mb-1" style={{ color: 'rgba(248,248,245,0.85)' }}>
                               Non è stato possibile produrre una stima automatica.
                             </p>
-                            <p className="text-[11px]" style={{ color: 'rgba(248,248,245,0.45)' }}>
+                            <p className="text-[11px]" style={{ color: 'rgba(248,248,245,0.75)' }}>
                               Riceverai una valutazione personalizzata entro 24 ore dopo aver inviato la richiesta.
                             </p>
                           </div>
@@ -823,13 +823,13 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     <p className="font-extrabold text-graphite text-base mb-1">
                       Come possiamo ricontattarti?
                     </p>
-                    <p className="text-xs text-graphite/55 mb-5">
+                    <p className="text-xs text-graphite/75 mb-5">
                       Ti mandiamo il riepilogo e concordiamo un sopralluogo gratuito.
                     </p>
 
                     <div className="space-y-3">
                       <div>
-                        <label htmlFor="qw-name" className="block text-xs font-semibold text-graphite/65 mb-1.5 uppercase tracking-wide">
+                        <label htmlFor="qw-name" className="block text-xs font-semibold text-graphite/75 mb-1.5 uppercase tracking-wide">
                           Nome <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -846,7 +846,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                       </div>
 
                       <div>
-                        <label htmlFor="qw-phone" className="block text-xs font-semibold text-graphite/65 mb-1.5 uppercase tracking-wide">
+                        <label htmlFor="qw-phone" className="block text-xs font-semibold text-graphite/75 mb-1.5 uppercase tracking-wide">
                           Telefono <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -859,14 +859,14 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                           placeholder="+39 344 461 9461"
                           className={inputCls}
                         />
-                        <p className="text-[11px] text-graphite/45 mt-1.5 leading-relaxed">
+                        <p className="text-[11px] text-graphite/75 mt-1.5 leading-relaxed">
                           Usiamo il tuo numero solo per contattarti riguardo a questa richiesta.
                         </p>
                       </div>
 
                       <div>
-                        <label htmlFor="qw-email" className="block text-xs font-semibold text-graphite/65 mb-1.5 uppercase tracking-wide">
-                          Email <span className="font-normal normal-case text-graphite/40">— facoltativa</span>
+                        <label htmlFor="qw-email" className="block text-xs font-semibold text-graphite/75 mb-1.5 uppercase tracking-wide">
+                          Email <span className="font-normal normal-case text-graphite/75">— facoltativa</span>
                         </label>
                         <input
                           id="qw-email"
@@ -880,7 +880,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                       </div>
 
                       <fieldset className="pt-1">
-                        <legend className="block text-xs font-semibold text-graphite/65 mb-2 uppercase tracking-wide">
+                        <legend className="block text-xs font-semibold text-graphite/75 mb-2 uppercase tracking-wide">
                           Metodo di contatto preferito
                         </legend>
                         <div className="grid grid-cols-3 gap-2">
@@ -960,7 +960,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                         </p>
                       )}
 
-                      <p className="text-[11px] text-graphite/50 leading-relaxed italic">
+                      <p className="text-[11px] text-graphite/75 leading-relaxed italic">
                         La stima è indicativa. Il preventivo definitivo può richiedere una verifica tecnica o un
                         sopralluogo.
                       </p>
@@ -979,7 +979,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                           <>Ricevi la tua stima {IconArrowRight}</>
                         )}
                       </button>
-                      <p className="text-center text-[11px] text-graphite/50 mt-1">
+                      <p className="text-center text-[11px] text-graphite/75 mt-1">
                         Risposta entro poche ore · Nessun impegno
                       </p>
 
@@ -989,7 +989,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="Richiedi un preventivo su WhatsApp"
-                          className="text-xs font-semibold text-graphite/60 hover:text-teal transition-colors underline underline-offset-4"
+                          className="text-xs font-semibold text-graphite/75 hover:text-teal transition-colors underline underline-offset-4"
                         >
                           Preferisci parlarne con noi? → Contattaci su WhatsApp
                         </a>
@@ -1017,13 +1017,13 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                       </svg>
                     </div>
                     <p className="font-extrabold text-graphite text-lg mb-1">Richiesta inviata!</p>
-                    <p className="text-sm text-graphite/60 mb-1">
+                    <p className="text-sm text-graphite/75 mb-1">
                       Ti contatteremo al numero inserito per concordare il sopralluogo gratuito.
                     </p>
-                    <p className="text-xs text-graphite/50 mb-1">
+                    <p className="text-xs text-graphite/75 mb-1">
                       Il sopralluogo è gratuito, senza impegno e senza burocrazia.
                     </p>
-                    <p className="text-xs text-graphite/45 mb-5">
+                    <p className="text-xs text-graphite/75 mb-5">
                       Rif. <strong>{leadId}</strong>
                     </p>
 
@@ -1054,7 +1054,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     <p className="font-extrabold text-graphite text-base mb-1">
                       Non siamo riusciti a completare la richiesta.
                     </p>
-                    <p className="text-sm text-graphite/60 mb-4">
+                    <p className="text-sm text-graphite/75 mb-4">
                       Riprova oppure contattaci direttamente — le tue risposte sono state conservate.
                     </p>
 
@@ -1122,7 +1122,7 @@ function SummaryRow({
   return (
     <li className="flex items-start justify-between gap-3 py-2 border-b" style={{ borderColor: '#ECEDE9' }}>
       <div className="min-w-0">
-        <p className="text-[10px] font-bold uppercase tracking-wide text-graphite/50">{label}</p>
+        <p className="text-[10px] font-bold uppercase tracking-wide text-graphite/75">{label}</p>
         <p className="text-sm text-graphite mt-0.5 break-words">{value || '—'}</p>
       </div>
       <button
