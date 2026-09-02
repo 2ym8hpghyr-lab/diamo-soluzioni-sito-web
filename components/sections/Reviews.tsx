@@ -116,9 +116,9 @@ export default function Reviews() {
                 <div>
                   <p className="font-semibold text-sm text-white">{review.name}</p>
                   {review.projectTag && (
-                    <p className="text-xs mt-0.5" style={{ color: '#B88A32' }}>{review.projectTag}</p>
+                    <p className="text-xs mt-0.5" style={{ color: '#F4BE12' }}>{review.projectTag}</p>
                   )}
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(248,248,245,0.35)' }}>{review.date}</p>
+                  <p className="text-xs mt-0.5" style={{ color: 'rgba(248,248,245,0.75)' }}>{review.date}</p>
                 </div>
               </article>
             ))}

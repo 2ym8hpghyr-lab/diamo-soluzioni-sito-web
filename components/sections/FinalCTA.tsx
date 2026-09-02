@@ -24,7 +24,7 @@ export default function FinalCTA() {
             <svg className="w-3 h-3 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden style={{ color: '#B88A32' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-            <p className="text-xs font-medium" style={{ color: 'rgba(248,248,245,0.40)' }}>
+            <p className="text-xs font-medium" style={{ color: 'rgba(248,248,245,0.75)' }}>
               Ogni cantiere lì sopra è iniziato con una chiamata. Il tuo?
             </p>
           </div>
@@ -40,7 +40,7 @@ export default function FinalCTA() {
           <div className="flex items-center gap-5">
             <div className="w-1 self-stretch rounded-full flex-shrink-0" style={{ backgroundColor: '#F4BE12', minHeight: '48px' }} aria-hidden />
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] mb-1" style={{ color: '#B88A32' }}>Inizia da qui</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] mb-1" style={{ color: '#F4BE12' }}>Inizia da qui</p>
               <h2
                 id="cta-heading"
                 className="font-extrabold text-white"
@@ -48,7 +48,7 @@ export default function FinalCTA() {
               >
                 Hai un progetto in mente?
               </h2>
-              <p className="text-sm mt-1" style={{ color: 'rgba(248,248,245,0.50)' }}>
+              <p className="text-sm mt-1" style={{ color: 'rgba(248,248,245,0.75)' }}>
                 Sopralluogo gratuito · Risposta in poche ore
               </p>
             </div>
@@ -83,7 +83,7 @@ export default function FinalCTA() {
             <a
               href={`tel:${business.phone.primaryRaw}`}
               className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
-              style={{ color: 'rgba(248,248,245,0.45)' }}
+              style={{ color: 'rgba(248,248,245,0.75)' }}
               onClick={() => trackEvent('cta_click', { destination: 'phone' })}
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>

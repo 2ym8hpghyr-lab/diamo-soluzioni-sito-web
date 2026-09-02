@@ -65,7 +65,7 @@ export default function Process() {
                   className="block font-black leading-none mb-2.5 select-none"
                   style={{
                     fontSize: 'clamp(2rem,3.5vw,2.8rem)',
-                    color: 'rgba(244,190,18,0.13)',
+                    color: 'rgba(244,190,18,0.55)',
                     fontVariantNumeric: 'tabular-nums',
                   }}
                 >

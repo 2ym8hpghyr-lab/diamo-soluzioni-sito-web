@@ -24,13 +24,13 @@ export default function Footer() {
               />
               <div>
                 <p className="font-extrabold text-sm uppercase tracking-wide" style={{ color: '#1E2A2E' }}>Diamo Soluzioni</p>
-                <p className="text-[10px] uppercase tracking-widest" style={{ color: '#B88A32' }}>Impresa Edile</p>
+                <p className="text-[10px] uppercase tracking-widest" style={{ color: '#6B5209' }}>Impresa Edile</p>
               </div>
             </Link>
             <p className="text-sm leading-relaxed mb-5" style={{ color: '#4A5568' }}>
               {business.description}
             </p>
-            <div className="text-xs space-y-1" style={{ color: '#9CA3AF' }}>
+            <div className="text-xs space-y-1" style={{ color: '#4B5563' }}>
               <p>P.IVA {business.vatId}</p>
               <p>{business.address.full}</p>
             </div>
@@ -137,7 +137,7 @@ export default function Footer() {
         {/* Zone servite */}
         <div className="mt-10 pt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4" style={{ borderTop: '1px solid #ECEDE9' }}>
           <div>
-            <p className="text-xs uppercase tracking-wider mb-2" style={{ color: '#9CA3AF' }}>Zone servite</p>
+            <p className="text-xs uppercase tracking-wider mb-2" style={{ color: '#4B5563' }}>Zone servite</p>
             <p className="text-xs" style={{ color: '#6B7280' }}>
               {business.areas.join(' · ')}
             </p>
@@ -147,7 +147,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors"
-            style={{ color: '#F4BE12' }}
+            style={{ color: '#6B5209' }}
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -159,7 +159,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div style={{ borderTop: '1px solid #ECEDE9' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs" style={{ color: '#9CA3AF' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs" style={{ color: '#4B5563' }}>
           <p>© {year} {business.legalName} — P.IVA {business.vatId}</p>
           <div className="flex gap-4">
             <a href={business.social.googleBusiness} target="_blank" rel="noopener noreferrer" className="hover:text-graphite transition-colors">Recensioni Google</a>

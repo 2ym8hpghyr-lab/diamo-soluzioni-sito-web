@@ -99,9 +99,9 @@ export default function ProjectsPreview() {
                 />
               </div>
               <div className="p-5">
-                <p className="text-xs font-bold uppercase tracking-wide text-gold mb-1">{p.category}</p>
+                <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: '#6B5209' }}>{p.category}</p>
                 <h3 className="font-bold text-graphite group-hover:text-teal transition-colors">{p.title}</h3>
-                <p className="flex items-center gap-1 text-xs font-medium mt-2" style={{ color: '#B88A32' }}>
+                <p className="flex items-center gap-1 text-xs font-medium mt-2" style={{ color: '#6B5209' }}>
                   <svg className="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
