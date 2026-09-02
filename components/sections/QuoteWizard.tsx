@@ -180,10 +180,13 @@ export default function QuoteWizard() {
 
   // Focus management: quando cambia step, sposta il focus all'inizio del pannello
   const panelRef = useRef<HTMLDivElement>(null)
+  const isFirstRender = useRef(true)
   useEffect(() => {
+    // Salta il focus al mount iniziale: evita che il browser aggiorni
+    // il candidato LCP al momento dell'idratazione React
+    if (isFirstRender.current) { isFirstRender.current = false; return }
     const el = panelRef.current
     if (!el) return
-    // Micro-delay per attendere il ridisegno
     const t = setTimeout(() => {
       const first = el.querySelector<HTMLElement>('[data-autofocus="true"]')
       if (first) first.focus({ preventScroll: true })
@@ -421,7 +424,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                             data-autofocus={idx === 0 ? 'true' : undefined}
                             onClick={() => selectService(opt)}
                             aria-pressed={selected}
-                            className="group flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-sm font-medium transition-all motion-safe:hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 min-h-[44px]"
+                            className="group flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-sm font-medium transition-transform motion-safe:hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 min-h-[44px]"
                             style={{
                               borderColor: selected ? '#1F4852' : '#ECEDE9',
                               backgroundColor: selected ? '#1F4852' : 'white',
@@ -544,7 +547,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                             type="button"
                             onClick={() => update('size', p.value)}
                             aria-pressed={active}
-                            className="text-xs px-3 py-2.5 rounded-xl border font-semibold transition-all motion-safe:hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 min-h-[44px]"
+                            className="text-xs px-3 py-2.5 rounded-xl border font-semibold transition-transform motion-safe:hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 min-h-[44px]"
                             style={{
                               borderColor: active ? '#1F4852' : '#ECEDE9',
                               backgroundColor: active ? '#1F4852' : 'white',
@@ -641,7 +644,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                             data-autofocus={idx === 0 ? 'true' : undefined}
                             onClick={() => update('timing', t)}
                             aria-pressed={active}
-                            className="text-left text-sm px-4 py-3 rounded-xl border font-medium transition-all motion-safe:hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 min-h-[44px]"
+                            className="text-left text-sm px-4 py-3 rounded-xl border font-medium transition-transform motion-safe:hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 min-h-[44px]"
                             style={{
                               borderColor: active ? '#1F4852' : '#ECEDE9',
                               backgroundColor: active ? '#1F4852' : 'white',
