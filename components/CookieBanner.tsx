@@ -50,6 +50,7 @@ export default function CookieBanner() {
             o advertising.{' '}
             <Link
               href="/privacy-policy"
+              prefetch={false}
               className="underline underline-offset-2 hover:opacity-80 transition-opacity"
               style={{ color: '#F4BE12' }}
             >

@@ -7,12 +7,9 @@ const BLUEPRINT_BG = (
     className="absolute inset-0 pointer-events-none select-none"
     aria-hidden
     style={{
-      backgroundImage: "url('/assets/diamo/blueprint-texture-bg.webp')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center center',
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: 'radial-gradient(circle, rgba(150,130,100,0.18) 1px, transparent 1px)',
+      backgroundSize: '22px 22px',
       zIndex: 0,
-      opacity: 1,
     }}
   />
 )
@@ -94,6 +91,7 @@ export default function ProjectsPreview() {
                   src={p.cover}
                   alt={p.title}
                   fill
+                  quality={50}
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />

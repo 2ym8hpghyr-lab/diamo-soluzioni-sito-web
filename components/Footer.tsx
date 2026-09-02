@@ -69,6 +69,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
+                    prefetch={false}
                     className="text-sm transition-colors hover:text-teal"
                     style={{ color: '#4A5568' }}
                   >
@@ -163,7 +164,7 @@ export default function Footer() {
           <p>© {year} {business.legalName} — P.IVA {business.vatId}</p>
           <div className="flex gap-4">
             <a href={business.social.googleBusiness} target="_blank" rel="noopener noreferrer" className="hover:text-graphite transition-colors">Recensioni Google</a>
-            <Link href="/privacy-policy" className="hover:text-graphite transition-colors">Privacy</Link>
+            <Link href="/privacy-policy" prefetch={false} className="hover:text-graphite transition-colors">Privacy</Link>
             <CookieSettingsButton />
             <Link href="/sitemap.xml" className="hover:text-graphite transition-colors">Sitemap</Link>
           </div>

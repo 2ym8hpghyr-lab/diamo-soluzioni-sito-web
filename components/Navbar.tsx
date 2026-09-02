@@ -181,6 +181,7 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
+              prefetch={false}
               className="px-3 py-2 rounded-lg text-sm font-medium text-graphite hover:bg-concrete transition-colors"
               onClick={closeAll}
             >
@@ -243,6 +244,7 @@ export default function Navbar() {
                 <Link
                   key={l.href}
                   href={l.href}
+                  prefetch={false}
                   className="block py-2.5 px-1 text-sm font-medium text-graphite"
                   onClick={closeAll}
                 >
