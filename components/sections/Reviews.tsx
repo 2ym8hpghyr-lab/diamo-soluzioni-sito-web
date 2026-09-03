@@ -160,78 +160,87 @@ export default function Reviews() {
             ))}
           </div>
 
-          {/* Controlli */}
-          <div className="flex items-center justify-between mt-6">
-            {/* Frecce */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={prev}
-                disabled={current === 0}
-                aria-label="Recensione precedente"
-                className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
-                style={{
-                  backgroundColor: current === 0 ? 'rgba(248,248,245,0.05)' : 'rgba(244,190,18,0.15)',
-                  border: '1px solid rgba(248,248,245,0.12)',
-                  color: current === 0 ? 'rgba(248,248,245,0.25)' : '#F4BE12',
-                  cursor: current === 0 ? 'not-allowed' : 'pointer',
-                }}
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={next}
-                disabled={current === total - 1}
-                aria-label="Recensione successiva"
-                className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
-                style={{
-                  backgroundColor: current === total - 1 ? 'rgba(248,248,245,0.05)' : 'rgba(244,190,18,0.15)',
-                  border: '1px solid rgba(248,248,245,0.12)',
-                  color: current === total - 1 ? 'rgba(248,248,245,0.25)' : '#F4BE12',
-                  cursor: current === total - 1 ? 'not-allowed' : 'pointer',
-                }}
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+          {/* Controlli — due righe: dot sopra, frecce + link sotto */}
+          <div className="mt-6 flex flex-col gap-4">
+
+            {/* Riga 1: dot (finestra scorrevole max 5) */}
+            <div className="flex items-center justify-center gap-1.5" role="tablist" aria-label="Seleziona recensione">
+              {(() => {
+                const WIN = 5
+                const half = Math.floor(WIN / 2)
+                const start = Math.min(Math.max(current - half, 0), Math.max(total - WIN, 0))
+                const visible = Array.from({ length: Math.min(WIN, total) }, (_, k) => start + k)
+                return visible.map(i => (
+                  <button
+                    key={i}
+                    role="tab"
+                    aria-selected={i === current}
+                    aria-label={`Vai alla recensione ${i + 1}`}
+                    onClick={() => goTo(i)}
+                    className="rounded-full transition-all duration-300"
+                    style={{
+                      width: i === current ? '20px' : '6px',
+                      height: '6px',
+                      backgroundColor: i === current ? '#F4BE12' : 'rgba(248,248,245,0.25)',
+                      flexShrink: 0,
+                    }}
+                  />
+                ))
+              })()}
             </div>
 
-            {/* Dots */}
-            <div className="flex items-center gap-1.5" role="tablist" aria-label="Seleziona recensione">
-              {publishedReviews.map((_, i) => (
+            {/* Riga 2: frecce a sinistra, contatore + link Google a destra */}
+            <div className="flex items-center justify-between">
+              {/* Frecce */}
+              <div className="flex items-center gap-2">
                 <button
-                  key={i}
-                  role="tab"
-                  aria-selected={i === current}
-                  aria-label={`Vai alla recensione ${i + 1}`}
-                  onClick={() => goTo(i)}
-                  className="rounded-full transition-all"
+                  onClick={prev}
+                  disabled={current === 0}
+                  aria-label="Recensione precedente"
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
                   style={{
-                    width: i === current ? '20px' : '6px',
-                    height: '6px',
-                    backgroundColor: i === current ? '#F4BE12' : 'rgba(248,248,245,0.25)',
+                    backgroundColor: current === 0 ? 'rgba(248,248,245,0.05)' : 'rgba(244,190,18,0.15)',
+                    border: '1px solid rgba(248,248,245,0.12)',
+                    color: current === 0 ? 'rgba(248,248,245,0.25)' : '#F4BE12',
+                    cursor: current === 0 ? 'not-allowed' : 'pointer',
                   }}
-                />
-              ))}
-            </div>
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={next}
+                  disabled={current === total - 1}
+                  aria-label="Recensione successiva"
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
+                  style={{
+                    backgroundColor: current === total - 1 ? 'rgba(248,248,245,0.05)' : 'rgba(244,190,18,0.15)',
+                    border: '1px solid rgba(248,248,245,0.12)',
+                    color: current === total - 1 ? 'rgba(248,248,245,0.25)' : '#F4BE12',
+                    cursor: current === total - 1 ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                <span className="text-xs tabular-nums ml-1" style={{ color: 'rgba(248,248,245,0.40)' }}>
+                  {current + 1} / {total}
+                </span>
+              </div>
 
-            {/* Contatore + link Google */}
-            <div className="flex items-center gap-3">
-              <span className="text-xs tabular-nums" style={{ color: 'rgba(248,248,245,0.45)' }}>
-                {current + 1} / {total}
-              </span>
+              {/* Link Google */}
               {business.social.googleBusiness && (
                 <a
                   href={business.social.googleBusiness}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-opacity hover:opacity-80"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-opacity hover:opacity-80 whitespace-nowrap"
                   style={{ backgroundColor: 'rgba(248,248,245,0.08)', color: 'rgba(248,248,245,0.70)', border: '1px solid rgba(248,248,245,0.12)' }}
                   aria-label="Leggi tutte le recensioni su Google (apre in una nuova scheda)"
                 >
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
