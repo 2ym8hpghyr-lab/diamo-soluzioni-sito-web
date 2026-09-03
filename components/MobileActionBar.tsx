@@ -1,14 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { business, whatsappUrl } from '@/config/business'
-
-type GtagFn = (...args: unknown[]) => void
-function trackEvent(name: string, params?: Record<string, unknown>) {
-  const w = window as unknown as { gtag?: GtagFn }
-  if (typeof window !== 'undefined' && w.gtag) {
-    w.gtag('event', name, params)
-  }
-}
+import { trackEvent } from '@/lib/analytics'
 
 const WA_MESSAGE = 'Buongiorno, ho visitato il vostro sito e vorrei informazioni per un sopralluogo gratuito.'
 

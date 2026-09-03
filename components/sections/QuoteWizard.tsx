@@ -215,6 +215,7 @@ export default function QuoteWizard() {
   // Focus management: quando cambia step, sposta il focus all'inizio del pannello
   const panelRef = useRef<HTMLDivElement>(null)
   const isFirstRender = useRef(true)
+  const estimatorStartFired = useRef(false)
   useEffect(() => {
     // Salta il focus al mount iniziale: evita che il browser aggiorni
     // il candidato LCP al momento dell'idratazione React
@@ -235,8 +236,10 @@ export default function QuoteWizard() {
     setState(s => ({ ...s, [k]: v }))
 
   function goToStep(next: WizardStep) {
-    if (next === 2 && step === 1) trackEvent('estimator_start', { service: state.serviceId })
-    if (next === 'summary') trackEvent('estimator_complete', { service: state.serviceId, city: state.city })
+    if (next === 2 && step === 1 && !estimatorStartFired.current) {
+      trackEvent('estimator_start', { service: state.serviceId })
+      estimatorStartFired.current = true
+    }
     setStep(next)
   }
 
@@ -282,8 +285,12 @@ export default function QuoteWizard() {
       const data = await res.json()
       const min = Number(data?.minTotal) || 0
       const max = Number(data?.maxTotal) || 0
-      if (min > 0 && max > 0) setEstimate({ minTotal: min, maxTotal: max })
-      else setEstimate(null)
+      if (min > 0 && max > 0) {
+        setEstimate({ minTotal: min, maxTotal: max })
+        trackEvent('estimator_complete', { service: state.serviceId, city: state.city })
+      } else {
+        setEstimate(null)
+      }
     } catch {
       setEstimate(null)
       setEstimateFailed(true)

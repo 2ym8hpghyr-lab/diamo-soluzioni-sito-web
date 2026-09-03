@@ -1,4 +1,7 @@
+'use client'
 import Link from 'next/link'
+import { business } from '@/config/business'
+import { trackEvent } from '@/lib/analytics'
 
 export default function CTABanner() {
   return (
@@ -41,7 +44,7 @@ export default function CTABanner() {
             Richiedi Preventivo Gratuito →
           </Link>
           <a
-            href="tel:+393444619461"
+            href={`tel:${business.phone.primaryRaw}`}
             className="font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200 text-center text-sm whitespace-nowrap"
             style={{
               backgroundColor: 'transparent',
@@ -49,8 +52,9 @@ export default function CTABanner() {
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px',
             }}
+            onClick={() => trackEvent('click_phone', { location: 'cta_banner' })}
           >
-            📞 +39 344 461 9461
+            📞 {business.phone.primary}
           </a>
         </div>
       </div>
