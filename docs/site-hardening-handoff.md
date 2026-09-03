@@ -1,5 +1,154 @@
 # Site Hardening — Handoff Document
 
+## Stage 4 — Analytics, Conversioni e Lead (COMPLETATO — PASS TECNICO)
+
+**Data:** 2026-09-03  
+**Branch:** main (commit a56c877)  
+**Obiettivo:** Rendere affidabili tutti gli eventi GA4, rimuovere bug di timing, standardizzare i nomi evento, aggiungere tracking su tutti i punti di contatto, bloccare eventi senza consenso.
+
+---
+
+### Bug corretti
+
+| # | Problema | Fix |
+|---|----------|-----|
+| 1 | `estimator_complete` sparava in `goToStep` *prima* che la stima arrivasse dall'API | Spostato in `requestEstimate()` — ora spara solo se `min > 0 && max > 0` |
+| 2 | `estimator_start` poteva sparare due volte per doppio click | Aggiunto `estimatorStartFired.current` ref — emesso una sola volta per mount |
+| 3 | `FinalCTA.tsx` usava `cta_click` con `destination` invece dei nomi standard | → `click_phone` / `click_whatsapp` / `click_estimator` con `location: 'final_cta'` |
+| 4 | `BlogCTAs.tsx` usava `blog_phone_click` / `blog_whatsapp_click` | → `click_phone` / `click_whatsapp` con `location: 'blog_cta'` |
+| 5 | `CTABanner.tsx` — nessun tracking, numero di telefono hardcoded | Convertito a client component; tracking + telefono da `config/business.ts` |
+| 6 | `contatti/page.tsx` — server component senza tracking su phone/WhatsApp | Estratto `ContactCards.tsx` (client) con `click_phone` / `click_whatsapp` |
+| 7 | `trackEvent` definita 3 volte in locale (Navbar, MobileActionBar, FinalCTA) | Consolidato su unico import da `@/lib/analytics` |
+| 8 | `trackEvent` non verificava il consenso — si affidava solo all'assenza di `gtag` | Aggiunta lettura `localStorage.getItem(CONSENT_KEY) !== 'true'` come prima guardia |
+
+---
+
+### Mappa eventi — copertura verificata automaticamente
+
+| Evento | Componente | `location` param | Timing |
+|--------|-----------|-----------------|--------|
+| `estimator_start` | QuoteWizard | — | Primo click "Continua" da Step 1 |
+| `estimator_complete` | QuoteWizard | — | Risposta API `/api/chat` con min/max > 0 |
+| `form_submit` | QuoteWizard | — | Risposta API `/api/lead` HTTP 200 |
+| `service_view_from_blog` | RelatedServices | — | Click su link servizio dal blog |
+| `click_phone` | Navbar (desktop + mobile) | `navbar_desktop` / `navbar_mobile` | Click |
+| `click_phone` | MobileActionBar | `mobile_bar` | Click |
+| `click_phone` | FinalCTA | `final_cta` | Click |
+| `click_phone` | BlogCTAs | `blog_cta` | Click |
+| `click_phone` | CTABanner | `cta_banner` | Click |
+| `click_phone` | ContactCards (/contatti) | `contatti_page` | Click |
+| `click_whatsapp` | Navbar (mobile menu) | `navbar_mobile` | Click |
+| `click_whatsapp` | MobileActionBar | `mobile_bar` | Click |
+| `click_whatsapp` | FinalCTA | `final_cta` | Click |
+| `click_whatsapp` | BlogCTAs | `blog_cta` | Click |
+| `click_whatsapp` | ContactCards (/contatti) | `contatti_page` | Click |
+
+---
+
+### Parametri evento — nessun PII inviato
+
+| Evento | Parametri | Note privacy |
+|--------|-----------|-------------|
+| `estimator_start` | `service` (serviceId) | Solo tipo servizio, mai dati utente |
+| `estimator_complete` | `service`, `city` | Comune generico, mai indirizzo o nome |
+| `form_submit` | `service`, `contact_method` | Solo tipo servizio e canale (phone/whatsapp/email) |
+| `service_view_from_blog` | `service_slug` | Solo slug di navigazione |
+| `click_phone` / `click_whatsapp` | `location` | Solo posizione CTA nella pagina |
+
+---
+
+### Architettura `trackEvent`
+
+`lib/analytics.ts` — sorgente unica:
+1. Controlla `typeof window === 'undefined'` (SSR guard)
+2. Controlla `localStorage.getItem(CONSENT_KEY) !== 'true'` (GDPR guard)
+3. Controlla `window.gtag` (GA loaded guard)
+4. Chiama `gtag('event', name, params)`
+
+Tre guardie in cascata → eventi bloccati su server, senza consenso, e senza GA caricato.
+
+---
+
+### Verifica API lead (`/api/lead`)
+
+| Check | Stato |
+|-------|-------|
+| Campi obbligatori: name + phone | ✓ 400 se mancanti |
+| Validazione phone regex | ✓ `/^[\d\s+\-()]{7,20}$/` |
+| Validazione email regex | ✓ se presente |
+| Troncamento input (XSS/overflow) | ✓ tutti i campi slicati |
+| Risposta non espone segreti | ✓ solo `{ success: true/false }` |
+| Doppio invio | ✓ bloccato da `submitting` state nel wizard |
+| Notifiche (email + WhatsApp) | ✓ `Promise.allSettled` — una fallisce, l'altra passa |
+
+---
+
+### Test aggiunto
+
+**`tests/unit/analytics.test.ts`** (11 test):
+- Blocco senza consenso (localStorage vuoto, "false", valore imprevisto)
+- Blocco senza gtag (consenso ok, gtag undefined → no eccezione)
+- Invio corretto con consenso e gtag
+- No PII in `form_submit` e `estimator_complete`
+- Tutti i 6 nomi evento obbligatori
+- Revoca consenso → blocco immediato
+- Contesto server (`window undefined`) → no eccezione
+
+---
+
+### Verificato automaticamente (test + build)
+
+- Build: PASS (next build — nessun errore)
+- Lint: PASS (no ESLint warnings/errors)
+- Test: **233 PASS** (5 suite: analytics + consent + pricing + wizard + data-integrity)
+
+---
+
+### Verificato live
+
+- Homepage HTTP 200 ✓
+- /contatti HTTP 200 ✓
+- /privacy-policy HTTP 200 ✓
+- ContactCards renderizza con tracking (client component) ✓
+- CTABanner usa numero da config (non hardcoded) ✓
+
+---
+
+### Da completare manualmente in GA4
+
+Non ho accesso all'interfaccia GA4. Operazioni da eseguire manualmente:
+
+**1. Aggiungere i 3 Key Event (Conversioni)**
+
+In GA4 Admin → Proprietà → Events → *(cerca ogni evento)* → attiva "Mark as key event":
+- `form_submit`
+- `estimator_complete`
+- `click_phone`
+
+> Gli altri eventi (`estimator_start`, `click_whatsapp`, `service_view_from_blog`) sono utili per analisi funnel ma non necessariamente conversioni.
+
+**2. Creare Custom Dimensions per i parametri**
+
+In GA4 Admin → Custom Definitions → Custom Dimensions → "Create custom dimension":
+
+| Nome dimensione | Scope | Nome parametro evento |
+|-----------------|-------|-----------------------|
+| Service | Event | `service` |
+| Location CTA | Event | `location` |
+| Contact Method | Event | `contact_method` |
+| City (zona) | Event | `city` |
+| Service Slug | Event | `service_slug` |
+
+**3. Verificare ricezione in DebugView**
+
+GA4 Admin → DebugView → Apri il sito in Chrome con `?_ga4_debug=1` nell'URL (oppure installa l'estensione GA Debugger) → naviga, compila il wizard, clicca telefono/WhatsApp → verifica che gli eventi arrivino con i parametri corretti e senza campi PII.
+
+**4. Verificare che gli eventi non arrivino prima del consenso**
+
+DebugView → apri sito in incognito (nessun consenso salvato) → gli eventi non devono apparire finché non si clicca "Accetta analytics".
+
+---
+
 ## Stage 1 — Pricing Fix (COMPLETATO)
 
 **Data:** 2026-09-03  
