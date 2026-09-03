@@ -177,14 +177,19 @@ export default function Reviews() {
                     aria-selected={i === current}
                     aria-label={`Vai alla recensione ${i + 1}`}
                     onClick={() => goTo(i)}
-                    className="rounded-full transition-all duration-300"
-                    style={{
-                      width: i === current ? '20px' : '6px',
-                      height: '6px',
-                      backgroundColor: i === current ? '#F4BE12' : 'rgba(248,248,245,0.25)',
-                      flexShrink: 0,
-                    }}
-                  />
+                    className="flex items-center justify-center flex-shrink-0"
+                    style={{ width: '24px', height: '24px', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                  >
+                    <span
+                      className="rounded-full transition-all duration-300"
+                      style={{
+                        display: 'block',
+                        width: i === current ? '20px' : '6px',
+                        height: '6px',
+                        backgroundColor: i === current ? '#F4BE12' : 'rgba(248,248,245,0.25)',
+                      }}
+                    />
+                  </button>
                 ))
               })()}
             </div>
