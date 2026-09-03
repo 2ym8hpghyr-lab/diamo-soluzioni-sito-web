@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useId } from 'react'
 import { business, whatsappUrl } from '@/config/business'
 import { formatEur } from '@/config/pricing'
+import { SERVICE_SLUG_MAP } from '@/config/wizard'
 import { trackEvent } from '@/lib/analytics'
 
 /* ─────────────────────────────────────────────────────────────
@@ -81,6 +82,23 @@ const IconWall = (
     <path d="M3 9h18M3 15h18M9 4v5M15 9v6M9 15v5" />
   </svg>
 )
+const IconDoor = (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...stroke} aria-hidden>
+    <rect x="3" y="2" width="18" height="20" rx="1" />
+    <rect x="7" y="6" width="10" height="12" rx="0.5" />
+    <circle cx="15.5" cy="12" r="0.8" fill="currentColor" stroke="none" />
+  </svg>
+)
+const IconDroplet = (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...stroke} aria-hidden>
+    <path d="M12 2C12 2 4 10 4 15a8 8 0 0 0 16 0c0-5-8-13-8-13Z" />
+  </svg>
+)
+const IconBolt = (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...stroke} aria-hidden>
+    <path d="M13 2 4.5 13.5H11L10 22l9.5-11.5H14L13 2Z" />
+  </svg>
+)
 const IconMore = (
   <svg viewBox="0 0 24 24" width="20" height="20" {...stroke} aria-hidden>
     <circle cx="5" cy="12" r="1.5" />
@@ -118,11 +136,14 @@ const IconUpload = (
 
 const SERVICES: ServiceOption[] = [
   { id: 'ristrutturazione_completa', label: 'Ristrutturazione completa', icon: IconHouse },
-  { id: 'bagno_piccolo', label: 'Bagno', icon: IconBath },
-  { id: 'pavimento', label: 'Pavimenti e rivestimenti', icon: IconFloor },
-  { id: 'tinteggiatura', label: 'Tinteggiatura e rasatura', icon: IconPaint },
-  { id: 'cappotto', label: 'Opere murarie', icon: IconWall },
-  { id: 'altro', label: 'Altro', icon: IconMore },
+  { id: 'bagno_piccolo',            label: 'Bagno',                      icon: IconBath    },
+  { id: 'pavimento',                label: 'Pavimenti e rivestimenti',   icon: IconFloor   },
+  { id: 'tinteggiatura',            label: 'Tinteggiatura',              icon: IconPaint   },
+  { id: 'impianto_idraulico',       label: 'Impianto idraulico',         icon: IconDroplet },
+  { id: 'impianto_elettrico',       label: 'Impianto elettrico',         icon: IconBolt    },
+  { id: 'infissi',                  label: 'Infissi e serramenti',       icon: IconDoor    },
+  { id: 'cappotto',                 label: 'Cappotto termico',           icon: IconWall    },
+  { id: 'altro',                    label: 'Altro',                      icon: IconMore    },
 ]
 
 const SIZE_PRESETS = [
@@ -162,6 +183,20 @@ export default function QuoteWizard() {
 
   // Reference sopravvive tra i render per l'ID lead
   const [leadId] = useState(() => `DS-${Date.now().toString(36).toUpperCase()}`)
+
+  // Preseleziona il servizio dal parametro URL ?service=<slug-pagina>
+  // Compatibile con back/forward: la URL con ?service= è già nel history stack,
+  // quindi tornando avanti il componente si rimonta e ri-esegue questo effetto.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const slug = params.get('service') ?? ''
+    const serviceId = SERVICE_SLUG_MAP[slug]
+    if (!serviceId) return
+    const opt = SERVICES.find(s => s.id === serviceId)
+    if (opt) {
+      setState(s => ({ ...s, serviceId: opt.id, serviceLabel: opt.label }))
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Stima
   const [estimate, setEstimate] = useState<EstimateResult | null>(null)
@@ -414,7 +449,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                     <label className="block text-sm font-semibold text-graphite mb-4">
                       Che lavoro vuoi realizzare?
                     </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {SERVICES.map((opt, idx) => {
                         const selected = state.serviceId === opt.id
                         return (
