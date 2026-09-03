@@ -93,6 +93,65 @@ Per aggiornare un prezzo: modifica **solo** `config/pricing.ts` → riesegui i t
 
 ---
 
+## Stage 3 — Privacy Policy, Consenso e Cookie (COMPLETATO)
+
+**Data:** 2026-09-03
+**Branch:** main (commit 543f65f)
+**Obiettivo:** Coerenza tra privacy policy, modulo contatti, consenso analytics e revoca.
+
+### Problemi confermati e risolti
+
+| # | Problema | Fix |
+|---|----------|-----|
+| 1 | `marketingOk` raccolto nel wizard ma **silenziosamente ignorato** da API e `notifications.ts` — nessun sistema marketing esiste | Rimosso completamente il checkbox, il campo dallo stato, e l'invio nell'API |
+| 2 | `CookieBanner.reject()` impostava localStorage ma **non emetteva alcun evento** → GA rimaneva attivo per la sessione corrente | `writeConsentState(false)` ora emette `CONSENT_REVOKED_EVENT`; `GoogleAnalytics` ascolta e chiama `gtag('consent', 'update', {analytics_storage: 'denied'})` |
+| 3 | Privacy Policy §8: diceva "cancella dati browser" ma il pulsante "Impostazioni cookie" già esisteva nel footer | §8 riscritto: pulsante footer (metodo primario) + browser (alternativa) |
+| 4 | Cloudflare usato (vercel.json con `Cloudflare-CDN-Cache-Control`) ma non citato in §5 | Aggiunto Cloudflare Inc. come fornitore CDN |
+| 5 | Privacy Policy §3: affermava "nessun marketing" mentre il wizard aveva il checkbox | §3 rafforzato + checkbox rimosso → coerenza piena |
+
+### Nuovi file
+
+**`config/consent.ts`** — sorgente unica per le costanti di consenso:
+- `CONSENT_KEY` — chiave localStorage
+- `CONSENT_ACCEPTED_EVENT` — evento accettazione
+- `CONSENT_REVOKED_EVENT` — evento revoca (nuovo)
+- `CONSENT_SETTINGS_EVENT` — evento apertura banner
+- `readConsentState()` → `'accepted' | 'rejected' | null`
+- `writeConsentState(bool)` → scrive localStorage + emette evento corretto
+
+### File modificati
+
+| File | Modifica |
+|------|----------|
+| `config/consent.ts` | Nuovo — sorgente unica costanti e funzioni consenso |
+| `components/CookieBanner.tsx` | Usa `writeConsentState()`; `reject()` ora emette `CONSENT_REVOKED_EVENT` |
+| `components/GoogleAnalytics.tsx` | Ascolta `CONSENT_REVOKED_EVENT` → `setConsented(false)` + GA4 consent mode |
+| `components/CookieSettingsButton.tsx` | Usa costante `CONSENT_SETTINGS_EVENT` |
+| `components/sections/QuoteWizard.tsx` | Rimosso `marketingOk`: stato, checkbox, invio API |
+| `app/privacy-policy/page.tsx` | §3 rafforzato, §5 Cloudflare aggiunto, §7-§8 revoca aggiornata, data settembre 2026 |
+| `tests/unit/consent.test.ts` | Nuovo — 21 test: costanti, readConsentState, writeConsentState, eventi, flussi composti, assenza dark pattern |
+
+### Test risultati
+
+```
+Test Suites: 4 passed, 4 total
+Tests:       222 passed, 222 total
+```
+
+### Cosa NON è stato modificato (corretto e invariato)
+
+- GA4 non viene caricato prima del consenso: `GoogleAnalytics` renderizza `null` finché `consented=false` ✓
+- Nessun dark pattern: banner non preseleziona nulla, i due pulsanti hanno pari visibilità ✓
+- Consenso tecnico (cookie necessari) non richiede banner per legge ✓
+- Cookie di profilazione/advertising: non presenti ✓
+
+### Nota professionale
+
+Questa modifica risolve le incoerenze tecniche evidenti e allinea testo e codice.
+**La conformità GDPR completa richiede revisione di un professionista privacy** — in particolare per: DPA con Vercel/Cloudflare/Resend/Anthropic, valutazione trasferimento dati extra-UE, e registro trattamenti ex art. 30 GDPR.
+
+---
+
 ## Stage 2 — URL Preselection & Wizard Completeness (COMPLETATO)
 
 **Data:** 2026-09-03
