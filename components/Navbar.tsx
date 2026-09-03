@@ -110,6 +110,7 @@ export default function Navbar() {
             alt="Diamo Soluzioni"
             width={40}
             height={40}
+            priority
             className="rounded-lg"
           />
           <div className="leading-tight">
