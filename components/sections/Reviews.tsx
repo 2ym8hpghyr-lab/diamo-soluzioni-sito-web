@@ -225,7 +225,7 @@ export default function Reviews() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-                <span className="text-xs tabular-nums ml-1" style={{ color: 'rgba(248,248,245,0.40)' }}>
+                <span className="text-xs tabular-nums ml-1" style={{ color: 'rgba(248,248,245,0.65)' }}>
                   {current + 1} / {total}
                 </span>
               </div>
