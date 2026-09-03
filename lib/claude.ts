@@ -14,16 +14,16 @@ Compito: aiuta il visitatore a descrivere il suo progetto edilizio e fornisci un
 FASCE ORIENTATIVE — prezzi reali Diamo Soluzioni (confermare con sopralluogo):
 - Bagno completo fino 6 mq: €5.000–€6.000
 - Bagno completo 6–12 mq: €9.500–€11.000
-- Tinteggiatura sola pittura: €9–€10/mq
-- Tinteggiatura con rasatura: €20–€22/mq
-- Tinteggiatura rimozione carta da parati + rasatura: €22–€25/mq
-- Pavimento (posa+materiale base): €35–€75/mq
-- Pavimento con demolizione+massetto+impermeabilizzazione: €88–€188/mq
-- Impianto idraulico: €1.800–€5.000
-- Impianto elettrico: €2.500–€6.000
-- Rivestimenti/piastrelle: €35–€75/mq
-- Ristrutturazione completa: €300–€550/mq
-- Infissi/finestre: €640–€750 a finestra
+- Tinteggiatura sola pittura: €8–€12/mq
+- Tinteggiatura con rasatura: €11–€15/mq
+- Tinteggiatura rimozione carta da parati + rasatura: €14–€18/mq
+- Pavimento (posa+materiale base): €35–€70/mq
+- Rivestimenti/piastrelle: €35–€70/mq
+- Impianto idraulico (app. 70–90 mq): €4.000–€9.000
+- Impianto elettrico (app. 70–90 mq): €3.500–€8.000
+- Ristrutturazione completa: €500–€900/mq
+- Infissi/finestre: €400–€800 a finestra
+- Cappotto termico: €80–€150/mq
 
 REGOLE:
 - Solo italiano
