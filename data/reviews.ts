@@ -107,6 +107,14 @@ export const reviews: Review[] = [
     published: true,
     order: 9,
   },
+  {
+    name: 'Valentina Giungato',
+    text: 'Persona affidabile, veloce e competente. Consigliato!',
+    rating: 5,
+    date: '3 Settembre 2026',
+    published: true,
+    order: 10,
+  },
 ]
 
 /** Restituisce solo le recensioni pubblicate, ordinate per `order` */
