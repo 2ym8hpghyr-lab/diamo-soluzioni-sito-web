@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
             Informativa sulla Privacy
           </h1>
           <p className="mt-3 text-sm" style={{ color: 'rgba(248,248,245,0.60)' }}>
-            Ultimo aggiornamento: agosto 2026
+            Ultimo aggiornamento: settembre 2026
           </p>
         </div>
       </section>
@@ -86,7 +86,10 @@ export default function PrivacyPolicyPage() {
               </ul>
               <p>
                 Non viene svolta alcuna attività di marketing, profilazione o cessione dei dati
-                a terzi per scopi promozionali.
+                a terzi per scopi promozionali. I dati raccolti tramite il preventivatore
+                (nome, telefono, email facoltativa, descrizione del progetto) sono usati
+                esclusivamente per rispondere alla richiesta e concordare il sopralluogo.
+                Nessuna comunicazione commerciale successiva viene inviata.
               </p>
             </Section>
 
@@ -117,6 +120,10 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   <strong>Vercel Inc.</strong> (hosting del sito web)
+                </li>
+                <li>
+                  <strong>Cloudflare Inc.</strong> (CDN e protezione DDoS — il traffico transita
+                  attraverso i server Cloudflare prima di raggiungere l&apos;hosting)
                 </li>
               </ul>
               <p>
@@ -168,8 +175,9 @@ export default function PrivacyPolicyPage() {
                   l&apos;utente. GA4 viene caricato <em>soltanto</em> dopo che l&apos;utente
                   clicca &quot;Accetta analytics&quot; nel banner presente sul sito. Chi clicca
                   &quot;Rifiuta&quot; non trasmette alcun dato a Google. La scelta è memorizzata
-                  nel browser e può essere modificata in qualsiasi momento cancellando i dati
-                  locali del sito. Informativa Google:{' '}
+                  nel browser e può essere modificata in qualsiasi momento tramite il pulsante
+                  &quot;Impostazioni cookie&quot; presente nel footer del sito, oppure cancellando
+                  i dati locali del browser per il dominio www.diamosoluzioni.com. Informativa Google:{' '}
                   <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#1F4852', fontWeight: 600 }}>
                     policies.google.com/privacy
                   </a>.
@@ -180,12 +188,25 @@ export default function PrivacyPolicyPage() {
               </p>
             </Section>
 
-            <Section title="8. Comunicazione e revoca del consenso analytics">
+            <Section title="8. Revoca del consenso analytics">
               <p>
                 Il consenso all&apos;analytics è libero, facoltativo e revocabile in qualsiasi
-                momento. Per revocare: apri le impostazioni del browser, cancella i dati locali
-                per il dominio <strong>www.diamosoluzioni.com</strong> — al prossimo accesso il
-                banner apparirà di nuovo e potrai scegliere nuovamente.
+                momento, senza conseguenze. Per modificare la scelta:
+              </p>
+              <ul>
+                <li>
+                  <strong>Metodo principale:</strong> clicca su <strong>&quot;Impostazioni cookie&quot;</strong>{' '}
+                  nel footer del sito — il banner si riapre e puoi cambiare la tua scelta.
+                </li>
+                <li>
+                  <strong>In alternativa:</strong> cancella i dati locali del browser per il dominio{' '}
+                  <strong>www.diamosoluzioni.com</strong> — al prossimo accesso il banner
+                  apparirà di nuovo.
+                </li>
+              </ul>
+              <p>
+                La revoca è efficace immediatamente: Google Analytics smette di raccogliere dati
+                nella sessione corrente e non viene ricaricato alle visite successive.
               </p>
             </Section>
 

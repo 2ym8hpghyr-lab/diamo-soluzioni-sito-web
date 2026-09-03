@@ -209,7 +209,6 @@ export default function QuoteWizard() {
   const [email, setEmail] = useState('')
   const [contactMethod, setContactMethod] = useState<ContactMethod>('phone')
   const [privacyOk, setPrivacyOk] = useState(false)
-  const [marketingOk, setMarketingOk] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState('')
 
@@ -350,11 +349,9 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
           description: [
             state.description,
             `Canale preferito: ${{ phone: 'Telefono', whatsapp: 'WhatsApp', email: 'Email' }[contactMethod] ?? contactMethod}`,
-            `Aggiornamenti email: ${marketingOk ? 'Sì' : 'No'}`,
           ].filter(Boolean).join('\n\n'),
           timing: state.timing + (state.timingNote ? ' — ' + state.timingNote : ''),
           contactMethod,
-          marketing: marketingOk,
           minTotal: estimate?.minTotal,
           maxTotal: estimate?.maxTotal,
           source: 'quote_wizard',
@@ -973,17 +970,6 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                               informativa privacy
                             </a>{' '}
                             <span className="text-red-500">*</span>
-                          </span>
-                        </label>
-                        <label className="flex items-start gap-2.5 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={marketingOk}
-                            onChange={e => setMarketingOk(e.target.checked)}
-                            className="mt-0.5 w-4 h-4 accent-teal cursor-pointer flex-shrink-0"
-                          />
-                          <span className="text-xs text-graphite/70 leading-relaxed">
-                            Voglio ricevere consigli e aggiornamenti occasionali via email (facoltativo).
                           </span>
                         </label>
                       </div>

@@ -1,19 +1,37 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Script from 'next/script'
+import {
+  CONSENT_KEY,
+  CONSENT_ACCEPTED_EVENT,
+  CONSENT_REVOKED_EVENT,
+} from '@/config/consent'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
+
+type GtagFn = (...args: unknown[]) => void
 
 export default function GoogleAnalytics() {
   const [consented, setConsented] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem('analytics_consent') === 'true') {
-      setConsented(true)
+    // Legge la scelta già espressa
+    if (localStorage.getItem(CONSENT_KEY) === 'true') setConsented(true)
+
+    const onAccept = () => setConsented(true)
+    const onRevoke = () => {
+      setConsented(false)
+      // Notifica GA4 via Consent Mode: smette di raccogliere dati nella sessione corrente
+      const w = window as unknown as { gtag?: GtagFn }
+      if (w.gtag) w.gtag('consent', 'update', { analytics_storage: 'denied' })
     }
-    const handler = () => setConsented(true)
-    window.addEventListener('cookie-consent', handler)
-    return () => window.removeEventListener('cookie-consent', handler)
+
+    window.addEventListener(CONSENT_ACCEPTED_EVENT, onAccept)
+    window.addEventListener(CONSENT_REVOKED_EVENT, onRevoke)
+    return () => {
+      window.removeEventListener(CONSENT_ACCEPTED_EVENT, onAccept)
+      window.removeEventListener(CONSENT_REVOKED_EVENT, onRevoke)
+    }
   }, [])
 
   if (!GA_ID || !consented) return null

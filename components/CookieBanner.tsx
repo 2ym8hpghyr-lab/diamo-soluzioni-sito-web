@@ -1,25 +1,29 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import {
+  CONSENT_KEY,
+  CONSENT_SETTINGS_EVENT,
+  writeConsentState,
+} from '@/config/consent'
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem('analytics_consent') === null) setVisible(true)
+    if (localStorage.getItem(CONSENT_KEY) === null) setVisible(true)
     const handler = () => setVisible(true)
-    window.addEventListener('open-cookie-settings', handler)
-    return () => window.removeEventListener('open-cookie-settings', handler)
+    window.addEventListener(CONSENT_SETTINGS_EVENT, handler)
+    return () => window.removeEventListener(CONSENT_SETTINGS_EVENT, handler)
   }, [])
 
   const accept = () => {
-    localStorage.setItem('analytics_consent', 'true')
-    window.dispatchEvent(new Event('cookie-consent'))
+    writeConsentState(true)
     setVisible(false)
   }
 
   const reject = () => {
-    localStorage.setItem('analytics_consent', 'false')
+    writeConsentState(false)
     setVisible(false)
   }
 
