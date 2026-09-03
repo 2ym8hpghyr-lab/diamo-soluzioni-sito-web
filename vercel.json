@@ -40,7 +40,85 @@
       ]
     },
     {
+      "source": "/servizi/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=3600"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=3600"
+        }
+      ]
+    },
+    {
       "source": "/progetti",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=3600"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/progetti/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=3600"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/chi-siamo",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=3600"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/faq",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=3600"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/blog",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=3600"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/blog/:path*",
       "headers": [
         {
           "key": "Cache-Control",

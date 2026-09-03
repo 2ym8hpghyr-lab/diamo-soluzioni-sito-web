@@ -1,7 +1,27 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { business } from '@/config/business'
-import QuoteWizard from '@/components/sections/QuoteWizard'
+
+function WizardSkeleton() {
+  return (
+    <div
+      className="rounded-2xl w-full"
+      style={{
+        backgroundColor: '#FAFAF7',
+        minHeight: 520,
+        boxShadow: '0 18px 48px -16px rgba(0,0,0,0.55)',
+      }}
+      aria-busy="true"
+      aria-label="Caricamento preventivatore"
+    />
+  )
+}
+
+const QuoteWizard = dynamic(
+  () => import('@/components/sections/QuoteWizard'),
+  { ssr: false, loading: WizardSkeleton }
+)
 
 const PIN_ICON = (
   <svg className="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">

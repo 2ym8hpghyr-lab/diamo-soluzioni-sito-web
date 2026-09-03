@@ -4,13 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { getPublishedReviews, getAverageRating } from '@/data/reviews'
 import { business } from '@/config/business'
 
-type GtagFn = (...args: unknown[]) => void
-function trackEvent(name: string, params?: Record<string, unknown>) {
-  const w = window as unknown as { gtag?: GtagFn }
-  if (typeof window !== 'undefined' && w.gtag) {
-    w.gtag('event', name, params)
-  }
-}
+import { trackEvent } from '@/lib/analytics'
 
 function Stars({ count }: { count: number }) {
   return (
