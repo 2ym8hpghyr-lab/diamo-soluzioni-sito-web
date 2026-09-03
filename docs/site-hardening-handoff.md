@@ -91,6 +91,77 @@ Per aggiornare un prezzo: modifica **solo** `config/pricing.ts` → riesegui i t
 
 ---
 
+---
+
+## Stage 2 — URL Preselection & Wizard Completeness (COMPLETATO)
+
+**Data:** 2026-09-03
+**Branch:** main (commit 0091833)
+**Obiettivo:** Correggere il collegamento pagine servizi → preventivatore; preselezionare il servizio dal parametro URL `?service=<slug>`.
+
+### Problema confermato
+
+- Il wizard non leggeva `?service=` da nessuna parte (nessun `useSearchParams` né lettura di `window.location.search`)
+- 3 servizi mancavano dai pulsanti Step 1: `infissi`, `impianto_idraulico`, `impianto_elettrico` → finivano su "Altro"
+- `cappotto` era etichettato "Opere murarie" (non coerente con la pagina /servizi/facciate-cappotto-termico)
+- Risultato: link `/?service=infissi-serramenti#preventivatore` apriva il wizard con Step 1 vuoto, "Continua" disabilitato
+
+### Soluzione implementata
+
+**`config/wizard.ts`** (nuovo file) — mappatura stabile e testabile:
+```
+ristrutturazioni-chiavi-in-mano → ristrutturazione_completa
+ristrutturazione-bagno          → bagno_piccolo
+pavimentazioni-rivestimenti     → pavimento
+infissi-serramenti              → infissi
+facciate-cappotto-termico       → cappotto
+tinteggiatura                   → tinteggiatura
+impianti-idraulici              → impianto_idraulico
+impianti-elettrici              → impianto_elettrico
+```
+
+**`components/sections/QuoteWizard.tsx`** — modifiche:
+- Import `SERVICE_SLUG_MAP` da `@/config/wizard`
+- `useEffect` al mount: legge `window.location.search` → mappa slug → preseleziona `serviceId`/`serviceLabel`
+  - Slug non validi o assenti: nessun effetto (nessun crash, form invariato)
+- Aggiunta 3 voci al SERVICES array: `infissi`, `impianto_idraulico`, `impianto_elettrico`
+- Rename: `cappotto` label "Opere murarie" → "Cappotto termico"
+- Grid Step 1: `grid-cols-2 sm:grid-cols-3` per 9 pulsanti (3×3 su desktop)
+- 3 nuove icone SVG inline: `IconDoor`, `IconDroplet`, `IconBolt`
+
+**Browser back/forward**: la URL `?service=xxx` è già nel history stack; premendo avanti il componente si rimonta e ri-esegue l'effetto → servizio preselezionato automaticamente.
+
+### Test risultati
+
+```
+Test Suites: 3 passed, 3 total
+Tests:       201 passed, 201 total
+```
+
+**`tests/unit/wizard.test.ts`** (nuovo, 36 test):
+- Struttura: 8 slug esatti, no chiavi vuote
+- Coerenza con `data/services.ts`: ogni slug esiste nei servizi pubblici
+- Coerenza con `config/pricing.ts`: ogni serviceId mappato esiste in PRICING
+- Coerenza con wizard SERVICES array: ogni serviceId è un pulsante del wizard
+- Slug invalidi (`''`, `'non-esiste'`, `'altro'`, `'123'`...) → `undefined` senza crash
+- Copertura bidirezionale: tutti i pricingRef → coperti dalla mappa
+
+### File modificati
+
+| File | Tipo | Modifica |
+|------|------|----------|
+| `config/wizard.ts` | Nuovo | Mappatura SERVICE_SLUG_MAP (8 entry) |
+| `components/sections/QuoteWizard.tsx` | Modifica | URL preselection, 3 servizi aggiunti, label fix, grid |
+| `tests/unit/wizard.test.ts` | Nuovo | 36 test copertura completa slug mapping |
+
+### Percorso utente verificato (live)
+
+Ogni pagina `/servizi/<slug>` contiene due link `/?service=<slug>#preventivatore`.
+Cliccando, il wizard si apre alla home con Step 1 e il servizio corretto già evidenziato.
+"Continua" è abilitato immediatamente — l'utente può procedere senza toccare nulla.
+
+---
+
 ## Stage 0 — Performance & UX (COMPLETATO in sessione precedente)
 
 | Intervento | Risultato |
