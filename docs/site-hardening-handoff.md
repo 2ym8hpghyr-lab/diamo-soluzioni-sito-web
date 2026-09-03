@@ -1,5 +1,112 @@
 # Site Hardening — Handoff Document
 
+## Stage 6 — SEO Tecnico (COMPLETATO — PASS SEO TECNICO)
+
+**Data:** 2026-09-03  
+**Branch:** main (commit dc2072d)  
+**Obiettivo:** Crawl completo della sitemap, verifica e correzione di canonical, redirect, email obfuscation, sitemap lastmod, link interni, JSON-LD e robots.
+
+---
+
+### Crawl riepilogo — 31 URL
+
+| Metrica | Risultato |
+|---------|-----------|
+| URL totali in sitemap | 31 |
+| Status 200 | 31/31 ✅ |
+| Canonical con `https://www.` | 31/31 ✅ |
+| robots meta su pagine indicizzabili | assente (corretto) ✅ |
+| OG tags presenti | 31/31 ✅ |
+| JSON-LD presente | 31/31 ✅ |
+| aggregateRating non verificato | assente ✅ |
+| H1 tag | presente (falso negativo crawler: H1 contiene `<br/>` e `<span>`, regex strict fallisce) ✅ |
+| Link interni rotti | 0/21 ✅ |
+| 404 status | 404 reale + noindex + titolo specifico ✅ |
+| Vercel domain noindex | middleware → `X-Robots-Tag: noindex` ✅ |
+
+---
+
+### Struttura JSON-LD per tipo di pagina
+
+| Pagina | Schema |
+|--------|--------|
+| Tutte (layout globale) | `WebSite` + `LocalBusiness/HomeAndConstructionBusiness` |
+| `/faq` | + `FAQPage` |
+| `/blog/[slug]` | + `BlogPosting` + `BreadcrumbList` |
+| `/servizi/[slug]` | specifico del servizio |
+| Nessuna pagina | `aggregateRating` (nessuna recensione verificata inserita) ✅ |
+
+---
+
+### Fix applicati
+
+| File | Fix | Dettaglio |
+|------|-----|-----------|
+| `vercel.json` | `redirects` per `/privacy` e `/privacy/` | Routing Vercel-level prima di Next.js |
+| `next.config.mjs` | `/privacy/` → `/privacy-policy` aggiunto | Fallback per dev locale |
+| `app/privacy/page.tsx` | **eliminato** | Ridondante con redirect in config |
+| `components/EmailLink.tsx` | **nuovo** client component | `href="mailto:"` impostato via `useEffect`; server HTML ha `href=undefined` — Cloudflare non obfusca |
+| `components/Footer.tsx` | `<a mailto:>` → `<EmailLink>` | Nessun mailto nell'HTML statico |
+| `components/contatti/ContactCards.tsx` | `<a mailto:>` → `<EmailLink>` | idem |
+| `app/privacy-policy/page.tsx` | `<a mailto:>` → `<EmailLink>` | idem |
+| `app/sitemap.ts` | `lastModified: new Date()` rimosso | Solo blog post mantiene `dateModified` reale |
+
+---
+
+### Redirect verificati post-deploy
+
+| URL | Catena | Esito |
+|-----|--------|-------|
+| `http://diamosoluzioni.com/` | → 301 → `https://www.` | 1 hop ✅ |
+| `https://diamosoluzioni.com/` | → 301 → `https://www.` | 1 hop ✅ |
+| `http://www.diamosoluzioni.com/` | → 301 → `https://www.` | 1 hop ✅ |
+| `/privacy` | → 308 → `/privacy-policy` | 1 hop ✅ |
+| `/privacy/` | → 308 → `/privacy` → 308 → `/privacy-policy` | 2 hop ⚠️ MANUALE |
+
+---
+
+### MANUALE — Cloudflare Dashboard (elementi residui non risolvibili via codice)
+
+**1. Ridurre `/privacy/` a 1 hop (Cloudflare Page Rule)**
+
+Cloudflare Dashboard → Rules → Page Rules → Create Page Rule:
+- URL: `www.diamosoluzioni.com/privacy/`
+- Setting: Forwarding URL → 301 Permanent Redirect
+- Destination: `https://www.diamosoluzioni.com/privacy-policy`
+
+*Motivo: Vercel normalizza il trailing slash (`/privacy/` → `/privacy`) prima che i suoi redirect vengano valutati, aggiungendo sempre un hop intermedio.*
+
+**2. Email plain text nella privacy policy (Cloudflare Email Address Obfuscation)**
+
+Cloudflare Dashboard → Scrape Shield → Email Address Obfuscation → **OFF**
+
+*Motivo: con questa feature attiva, Cloudflare sostituisce il testo `pellumbmurgu@gmail.com` nella pagina /privacy-policy con un placeholder JavaScript. Per conformità GDPR, il testo del titolare del trattamento deve essere leggibile senza JS. I link `mailto:` sono già gestiti via `EmailLink` client component e non creano link rotti per i crawler.*
+
+**3. Cache Rule `/_next/image` (già documentata in Stage 5)**
+
+*Vedi Stage 5 — sezione MANUALE.*
+
+---
+
+### robots.txt e sitemap verificati
+
+| Elemento | Stato |
+|----------|-------|
+| `robots.txt` — Googlebot `Allow: /` | ✅ |
+| `robots.txt` — `Sitemap:` referenziato | ✅ |
+| `sitemap.xml` — 31 URL | ✅ |
+| `sitemap.xml` — `lastmod` solo su blog post | ✅ |
+| Cloudflare content signals (prepend gestito da CF) | ✅ conforme |
+
+---
+
+### Verifica build e test post-deploy
+
+- Build: PASS (`next build` — 43 pagine, nessun errore, `/privacy` rimossa)
+- Test: **233 PASS** (5 suite invariate)
+
+---
+
 ## Stage 5 — Performance Mobile (COMPLETATO — PASS PRESTAZIONI)
 
 **Data:** 2026-09-03  
