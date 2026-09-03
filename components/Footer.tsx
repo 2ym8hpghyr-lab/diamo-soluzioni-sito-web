@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { business } from '@/config/business'
 import { services } from '@/data/services'
 import CookieSettingsButton from './CookieSettingsButton'
+import EmailLink from './EmailLink'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -111,8 +112,8 @@ export default function Footer() {
                 </span>
                 WhatsApp
               </a>
-              <a
-                href={`mailto:${business.email}`}
+              <EmailLink
+                email={business.email}
                 className="flex items-center gap-2.5 text-sm"
                 style={{ color: 'rgba(248,248,245,0.75)' }}
               >
@@ -122,7 +123,7 @@ export default function Footer() {
                   </svg>
                 </span>
                 {business.email}
-              </a>
+              </EmailLink>
               <div style={{ borderTop: '1px solid rgba(248,248,245,0.08)', paddingTop: '12px' }}>
                 <p className="text-xs" style={{ color: 'rgba(248,248,245,0.65)' }}>
                   Lun–Ven {business.hours.weekdays}

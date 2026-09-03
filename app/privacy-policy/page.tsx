@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { business } from '@/config/business'
+import EmailLink from '@/components/EmailLink'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -151,9 +152,9 @@ export default function PrivacyPolicyPage() {
               </ul>
               <p>
                 Per esercitare i propri diritti, è sufficiente inviare una richiesta via email a{' '}
-                <a href="mailto:pellumbmurgu@gmail.com" style={{ color: '#1F4852', fontWeight: 600 }}>
+                <EmailLink email="pellumbmurgu@gmail.com" style={{ color: '#1F4852', fontWeight: 600 }}>
                   pellumbmurgu@gmail.com
-                </a>.
+                </EmailLink>.
                 Risponderemo entro 30 giorni.
               </p>
             </Section>

@@ -1,6 +1,7 @@
 'use client'
 import { business, whatsappUrl } from '@/config/business'
 import { trackEvent } from '@/lib/analytics'
+import EmailLink from '@/components/EmailLink'
 
 const WA_MESSAGE = 'Buongiorno, ho visitato il vostro sito e vorrei informazioni per un sopralluogo gratuito.'
 
@@ -65,8 +66,8 @@ export default function ContactCards() {
         </span>
       </a>
 
-      <a
-        href={`mailto:${business.email}`}
+      <EmailLink
+        email={business.email}
         className="ds-card group flex flex-col gap-4 p-7 rounded-2xl bg-warm-white hover:shadow-card-hover transition-all"
       >
         <div className="w-12 h-12 rounded-xl flex items-center justify-center text-teal transition-all group-hover:bg-teal group-hover:text-white" style={{ backgroundColor: 'rgba(31,72,82,0.08)' }}>
@@ -79,7 +80,7 @@ export default function ContactCards() {
         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal group-hover:gap-2.5 transition-all">
           Manda una email {chevron}
         </span>
-      </a>
+      </EmailLink>
     </div>
   )
 }
