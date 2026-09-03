@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmailNotification, sendWhatsAppNotification, LeadData } from '@/lib/notifications'
+import { rateLimit, getClientIp } from '@/lib/ratelimit'
 
 const PHONE_RE = /^[\d\s+\-()]{7,20}$/
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function POST(req: NextRequest) {
+  if (!rateLimit(getClientIp(req), 5, 60_000)) {
+    return NextResponse.json({ success: false, error: 'Troppe richieste. Riprova tra qualche minuto.' }, { status: 429 })
+  }
   try {
     const body = await req.json()
     const { name, phone, email, leadId, serviceLabel, city, size, description, minTotal, maxTotal, source } = body

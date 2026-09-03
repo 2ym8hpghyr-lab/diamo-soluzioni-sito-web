@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { detectSuspiciousMessage, REDIRECT_MESSAGE } from '@/lib/security'
 import { buildChatResponse, buildEstimate, Message } from '@/lib/claude'
+import { rateLimit, getClientIp } from '@/lib/ratelimit'
 
 export async function POST(req: NextRequest) {
+  if (!rateLimit(getClientIp(req), 20, 60_000)) {
+    return NextResponse.json({ reply: 'Troppe richieste. Riprova tra qualche minuto.' }, { status: 429 })
+  }
   try {
     const body = await req.json()
 
