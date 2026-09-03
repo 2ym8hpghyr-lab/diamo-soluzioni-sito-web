@@ -576,3 +576,112 @@ La CDN non capisce `s-maxage` senza una Cache Rule esplicita.
 - Impostazione: **Eligible for cache** + Edge TTL: 1 ora
 
 Senza questa regola il TTFB rimane variabile (200–400 ms origin); con la regola scende a ~15 ms edge.
+
+---
+
+## Stage 7 — Hardening Sicurezza, Rate Limiting, Test (COMPLETATO — PASS HARDENING)
+
+**Data:** 2026-09-03  
+**Branch:** main (commit bf3ef36)  
+**Obiettivo:** Security headers HTTP, rate limiting API, dependency scan, fix TypeScript, e2e PASS.
+
+---
+
+### Header di sicurezza — live su www.diamosoluzioni.com
+
+Aggiunti in `vercel.json` via wildcard `source: "/(.*)"` — coprono tutte le route (HTML, API, static assets):
+
+| Header | Valore | Note |
+|--------|--------|------|
+| `Content-Security-Policy` | `default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests` | `unsafe-inline` richiesto da Next.js App Router (idratazione); nonce non applicabile su pagine SSG |
+| `X-Content-Type-Options` | `nosniff` | Blocca MIME-type sniffing |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` | Invia referrer solo verso stessa origine |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), interest-cohort=()` | Disabilita API browser non necessarie |
+| `X-XSS-Protection` | `0` | Disabilitato intenzionalmente — il CSP è la protezione; il vecchio header causa false blocking su Safari |
+| `Strict-Transport-Security` | già presente via Cloudflare | `max-age=63072000` |
+
+**Verifica curl eseguita su:** `/`, `/contatti`, `/api/lead` — tutti e 5 gli header presenti ✅
+
+---
+
+### Compatibilità garantita
+
+- **GA4:** `connect-src` include `google-analytics.com` + `analytics.google.com` + `googletagmanager.com`; script caricato solo dopo consenso da `https://www.googletagmanager.com` (in `script-src`) ✅
+- **Cloudflare email decode:** `/cdn-cgi/scripts/...` è same-origin → coperto da `'self'`; `'unsafe-inline'` copre l'inline script iniettato da CF ✅
+- **Font:** auto-hosted (`/fonts/` oppure `next/font`) → `font-src 'self'` ✅
+- **Immagini:** auto-hosted → `img-src 'self' data: blob:` ✅
+- **API `/api/chat` e `/api/lead`:** chiamate same-origin → `connect-src 'self'` ✅
+
+---
+
+### Rate limiting API
+
+Nuovo modulo `lib/ratelimit.ts` — in-memory Map per IP:
+
+| Endpoint | Limite | Finestra | IP source |
+|----------|--------|----------|-----------|
+| `/api/chat` | 20 req | 60 s | `CF-Connecting-IP` → `X-Forwarded-For` → `127.0.0.1` |
+| `/api/lead` | 5 req | 60 s | idem |
+
+Risposta HTTP 429 con messaggio localizzato italiano. Il Map si azzera sui cold start (accettabile per piccolo sito serverless).
+
+---
+
+### Protezione double-submit (confermata pre-esistente)
+
+`QuoteWizard.tsx`: stato `submitting` + `disabled={submitting}` sul bottone + `finally { setSubmitting(false) }` — nessuna modifica necessaria ✅
+
+---
+
+### Validazione input lato server (confermata pre-esistente)
+
+- `/api/lead`: `PHONE_RE`, `EMAIL_RE`, slicing su tutti i campi ✅
+- `/api/chat`: `detectSuspiciousMessage()` + limit 50 messaggi + slice 1000 char ✅
+- `lib/security.ts`: pattern injection injection ✅
+
+---
+
+### npm audit
+
+```
+Prima del fix:  12 vulnerabilità (qs + postcss/next)
+Dopo npm audit fix: qs aggiornato (non-breaking)
+Rimanenti: postcss + Next.js 14 — fix richiede next@16 (breaking change npm)
+```
+
+**Raccomandazione:** upgrade controllato a Next.js 15 come task separato.  
+Le vulnerabilità rimanenti sono nel framework stesso, non nel codice applicativo; Cloudflare + CSP offrono difesa in profondità.
+
+---
+
+### Test — risultati finali
+
+| Suite | Risultato |
+|-------|-----------|
+| Unit (Jest) | 233/233 PASS ✅ |
+| E2E Playwright (31 test, live site) | 31/31 PASS ✅ |
+| TypeScript typecheck | 0 errori ✅ |
+| Next.js build | 43 pagine statiche — 0 errori ✅ |
+
+Fix TypeScript applicati:
+- `tests/e2e/seo.spec.ts`: `[...matchAll()]` → `Array.from(matchAll())` (TS2802)
+- `tests/unit/data-integrity.test.ts`: `p.gallery` → `(p.gallery ?? [])` (TS18048)
+
+---
+
+### Commit e deploy
+
+| Fase | Dettaglio |
+|------|-----------|
+| Commit | `bf3ef36` — feat(security): Stage 7 |
+| Push | `main` → origin |
+| Deploy | Vercel — automatico via git push |
+| Verifica live | header confermati con `curl -sI https://www.diamosoluzioni.com/` ✅ |
+
+---
+
+### Attività MANUALE residua (da Stage 6, invariata)
+
+1. **Cloudflare Email Address Obfuscation** — disabilitare in Scrape Shield per evitare offuscamento del testo email plain nella privacy policy
+2. **Cloudflare Cache Rule** — attivare cache edge per HTML (riduce TTFB da ~300ms a ~15ms)
+3. **Redirect `/privacy/`** — 2 hop invece di 1; risolvibile con Cloudflare Page Rule (trailing slash → senza slash)
