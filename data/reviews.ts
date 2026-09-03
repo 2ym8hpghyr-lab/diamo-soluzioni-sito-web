@@ -115,6 +115,14 @@ export const reviews: Review[] = [
     published: true,
     order: 10,
   },
+  {
+    name: 'Eleonora Palmieri',
+    text: 'Mi affido sempre a loro, sono sempre puntuali e il personale è molto educato e professionale.',
+    rating: 5,
+    date: '3 Settembre 2026',
+    published: true,
+    order: 11,
+  },
 ]
 
 /** Restituisce solo le recensioni pubblicate, ordinate per `order` */
