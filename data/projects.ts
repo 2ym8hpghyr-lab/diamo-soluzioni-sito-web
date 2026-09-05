@@ -22,6 +22,7 @@ export interface Project {
   galleryAlts?: string[]
   description: string
   caseStudy?: CaseStudy
+  relatedBlog?: { slug: string; title: string }
   tags: string[]
 }
 
@@ -62,6 +63,10 @@ export const projects: Project[] = [
       costRange: 'Fascia indicativa per interventi analoghi: 500–900 €/mq — il costo reale varia in base a stato di partenza, metratura e finiture scelte.',
       result: 'Appartamento completamente rinnovato, consegnato nei tempi e costi concordati. Il cliente dispone ora di un appartamento moderno, efficiente e di facile manutenzione.',
       serviceSlug: 'ristrutturazioni-chiavi-in-mano',
+    },
+    relatedBlog: {
+      slug: 'ristrutturazione-appartamento-lodi-prezzi-2026',
+      title: 'Ristrutturazione appartamento Lodi: prezzi al mq e costi reali nel 2026',
     },
     tags: ['ristrutturazione', 'appartamento', 'lodi', 'gres', 'impianti'],
   },

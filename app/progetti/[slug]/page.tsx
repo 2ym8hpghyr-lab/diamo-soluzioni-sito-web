@@ -248,6 +248,28 @@ export default async function ProgettoPage({ params }: Props) {
         </div>
       </section>
 
+      {/* Articolo blog correlato */}
+      {project.relatedBlog && (
+        <section className="py-8" style={{ backgroundColor: '#F5F0E8' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] mb-3" style={{ color: '#6B5209' }}>Approfondimento</p>
+            <Link
+              href={`/blog/${project.relatedBlog.slug}`}
+              className="group inline-flex items-center gap-3 text-sm font-semibold transition-colors hover:opacity-80"
+              style={{ color: '#1F4852' }}
+            >
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              {project.relatedBlog.title}
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* Torna al portfolio */}
       <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
