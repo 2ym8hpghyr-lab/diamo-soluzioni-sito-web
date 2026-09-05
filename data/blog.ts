@@ -18,7 +18,7 @@ export const posts: BlogPost[] = [
   {
     slug: 'ristrutturazione-appartamento-lodi-prezzi-2026',
     title: 'Ristrutturazione appartamento Lodi: prezzi al mq e costi reali nel 2026',
-    seoTitle: 'Ristrutturazione appartamento Lodi: prezzi 2026 | Diamo Soluzioni',
+    seoTitle: 'Ristrutturazione appartamento Lodi: prezzi 2026',
     description: 'Quanto costa ristrutturare un appartamento a Lodi nel 2026? Fasce al mq, esempio da 80 mq, tempi e voci da controllare nel preventivo.',
     date: '2026-09-05',
     dateModified: '2026-09-05',
