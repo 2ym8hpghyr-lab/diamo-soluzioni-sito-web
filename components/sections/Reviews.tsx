@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { getPublishedReviews, getAverageRating } from '@/data/reviews'
+import { getPublishedReviews, getAverageRating, getGoogleReviewCount } from '@/data/reviews'
 import { business } from '@/config/business'
 
 import { trackEvent } from '@/lib/analytics'
@@ -14,6 +14,37 @@ function Stars({ count }: { count: number }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
         </svg>
       ))}
+    </div>
+  )
+}
+
+/** Oltre questa lunghezza il testo è troncato con "Leggi tutto" */
+const LONG_TEXT = 335
+
+function ReviewText({ text, name }: { text: string; name: string }) {
+  const [expanded, setExpanded] = useState(false)
+  const isLong = text.length > LONG_TEXT
+
+  return (
+    <div className="flex-1">
+      <p
+        className={`text-sm leading-relaxed whitespace-pre-line ${isLong && !expanded ? 'line-clamp-[8]' : ''}`}
+        style={{ color: 'rgba(248,248,245,0.85)' }}
+      >
+        &ldquo;{text}&rdquo;
+      </p>
+      {isLong && (
+        <button
+          type="button"
+          onClick={() => setExpanded(e => !e)}
+          aria-expanded={expanded}
+          aria-label={`${expanded ? 'Mostra meno' : 'Leggi tutto'}: recensione di ${name}`}
+          className="mt-1 py-1 text-xs font-semibold hover:opacity-80 transition-opacity"
+          style={{ color: '#F4BE12' }}
+        >
+          {expanded ? 'Mostra meno' : 'Leggi tutto'}
+        </button>
+      )}
     </div>
   )
 }
@@ -107,7 +138,7 @@ export default function Reviews() {
             <Stars count={5} />
             <span className="font-extrabold text-white text-lg">{avgRating.toFixed(1)}</span>
             <span className="text-sm" style={{ color: 'rgba(248,248,245,0.55)' }}>
-              · {total} recensioni Google
+              · {getGoogleReviewCount()} recensioni Google
             </span>
           </div>
         </div>
@@ -140,9 +171,7 @@ export default function Reviews() {
                 }}
               >
                 <Stars count={review.rating} />
-                <p className="text-sm leading-relaxed flex-1" style={{ color: 'rgba(248,248,245,0.85)' }}>
-                  &ldquo;{review.text}&rdquo;
-                </p>
+                <ReviewText text={review.text} name={review.name} />
                 <div>
                   <p className="font-semibold text-sm text-white">{review.name}</p>
                   {review.projectTag && (
