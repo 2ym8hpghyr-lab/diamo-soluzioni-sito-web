@@ -117,7 +117,7 @@ export default function Navbar() {
         </Link>
 
         {/* Nav desktop */}
-        <nav className="hidden md:flex items-center gap-1 flex-1 justify-center" aria-label="Navigazione principale">
+        <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center" aria-label="Navigazione principale">
 
           {/* Dropdown Servizi */}
           <div className="relative">
@@ -185,7 +185,7 @@ export default function Navbar() {
         </nav>
 
         {/* CTA desktop */}
-        <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+        <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
           <a
             href={`tel:${business.phone.primaryRaw}`}
             className="text-sm font-semibold text-teal hover:text-teal-dark transition-colors"
@@ -204,7 +204,7 @@ export default function Navbar() {
 
         {/* Hamburger mobile */}
         <button
-          className="md:hidden p-2 rounded-lg hover:bg-concrete transition-colors"
+          className="lg:hidden p-2 rounded-lg hover:bg-concrete transition-colors"
           onClick={() => setMenuOpen(v => !v)}
           aria-label={menuOpen ? 'Chiudi menu' : 'Apri menu'}
           aria-expanded={menuOpen}
@@ -220,7 +220,7 @@ export default function Navbar() {
 
       {/* Menu mobile */}
       {menuOpen && (
-        <div className="md:hidden border-t border-concrete bg-white px-4 pb-6 pt-4">
+        <div className="lg:hidden border-t border-concrete bg-white px-4 pb-6 pt-4">
           <nav aria-label="Menu mobile">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 px-1">Servizi</p>
             {services.map(s => (

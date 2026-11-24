@@ -181,10 +181,10 @@ body {
   margin: 0 0 1.1rem;
 }
 .blog-content li { margin-bottom: 0.35rem; }
-/* Articoli importati: ripristina i marcatori azzerati dal preflight di Tailwind */
-.blog-content--markers ul { list-style: disc; }
-.blog-content--markers ol { list-style: decimal; }
-.blog-content--markers li::marker { color: #B88A32; font-weight: 600; }
+/* Ripristina i marcatori azzerati dal preflight di Tailwind */
+.blog-content ul { list-style: disc; }
+.blog-content ol { list-style: decimal; }
+.blog-content li::marker { color: #B88A32; font-weight: 600; }
 .blog-content a {
   color: #1F4852;
   font-weight: 600;

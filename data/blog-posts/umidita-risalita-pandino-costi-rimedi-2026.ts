@@ -140,7 +140,7 @@ export const umiditaRisalitaPandino: BlogPost = {
   </div>
 </div>
 <h2>Hai un muro umido a Pandino?</h2>
-<p>Puoi usare il <a href="/#preventivatore">Preventivatore AI Diamo Soluzioni</a> per ottenere una prima stima orientativa. Inserisci misure, descrizione e tipo di problema (le fotografie puoi inviarcele su WhatsApp): serve a capire l’ordine di grandezza, non sostituisce una diagnosi.</p>
+<p>Puoi usare il <a href="/#preventivatore">Preventivatore AI Diamo Soluzioni</a> per ottenere una prima stima orientativa. Inserisci misure, descrizione e tipo di problema (le fotografie puoi inviarcele su WhatsApp): serve a capire l’ordine di grandezza, non sostituisce una diagnosi. Se i dati non bastano per calcolare una fascia, il Preventivatore lo segnala e ricevi una valutazione personalizzata.</p>
 <p>Il prezzo reale arriva dopo il sopralluogo gratuito e un preventivo scritto basato sulle lavorazioni necessarie. Se il problema riguarda anche l’esterno, puoi vedere il nostro servizio <a href="/servizi/facciate-cappotto-termico">facciate e cappotto termico</a>.</p>
 <p>Vuoi capire perché il muro continua a rovinarsi? <a href="/contatti">Contattaci</a>, <a href="https://wa.me/393444619461?text=Buongiorno%2C%20ho%20letto%20l%27articolo%20sull%27umidit%C3%A0%20di%20risalita%20a%20Pandino.%20Vorrei%20richiedere%20un%20sopralluogo%20gratuito." target="_blank" rel="noopener noreferrer">scrivici su WhatsApp</a> al <a href="tel:+393444619461" class="nowrap">+39 344 461 9461</a> o chiamaci allo stesso numero. Nel messaggio puoi scrivere: “Umidità Pandino” e allegare una foto panoramica più due dettagli ravvicinati.</p>
 `,

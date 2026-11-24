@@ -114,7 +114,7 @@ export const infiltrazioniTettoMelegnano: BlogPost = {
 <p>Ritinteggiare subito il soffitto è quasi sempre prematuro. Prima si elimina la causa, poi si lascia asciugare il pacchetto e infine si ripristinano intonaco e pittura.</p>
 <p>Per vedere come lavoriamo sulle superfici esterne puoi consultare il servizio <a href="/servizi/facciate-cappotto-termico">facciate e cappotto termico</a> e il <a href="/progetti/facciate">progetto facciate</a>. Sono collegamenti utili per conoscere metodo e finiture: mostrano lavori su facciate, non interventi su un tetto.</p>
 <h2>Prima stima con il Preventivatore AI</h2>
-<p>Il <a href="/#preventivatore">Preventivatore AI Diamo Soluzioni</a> può darti una prima stima orientativa inserendo tipo di problema, superficie e alcune informazioni di base. Serve per capire se stiamo parlando di una riparazione circoscritta o di un intervento più importante.</p>
+<p>Il <a href="/#preventivatore">Preventivatore AI Diamo Soluzioni</a> può darti una prima stima orientativa inserendo tipo di problema, superficie e alcune informazioni di base. Serve per capire se stiamo parlando di una riparazione circoscritta o di un intervento più importante. Se i dati non bastano per calcolare una fascia, il Preventivatore lo segnala e ricevi una valutazione personalizzata.</p>
 <p>Non può però vedere il percorso dell’acqua né lo stato della guaina. Il prezzo reale arriva dopo un sopralluogo gratuito e un preventivo scritto, basato sulle lavorazioni effettivamente necessarie.</p>
 <h2>FAQ sulle infiltrazioni dal tetto</h2>
 <div class="faq-list">

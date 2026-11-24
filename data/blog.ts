@@ -297,11 +297,11 @@ export const posts: BlogPost[] = [
 
 <h2>Serve la CILA per ristrutturare il bagno?</h2>
 <p>Dipende dai lavori. Sostituire finiture e sanitari senza cambiare muri o distribuzione può rientrare nell'edilizia libera. Spostare tramezzi o ampliare il locale può richiedere una CILA; se vengono interessate parti strutturali, il titolo cambia.</p>
-<p>Non conviene indovinare. Prima di iniziare va controllato il caso concreto con un tecnico e con le regole del Comune competente. I riferimenti nazionali sono il <a href="https://www.mit.gov.it/comunicazione/news/edilizia-libera/glossario-edilizia-libera" target="_blank" rel="noopener noreferrer">Glossario dell'edilizia libera</a> e l'<a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.del.presidente.della.repubblica:2001-06-06;380" target="_blank" rel="noopener noreferrer">art. 6-bis del Testo unico dell'edilizia</a>.</p>
+<p>Non conviene indovinare. Prima di iniziare va controllato il caso concreto con un tecnico e con le regole del Comune competente. I riferimenti nazionali sono il <a href="https://www.gazzettaufficiale.it/eli/gu/2018/04/07/81/sg/pdf" target="_blank" rel="noopener noreferrer">Glossario dell'edilizia libera</a> e l'<a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.del.presidente.della.repubblica:2001-06-06;380" target="_blank" rel="noopener noreferrer">art. 6-bis del Testo unico dell'edilizia</a>.</p>
 
 <h2>Bonus ristrutturazione bagno 2026</h2>
 <p>Nel 2026 la detrazione per gli interventi ammessi è stata mantenuta al 50% per l'abitazione principale del proprietario o titolare di un diritto reale e al 36% negli altri casi. Una semplice sostituzione non dà automaticamente diritto al bonus: contano intervento, documenti e pagamento.</p>
-<p>Prima di fare affidamento sulla detrazione, verifica il tuo caso con il commercialista o il tecnico. Il riferimento aggiornato è la <a href="https://www.agenziaentrate.gov.it/portale/web/guest/schede/agevolazioni/ristrutturazioni-edilizie-le-agevolazioni-fiscali" target="_blank" rel="noopener noreferrer">scheda agevolazioni dell'Agenzia delle Entrate</a>.</p>
+<p>Prima di fare affidamento sulla detrazione, verifica il tuo caso con il commercialista o il tecnico. Il riferimento aggiornato è la <a href="https://www.agenziaentrate.gov.it/portale/ristrutturazioni-edilizie-le-agevolazioni-fiscali" target="_blank" rel="noopener noreferrer">scheda agevolazioni dell'Agenzia delle Entrate</a>.</p>
 
 <h2>Il Preventivatore AI dà il prezzo definitivo?</h2>
 <p>No. Il Preventivatore AI di Diamo Soluzioni serve per ottenere in circa due minuti una prima fascia orientativa in base a lavoro, zona, metratura, descrizione e tempistica.</p>

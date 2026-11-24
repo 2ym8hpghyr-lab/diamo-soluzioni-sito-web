@@ -176,7 +176,7 @@ export default async function BlogPostPage({ params }: Props) {
           <BlogBodyTracker targetId={ARTICLE_BODY_ID} articleSlug={post.slug} />
           <div
             id={ARTICLE_BODY_ID}
-            className={post.cta ? 'blog-content blog-content--markers' : 'blog-content'}
+            className="blog-content"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 

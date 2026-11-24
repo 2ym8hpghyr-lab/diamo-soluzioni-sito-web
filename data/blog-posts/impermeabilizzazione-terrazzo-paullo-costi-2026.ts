@@ -63,7 +63,7 @@ export const impermeabilizzazioneTerrazzoPaullo: BlogPost = {
 <p>Su un terrazzo piccolo, inoltre, il prezzo al metro quadro tende a salire: protezioni, trasporto, attrezzatura e giornate di lavoro esistono anche se la superficie è di 12 m².</p>
 <h2>Esempio orientativo su 25 m²</h2>
 <p>Se il pavimento è ben aderente, le pendenze funzionano e il problema è compatibile con un ciclo sopra l’esistente, il lavoro può collocarsi indicativamente tra 1.800 e 3.200 euro.</p>
-<p>Se invece bisogna demolire, smaltire, ricostruire il massetto delle pendenze, rifare scarichi e risvolti, impermeabilizzare e posare un nuovo gres, l’ordine di grandezza può diventare 4.000–7.000 euro o più.</p>
+<p>Se invece bisogna demolire, smaltire, ricostruire il massetto delle pendenze, rifare scarichi e risvolti, impermeabilizzare e posare un nuovo gres, l’ordine di grandezza può diventare 4.000–7.000 euro o più. Su superfici ridotte i costi fissi di cantiere possono portare il totale oltre la semplice moltiplicazione dei metri quadrati.</p>
 <p>Non è l’esempio di un nostro cliente. Serve a mostrare perché una cifra precisa senza sopralluogo sarebbe poco seria.</p>
 <h2>Prima del prodotto viene la diagnosi</h2>
 <p>L’acqua non entra necessariamente nel punto in cui compare la macchia. Può passare da un bocchettone, correre sotto le piastrelle e uscire diversi metri più avanti.</p>
@@ -154,7 +154,7 @@ export const impermeabilizzazioneTerrazzoPaullo: BlogPost = {
 <p>Nel 2026 alcune opere di recupero edilizio possono rientrare nella detrazione prevista dalla normativa, con aliquota che può arrivare al 50% per l’abitazione principale nei casi e per i soggetti ammessi. Non significa che qualunque sigillatura abbia automaticamente diritto al bonus.</p>
 <p>Prima dei lavori vanno verificati tipo d’intervento, proprietà, eventuali parti condominiali, pagamenti e documentazione. Il riferimento aggiornato è la <a href="https://www.agenziaentrate.gov.it/portale/ristrutturazioni-edilizie-le-agevolazioni-fiscali" target="_blank" rel="noopener noreferrer">guida dell’Agenzia delle Entrate sulle ristrutturazioni edilizie</a>. Per le singole lavorazioni è disponibile anche il <a href="https://www.regione.lombardia.it/infrastrutture-trasporti-e-mobilita/opere-pubbliche/prezzario-regionale-dei-lavori-pubblici/ser-prezzario-infr" target="_blank" rel="noopener noreferrer">Prezzario Regione Lombardia 2026</a>, approvato il 27 aprile 2026: è un riferimento tecnico, non il preventivo di un cantiere privato.</p>
 <h2>Prima stima e sopralluogo gratuito a Paullo</h2>
-<p>Con il <a href="/#preventivatore">Preventivatore AI Diamo Soluzioni</a> puoi ottenere una prima stima orientativa inserendo superficie e tipo di problema. Serve per capire l’ordine di grandezza, non per decidere il prezzo finale.</p>
+<p>Con il <a href="/#preventivatore">Preventivatore AI Diamo Soluzioni</a> puoi ottenere una prima stima orientativa inserendo superficie e tipo di problema. Serve per capire l’ordine di grandezza, non per decidere il prezzo finale. Se i dati non bastano per calcolare una fascia, il Preventivatore lo segnala e ricevi una valutazione personalizzata.</p>
 <p>Il prezzo reale arriva dopo un sopralluogo gratuito, la verifica delle cause e un preventivo scritto con lavorazioni comprese ed escluse.</p>
 <h2>Domande frequenti</h2>
 <div class="faq-list">
