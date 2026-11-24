@@ -171,7 +171,7 @@ export default function Reviews() {
                 }}
               >
                 <Stars count={review.rating} />
-                <ReviewText text={review.text} name={review.name} />
+                {review.text ? <ReviewText text={review.text} name={review.name} /> : <div className="flex-1" aria-hidden />}
                 <div>
                   <p className="font-semibold text-sm text-white">{review.name}</p>
                   {review.projectTag && (

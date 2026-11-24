@@ -120,11 +120,12 @@ describe('reviews.ts — integrità dati', () => {
     expect(avg).toBeLessThanOrEqual(5.0)
   })
 
-  test('ogni recensione ha rating 1–5 e testo non vuoto', () => {
+  test('ogni recensione ha rating 1–5 e testo valido', () => {
     for (const r of getPublishedReviews()) {
       expect(r.rating).toBeGreaterThanOrEqual(1)
       expect(r.rating).toBeLessThanOrEqual(5)
-      expect(r.text.trim().length).toBeGreaterThan(10)
+      // Un cliente può lasciare solo le stelle: testo vuoto ammesso, mai troppo corto
+      if (r.text) expect(r.text.trim().length).toBeGreaterThan(10)
       expect(r.name.trim().length).toBeGreaterThan(0)
     }
   })

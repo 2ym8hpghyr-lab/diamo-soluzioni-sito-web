@@ -15,7 +15,7 @@
 export interface Review {
   /** Nome del recensore come appare su Google */
   name: string
-  /** Testo completo della recensione */
+  /** Testo completo della recensione (vuoto se il cliente ha lasciato solo le stelle) */
   text: string
   /** Valutazione da 1 a 5 */
   rating: 1 | 2 | 3 | 4 | 5
@@ -34,7 +34,7 @@ export interface Review {
 export const reviews: Review[] = [
   {
     name: 'Aldo Di Cristo',
-    text: 'Ho affidato a Diamo Soluzioni la ristrutturazione completa di casa mia e non potrei essere più soddisfatto. Hanno rifatto interamente i bagni con una cura per i dettagli davvero notevole. Lavoro eseguito a regola d\'arte, tempi rispettati e massima professionalità in ogni fase.',
+    text: 'Ho affidato a Diamo Soluzioni la ristrutturazione completa di casa mia e non potrei essere più soddisfatto. Hanno rifatto interamente i bagni con una cura millimetrica per le finiture, posato i pavimenti in modo impeccabile e sostituito tutti gli infissi, che ora isolano perfettamente. Anche il rifacimento dell\'impianto elettrico è stato eseguito a regola d\'arte e in totale sicurezza. Il vero valore aggiunto è stato avere un unico referente per tutti i lavori, zero stress e massima professionalità dall\'inizio dei lavori alla consegna. Consigliatissimi!',
     rating: 5,
     date: 'Agosto 2026',
     projectTag: 'Ristrutturazione completa',
@@ -60,7 +60,7 @@ export const reviews: Review[] = [
   },
   {
     name: 'Andrei Gugea',
-    text: 'Mi sono affidato a Diamo Soluzioni per alcuni lavori in casa e sono rimasto davvero soddisfatto. Sono stati disponibili fin dall\'inizio, hanno ascoltato le mie esigenze e hanno lavorato con grande cura e professionalità. Li consiglio senza esitazione.',
+    text: 'Mi sono affidato a Diamo Soluzioni per alcuni lavori in casa e sono rimasto davvero soddisfatto. Sono stati disponibili fin dall’inizio, hanno ascoltato le mie esigenze e mi hanno spiegato tutto con chiarezza, senza cercare di aggiungere lavori inutili. Durante i lavori sono stati precisi, ordinati e attenti ai dettagli. Il risultato finale è venuto proprio come speravo.',
     rating: 5,
     date: 'Agosto 2026',
     published: true,
@@ -76,7 +76,7 @@ export const reviews: Review[] = [
   },
   {
     name: 'Muhammad Achar Bozdar',
-    text: 'Ristrutturazione completa eccellente. Assolutamente consigliati! Ottima qualità del lavoro, rispetto dei tempi e grande professionalità in ogni fase del cantiere.',
+    text: 'Ristrutturazione completa eccellente – Assolutamente consigliati!\n\nHo avuto un’esperienza davvero eccellente con Diamo Soluzioni e il Sig. Murgu Pellumb, che hanno ristrutturato completamente due miei appartamenti, praticamente da zero fino alla consegna finale.\n\nNon si è trattato di una semplice ristrutturazione: hanno seguito e realizzato praticamente tutto, compreso il rifacimento completo dell’impianto elettrico con nuovi cavi, l’impianto idraulico, la posa delle piastrelle e dei pavimenti, l’installazione dell’aria condizionata, porte, finestre, finiture delle pareti, rasatura e tinteggiatura, oltre a tutti gli altri lavori necessari per completare gli appartamenti.\n\nIl Sig. Murgu Pellumb è una persona molto professionale, competente, affidabile e ben organizzata. Dispone di un’ottima squadra di elettricisti, idraulici, tecnici e altri professionisti qualificati che conoscono molto bene il proprio lavoro. Ho apprezzato particolarmente la loro attenzione ai dettagli e la qualità delle finiture.\n\nDopo aver affidato a loro la ristrutturazione completa di due appartamenti, posso dire di essere molto soddisfatto sia della qualità del lavoro sia dell’esperienza complessiva.\n\nConsiglio senza esitazione Diamo Soluzioni, il Sig. Murgu Pellumb e tutta la sua squadra a chiunque cerchi un’azienda seria e affidabile per la ristrutturazione completa di un appartamento o di una casa, oppure per la realizzazione di una nuova abitazione.\n\nProfessionalità, competenza, affidabilità e ottima qualità del lavoro. Cinque stelle meritatissime! ⭐⭐⭐⭐⭐',
     rating: 5,
     date: 'Agosto 2026',
     projectTag: 'Ristrutturazione completa',
@@ -308,12 +308,12 @@ export const reviews: Review[] = [
     order: 34,
   },
   {
-    // 5 stelle senza testo: conta nel totale Google ma non ha una scheda
+    // 5 stelle senza testo: scheda con sole stelle e nome
     name: 'Francesca Casati',
     text: '',
     rating: 5,
     date: 'Settembre 2026',
-    published: false,
+    published: true,
     order: 35,
   },
 ]
@@ -325,7 +325,7 @@ export function getPublishedReviews(): Review[] {
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99))
 }
 
-/** Totale recensioni sul profilo Google, incluse quelle senza testo (non mostrate come scheda) */
+/** Totale recensioni sul profilo Google */
 export function getGoogleReviewCount(): number {
   return reviews.length
 }
