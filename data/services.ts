@@ -47,7 +47,7 @@ export const services: Service[] = [
       'Controllo qualità e collaudo finale',
       'Consegna chiavi in mano con garanzia',
     ],
-    priceNote: 'Ristrutturazione completa: indicativamente da 500 a 900 €/mq a seconda dello stato di partenza e dei materiali. Preventivo scritto dopo sopralluogo gratuito.',
+    priceNote: 'Ristrutturazione completa: indicativamente da 500 a 900 €/mq, IVA esclusa, a seconda dello stato di partenza e dei materiali. Con nuova distribuzione degli spazi o finiture di fascia alta si può superare. Preventivo scritto dopo sopralluogo gratuito.',
     faq: [
       {
         q: 'Quanto dura una ristrutturazione completa?',
@@ -91,7 +91,7 @@ export const services: Service[] = [
     faq: [
       {
         q: 'Quanto costa rifare un bagno?',
-        a: 'Per un rinnovo parziale la fascia indicativa è 2.500–4.500 €; per un rifacimento completo standard (impianti, pavimento, rivestimenti, sanitari) si parte da 5.000–7.000 € fino a 11.000 € e oltre, in base a materiali e lavorazioni. Stima precisa solo dopo sopralluogo.',
+        a: 'Per un rinnovo parziale la fascia indicativa è 2.500–4.500 €; per un rifacimento completo standard (demolizioni, impianti, impermeabilizzazione, posa) si parte da 5.000–7.000 € fino a 11.000 € e oltre, in base a lavorazioni e materiali. Piastrelle e sanitari si definiscono nel preventivo. IVA esclusa. Stima precisa solo dopo sopralluogo.',
       },
       {
         q: 'Quanti giorni ci vogliono?',
@@ -110,7 +110,7 @@ export const services: Service[] = [
       'Posa rivestimenti, pavimento e sanitari',
       'Rifinitura, collaudo e consegna',
     ],
-    priceNote: 'Rinnovo parziale: 2.500–4.500 €. Rifacimento completo standard: 5.000–11.000 €. Il prezzo dipende da impianti, materiali e lavorazioni — preventivo scritto dopo sopralluogo gratuito.',
+    priceNote: 'Rinnovo parziale: 2.500–4.500 €. Rifacimento completo standard: 5.000–11.000 €, IVA esclusa. Piastrelle, sanitari e materiali si definiscono nel preventivo — preventivo scritto dopo sopralluogo gratuito.',
     seoTitle: 'Ristrutturazione Bagno a Lodi e Milano Sud',
     seoDesc:
       'Ristrutturazione bagno completa a Lodi, Merlino, Crema e Milano Sud. Demolizione, impianti, posa, sanitari. Preventivo gratuito.',
@@ -159,7 +159,7 @@ export const services: Service[] = [
       'Stuccatura e sigillatura delle fughe',
       'Pulizia finale e controllo qualità',
     ],
-    priceNote: 'Posa gres standard: indicativamente da 35 a 70 €/mq (manodopera inclusa, materiale escluso). Grandi formati o resine: preventivo su misura.',
+    priceNote: 'Posa gres standard: indicativamente da 35 a 70 €/mq (manodopera inclusa, materiale e demolizioni esclusi), IVA esclusa. Rifacimento completo con demolizione, massetto, impermeabilizzazione e gres: in un nostro preventivo circa 3.400 € per 20–30 mq. Grandi formati o resine: preventivo su misura.',
     seoTitle: 'Pavimentazioni e Rivestimenti — Lodi',
     seoDesc:
       'Posa professionale gres, parquet e resine a Lodi, Merlino, Melegnano. Rivestimenti bagno e cucina. Preventivo gratuito.',
@@ -253,7 +253,7 @@ export const services: Service[] = [
       'Rasatura armata e strato di finitura',
       'Tinteggiatura e collaudo finale',
     ],
-    priceNote: 'Cappotto termico: indicativamente da 80 a 150 €/mq posa inclusa (materiale dipende dalla tipologia). Preventivo scritto dopo sopralluogo.',
+    priceNote: 'Cappotto termico: indicativamente da 80 a 150 €/mq, isolante, rasatura e finitura inclusi, IVA esclusa. Ponteggi e ripristini si valutano al sopralluogo. Preventivo scritto dopo sopralluogo.',
     seoTitle: 'Cappotto Termico e Facciate — Lodi',
     seoDesc:
       'Cappotto termico, risanamento facciate e impermeabilizzazioni a Lodi, Melegnano, Milano Sud. Risparmio energetico certificato. Sopralluogo gratuito.',
@@ -298,7 +298,7 @@ export const services: Service[] = [
       'Applicazione della pittura (1–2 mani)',
       'Rimozione protezioni e pulizia finale',
     ],
-    priceNote: 'Tinteggiatura interni: indicativamente da 8 a 18 €/mq (manodopera e materiale inclusi). Rasatura a gesso o stucco veneziano: preventivo su misura.',
+    priceNote: 'Tinteggiatura interni, per mq di superficie, manodopera e materiale inclusi, IVA esclusa: pittura da 10 a 13 €/mq; rasatura e pittura circa 22 €/mq; rimozione carta da parati, rasatura e pittura circa 25 €/mq. Stucco veneziano e decorativi: preventivo su misura.',
     seoTitle: 'Tinteggiatura e Pittura — Lodi',
     seoDesc:
       'Tinteggiatura interni ed esterni, rasature e finiture decorative a Lodi, Merlino, San Donato Milanese. Preventivo gratuito.',
@@ -343,7 +343,7 @@ export const services: Service[] = [
       'Collaudo pressione e tenuta dell\'impianto',
       'Dichiarazione di conformità rilasciata dall\'impresa partner abilitata',
     ],
-    priceNote: 'Rifacimento impianto idraulico completo (appartamento 70–90 mq): indicativamente da 4.000 a 9.000 €. Preventivo scritto dopo sopralluogo gratuito.',
+    priceNote: 'Rifacimento impianto idraulico completo (appartamento 70–90 mq): indicativamente da 4.000 a 9.000 €, IVA esclusa. Preventivo scritto dopo sopralluogo gratuito.',
     seoTitle: 'Impianti Idraulici a Lodi e Milano Sud',
     seoDesc:
       'Rifacimento e adeguamento impianti idraulici a Lodi, Merlino, Milano Sud. Impresa partner abilitata, dichiarazione di conformità. Sopralluogo gratuito.',
@@ -388,7 +388,7 @@ export const services: Service[] = [
       'Collaudo e verifica di messa a terra',
       'Dichiarazione di conformità rilasciata dall\'impresa partner abilitata',
     ],
-    priceNote: 'Rifacimento impianto elettrico completo (appartamento 70–90 mq): indicativamente da 3.500 a 8.000 €. Preventivo scritto dopo sopralluogo gratuito.',
+    priceNote: 'Rifacimento impianto elettrico completo (appartamento 70–90 mq): indicativamente da 3.500 a 8.000 €, IVA esclusa. Preventivo scritto dopo sopralluogo gratuito.',
     seoTitle: 'Impianti Elettrici a Lodi e Milano Sud',
     seoDesc:
       'Rifacimento impianti elettrici a norma CEI a Lodi, Merlino, Milano Sud. Impresa partner abilitata, dichiarazione di conformità. Preventivo gratuito.',

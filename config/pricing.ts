@@ -8,12 +8,10 @@ export interface ServicePricing {
   id: string
   label: string
   unit: PricingUnit
-  /** Prezzo minimo per unità (fascia base, lavoro semplice) */
+  /** Prezzo minimo per unità, IVA esclusa (lavoro semplice) */
   minPerUnit: number
-  /** Prezzo massimo per unità (fascia alta, lavoro complesso) */
+  /** Prezzo massimo per unità, IVA esclusa (lavoro complesso) */
   maxPerUnit: number
-  /** Stato dell'immobile irrilevante per il prezzo: restituisce sempre la fascia intera */
-  fullRange?: boolean
   notes: string
 }
 
@@ -24,7 +22,7 @@ export const PRICING: Record<string, ServicePricing> = {
     unit: 'forfait',
     minPerUnit: 5000,
     maxPerUnit: 6000,
-    notes: 'Include demolizioni, impianto idraulico, posa rivestimenti, sanitari, finiture. Fonte: preventivo bagno completo €6.000.',
+    notes: 'Include demolizioni, tracce impianti, impermeabilizzazione, posa rivestimenti, finiture. Piastrelle e sanitari da definire nel preventivo. Fonte: preventivo bagno completo €6.000 + IVA.',
   },
   bagno_grande: {
     id: 'bagno_grande',
@@ -32,15 +30,15 @@ export const PRICING: Record<string, ServicePricing> = {
     unit: 'forfait',
     minPerUnit: 9500,
     maxPerUnit: 11000,
-    notes: 'Include demolizioni, impianto idraulico, posa rivestimenti, sanitari, finiture. Fonte: preventivo 2 bagni+impianti+piastrellatura €22.000 (×3 conferme) → €11.000/bagno.',
+    notes: 'Include demolizioni, tracce impianti, posa rivestimenti, finiture. Piastrelle e sanitari da definire nel preventivo. Fonte: preventivo 2 bagni+impianti+piastrellatura €22.000 (×3 conferme) → €11.000/bagno.',
   },
   pavimento: {
     id: 'pavimento',
-    label: 'Pavimentazione (posa + materiale base)',
+    label: 'Pavimentazione (sola posa, materiale escluso)',
     unit: 'mq',
     minPerUnit: 35,
     maxPerUnit: 70,
-    notes: 'Fascia intera copre da posa semplice (PVC/ceramica) a demolizione+massetto+impermeabilizzazione. Fonte: €3.400 per rimozione+posa+guaina (×2 conferme).',
+    notes: 'Sola posa, come nel priceNote pubblico. Rifacimento con demolizione, massetto, impermeabilizzazione e gres: preventivo reale €3.400 per 20–30 mq (×2 conferme), cioè 113–170 €/mq; Prezzario Lombardia 2026 117,85 €/mq.',
   },
   impianto_idraulico: {
     id: 'impianto_idraulico',
@@ -64,7 +62,7 @@ export const PRICING: Record<string, ServicePricing> = {
     unit: 'mq',
     minPerUnit: 35,
     maxPerUnit: 70,
-    notes: 'Posa con materiali base. Formati grandi o rivestimenti speciali: range superiore. Allineato a pavimento.',
+    notes: 'Sola posa, materiale escluso. Formati grandi o rivestimenti speciali: range superiore. Allineato a pavimento.',
   },
   ristrutturazione_completa: {
     id: 'ristrutturazione_completa',
@@ -72,7 +70,7 @@ export const PRICING: Record<string, ServicePricing> = {
     unit: 'mq',
     minPerUnit: 500,
     maxPerUnit: 900,
-    notes: 'Include impianti, pavimenti, finiture, pittura. Escluso arredamento. Fonte: €20.000 (Comazzo ~40 mq), €40.000 (Gessate ~55 mq), €54.000 (full scope ~70 mq).',
+    notes: 'Include impianti, pavimenti, finiture, pittura. Escluso arredamento. Fonte: €20.000 (Comazzo ~40 mq), €40.000 (Gessate ~55 mq), €54.000 (full scope ~70 mq), €38.000 + IVA (~70 mq): 500–771 €/mq.',
   },
   cappotto: {
     id: 'cappotto',
@@ -86,9 +84,9 @@ export const PRICING: Record<string, ServicePricing> = {
     id: 'tinteggiatura',
     label: 'Tinteggiatura interni',
     unit: 'mq',
-    minPerUnit: 8,
-    maxPerUnit: 18,
-    notes: 'Fascia intera: da sola pittura (8–12 €/mq) a rasatura+pittura (11–15 €/mq) a rimozione carta da parati+rasatura+pittura (14–18 €/mq). Fonte: preventivi reali (×3 conferme), allineato a priceNote pubblico.',
+    minPerUnit: 10,
+    maxPerUnit: 25,
+    notes: 'Per mq di superficie tinteggiata. Preventivi reali (×3 conferme): pittura 10 €/mq, colori speciali 11–13, rasatura+pittura 22, rimozione carta da parati+rasatura+pittura 25. Prezzario Lombardia 2026: 10,25 e 24,92 €/mq. Allineato al priceNote pubblico.',
   },
   infissi: {
     id: 'infissi',
@@ -96,77 +94,78 @@ export const PRICING: Record<string, ServicePricing> = {
     unit: 'forfait',
     minPerUnit: 550,
     maxPerUnit: 1300,
-    fullRange: true,
     notes: 'PVC standard fornitura e posa, IVA esclusa: 550–850 € a un\'anta, 850–1.300 € a due ante. Fonti (24/11/2026): preventivo reale 2 finestre = €1.500 → €750/finestra; Prezzario Lombardia 2026 LOM261 Pa02.C3330.D0017.0000 = 614,72 €/mq; confronto di mercato. Portefinestre e alluminio a taglio termico: fuori fascia. Allineato al priceNote pubblico.',
   },
 }
 
 export type PricingKey = keyof typeof PRICING
 
+/** Bagno: la taglia decide la fascia. Metratura ignota o riferita alla casa intera → fascia completa. */
+const BATHROOM_SMALL_MAX_MQ = 6
+const BATHROOM_LARGE_MAX_MQ = 12
+/** Oltre questo numero serve un preventivo su misura */
+const MAX_WINDOWS = 50
+
 export interface EstimateResult {
   serviceId: string
   serviceLabel: string
   quantity: number
   unit: PricingUnit
-  complexity: 'base' | 'medium' | 'high'
   minTotal: number
   maxTotal: number
   disclaimer: string
 }
 
 /**
- * Calcola la stima posizionando la complessità come finestra scorrevole
- * all'interno di [minPerUnit, maxPerUnit] × quantity.
- * L'output è sempre compreso nella fascia dichiarata pubblica — mai fuori range.
+ * Fascia pubblica completa × quantità.
+ * Il wizard non chiede lo stato dell'immobile: restringere la fascia
+ * significherebbe mostrare un prezzo più basso di quello dichiarato.
  */
-export function calculateEstimate(
-  serviceId: string,
-  quantity: number,
-  complexity: 'base' | 'medium' | 'high' = 'base'
-): EstimateResult | null {
+export function calculateEstimate(serviceId: string, quantity: number): EstimateResult | null {
   const pricing = PRICING[serviceId]
   if (!pricing) return null
-
-  const lo = pricing.minPerUnit
-  const hi = pricing.maxPerUnit
-  const span = hi - lo
-
-  // Finestre di complessità — sempre entro [lo, hi]
-  let windowMin: number
-  let windowMax: number
-  switch (pricing.fullRange ? 'full' : complexity) {
-    case 'full':
-      windowMin = lo
-      windowMax = hi
-      break
-    case 'medium':
-      windowMin = Math.round(lo + span * 0.3)
-      windowMax = Math.round(lo + span * 0.7)
-      break
-    case 'high':
-      windowMin = Math.round(lo + span * 0.6)
-      windowMax = hi
-      break
-    default: // base
-      windowMin = lo
-      windowMax = Math.round(lo + span * 0.4)
-  }
 
   return {
     serviceId,
     serviceLabel: pricing.label,
     quantity,
     unit: pricing.unit,
-    complexity,
-    minTotal: Math.round(windowMin * quantity),
-    maxTotal: Math.round(windowMax * quantity),
+    minTotal: Math.round(pricing.minPerUnit * quantity),
+    maxTotal: Math.round(pricing.maxPerUnit * quantity),
     disclaimer:
-      'La stima è orientativa e non costituisce un preventivo contrattuale. Il prezzo definitivo viene stabilito dopo sopralluogo gratuito e verifica tecnica in loco.',
+      'La stima è orientativa, IVA esclusa, e non costituisce un preventivo contrattuale. Il prezzo definitivo viene stabilito dopo sopralluogo gratuito e verifica tecnica in loco.',
   }
 }
 
+/**
+ * Stima per il wizard. `size` in mq (numero di finestre per gli infissi), 0 se sconosciuta.
+ * Restituisce null se il servizio non è a listino o se serve una metratura che manca.
+ */
+export function estimateForSize(serviceId: string, size: number): EstimateResult | null {
+  const pricing = PRICING[serviceId]
+  if (!pricing) return null
+
+  if (serviceId === 'bagno_piccolo') {
+    const small = calculateEstimate('bagno_piccolo', 1)!
+    const large = calculateEstimate('bagno_grande', 1)!
+    if (size > 0 && size <= BATHROOM_SMALL_MAX_MQ) return small
+    if (size > 0 && size <= BATHROOM_LARGE_MAX_MQ) return large
+    return { ...small, serviceLabel: 'Rifacimento bagno', maxTotal: large.maxTotal }
+  }
+
+  // Infissi: `size` è il numero di finestre, non i mq
+  if (serviceId === 'infissi') {
+    const windows = Math.max(1, Math.round(size))
+    return windows <= MAX_WINDOWS ? calculateEstimate(serviceId, windows) : null
+  }
+
+  // I forfait non si moltiplicano per la metratura
+  if (pricing.unit !== 'mq') return calculateEstimate(serviceId, 1)
+  return size > 0 ? calculateEstimate(serviceId, size) : null
+}
+
 export function formatEur(amount: number): string {
-  return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(
+  return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, useGrouping: 'always' } as Intl.NumberFormatOptions).format(
     amount
   )
 }

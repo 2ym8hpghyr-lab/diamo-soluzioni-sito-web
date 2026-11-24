@@ -42,13 +42,18 @@ export async function sendEmailNotification(lead: LeadData): Promise<void> {
         ${lead.email ? `<tr><td style="padding:6px 12px;background:#f5f5f5;font-weight:bold">Email</td><td style="padding:6px 12px">${escapeHtml(lead.email)}</td></tr>` : ''}
         ${lead.serviceLabel ? `<tr><td style="padding:6px 12px;background:#f5f5f5;font-weight:bold">Servizio</td><td style="padding:6px 12px">${escapeHtml(lead.serviceLabel)}</td></tr>` : ''}
         ${lead.city ? `<tr><td style="padding:6px 12px;background:#f5f5f5;font-weight:bold">Zona</td><td style="padding:6px 12px">${escapeHtml(lead.city)}</td></tr>` : ''}
-        ${lead.size ? `<tr><td style="padding:6px 12px;background:#f5f5f5;font-weight:bold">Metratura</td><td style="padding:6px 12px">${escapeHtml(lead.size)} mq</td></tr>` : ''}
+        ${lead.size ? `<tr><td style="padding:6px 12px;background:#f5f5f5;font-weight:bold">Quantità</td><td style="padding:6px 12px">${escapeHtml(withUnit(lead.size))}</td></tr>` : ''}
         <tr><td style="padding:6px 12px;background:#f5f5f5;font-weight:bold">Stima</td><td style="padding:6px 12px;color:#1F4852;font-weight:bold">${formatRange(lead.minTotal, lead.maxTotal)}</td></tr>
       </table>
       ${lead.description ? `<h3>Descrizione</h3><pre style="background:#f5f5f5;padding:12px;border-radius:6px;white-space:pre-wrap">${escapeHtml(lead.description)}</pre>` : ''}
       <p style="color:#888;font-size:12px">Ricevuto il: ${lead.timestamp} · Fonte: ${lead.source ?? 'sito web'}</p>
     `,
   })
+}
+
+/** Il wizard invia già l'unità ("75 mq", "3 finestre"); i valori solo numerici sono mq. */
+function withUnit(size: string): string {
+  return /^[\d.,]+$/.test(size.trim()) ? `${size} mq` : size
 }
 
 export async function sendWhatsAppNotification(lead: LeadData): Promise<void> {
@@ -66,7 +71,7 @@ export async function sendWhatsAppNotification(lead: LeadData): Promise<void> {
     lead.email ? `Email: ${lead.email}` : null,
     lead.serviceLabel ? `Servizio: ${lead.serviceLabel}` : null,
     lead.city ? `Zona: ${lead.city}` : null,
-    lead.size ? `Metratura: ${lead.size} mq` : null,
+    lead.size ? `Quantità: ${withUnit(lead.size)}` : null,
     `Stima: ${range}`,
     lead.description ? `\nDescrizione:\n${lead.description}` : null,
     ``,

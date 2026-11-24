@@ -1,4 +1,4 @@
-import { PRICING, calculateEstimate } from '@/config/pricing'
+import { PRICING, calculateEstimate, estimateForSize } from '@/config/pricing'
 import { services } from '@/data/services'
 
 // ── Valori attesi (fonte di verità per le correzioni Stage 1) ─────────────────
@@ -12,11 +12,9 @@ const EXPECTED_RANGES: Record<string, { min: number; max: number }> = {
   rivestimenti:              { min: 35,   max: 70    },
   ristrutturazione_completa: { min: 500,  max: 900   },
   cappotto:                  { min: 80,   max: 150   },
-  tinteggiatura:             { min: 8,    max: 18    },
+  tinteggiatura:             { min: 10,   max: 25    },
   infissi:                   { min: 550,  max: 1300  },
 }
-
-const COMPLEXITIES = ['base', 'medium', 'high'] as const
 
 // ── Valori in PRICING ─────────────────────────────────────────────────────────
 
@@ -50,75 +48,60 @@ describe('config/pricing.ts — valori corretti', () => {
   })
 })
 
-// ── calculateEstimate — output sempre entro fascia dichiarata ─────────────────
+// ── calculateEstimate — sempre la fascia pubblica completa ────────────────────
 
-describe('calculateEstimate — output sempre entro fascia dichiarata', () => {
-  const MQ_QUANTITIES = [10, 35, 75, 150]
-
+describe('calculateEstimate — fascia pubblica completa × quantità', () => {
   for (const [key, pricing] of Object.entries(PRICING)) {
-    const quantities = pricing.unit === 'mq' ? MQ_QUANTITIES : [1]
-
+    const quantities = pricing.unit === 'mq' ? [10, 35, 75, 150] : [1]
     for (const qty of quantities) {
-      for (const complexity of COMPLEXITIES) {
-        test(`${key} | qty=${qty} | ${complexity} → in [min×q, max×q], min≤max, no NaN`, () => {
-          const r = calculateEstimate(key, qty, complexity)
-          expect(r).not.toBeNull()
-          if (!r) return
-
-          const declaredMin = pricing.minPerUnit * qty
-          const declaredMax = pricing.maxPerUnit * qty
-
-          expect(isNaN(r.minTotal)).toBe(false)
-          expect(isNaN(r.maxTotal)).toBe(false)
-          expect(r.minTotal).toBeGreaterThan(0)
-          expect(r.maxTotal).toBeGreaterThan(0)
-          expect(r.minTotal).toBeGreaterThanOrEqual(declaredMin)
-          expect(r.maxTotal).toBeLessThanOrEqual(declaredMax)
-          expect(r.minTotal).toBeLessThanOrEqual(r.maxTotal)
-        })
-      }
+      test(`${key} | qty=${qty}`, () => {
+        const r = calculateEstimate(key, qty)!
+        expect(r.minTotal).toBe(pricing.minPerUnit * qty)
+        expect(r.maxTotal).toBe(pricing.maxPerUnit * qty)
+      })
     }
   }
 
   test('servizio inesistente restituisce null', () => {
-    expect(calculateEstimate('non_esiste', 50, 'base')).toBeNull()
-  })
-
-  test('complessità base ≤ medium ≤ high (finestre monotone)', () => {
-    for (const key of Object.keys(PRICING)) {
-      const qty = PRICING[key].unit === 'mq' ? 50 : 1
-      const b = calculateEstimate(key, qty, 'base')!
-      const m = calculateEstimate(key, qty, 'medium')!
-      const h = calculateEstimate(key, qty, 'high')!
-
-      expect(b.minTotal).toBeLessThanOrEqual(m.minTotal)
-      expect(m.minTotal).toBeLessThanOrEqual(h.minTotal)
-      expect(b.maxTotal).toBeLessThanOrEqual(m.maxTotal)
-      expect(m.maxTotal).toBeLessThanOrEqual(h.maxTotal)
-    }
-  })
-
-  test('high complexity produce il massimo dichiarato (maxTotal = maxPerUnit × qty)', () => {
-    for (const key of Object.keys(PRICING)) {
-      const qty = PRICING[key].unit === 'mq' ? 50 : 1
-      const h = calculateEstimate(key, qty, 'high')!
-      expect(h.maxTotal).toBe(PRICING[key].maxPerUnit * qty)
-    }
-  })
-
-  test('base complexity parte dal minimo dichiarato (minTotal = minPerUnit × qty)', () => {
-    for (const key of Object.keys(PRICING)) {
-      const qty = PRICING[key].unit === 'mq' ? 50 : 1
-      const b = calculateEstimate(key, qty, 'base')!
-      expect(b.minTotal).toBe(PRICING[key].minPerUnit * qty)
-    }
+    expect(calculateEstimate('non_esiste', 50)).toBeNull()
   })
 })
 
-describe('infissi — fascia intera indipendente dallo stato dell\'immobile', () => {
-  test.each(COMPLEXITIES)('%s → 550–1.300 € per finestra', (complexity) => {
-    const r = calculateEstimate('infissi', 1, complexity)!
-    expect([r.minTotal, r.maxTotal]).toEqual([550, 1300])
+describe('estimateForSize — regole del wizard', () => {
+  const range = (id: string, size: number) => {
+    const r = estimateForSize(id, size)
+    return r && [r.minTotal, r.maxTotal]
+  }
+
+  test.each([
+    ['bagno_piccolo', 5, [5000, 6000]],
+    ['bagno_piccolo', 6, [5000, 6000]],
+    ['bagno_piccolo', 8, [9500, 11000]],
+    ['bagno_piccolo', 12, [9500, 11000]],
+    ['bagno_piccolo', 15, [5000, 11000]],
+    ['bagno_piccolo', 0, [5000, 11000]],
+    ['impianto_elettrico', 150, [3500, 8000]],
+    ['impianto_idraulico', 0, [4000, 9000]],
+    ['infissi', 0, [550, 1300]],
+    ['infissi', 1, [550, 1300]],
+    ['infissi', 4, [2200, 5200]],
+    ['tinteggiatura', 100, [1000, 2500]],
+    ['pavimento', 35, [1225, 2450]],
+  ])('%s, %i mq', (id, size, expected) => {
+    expect(range(id as string, size as number)).toEqual(expected)
+  })
+
+  test('prezzo al mq senza metratura: nessuna stima inventata', () => {
+    expect(estimateForSize('tinteggiatura', 0)).toBeNull()
+    expect(estimateForSize('cappotto', 0)).toBeNull()
+  })
+
+  test('troppe finestre: serve un preventivo su misura', () => {
+    expect(estimateForSize('infissi', 80)).toBeNull()
+  })
+
+  test('servizio non a listino', () => {
+    expect(estimateForSize('altro', 80)).toBeNull()
   })
 })
 

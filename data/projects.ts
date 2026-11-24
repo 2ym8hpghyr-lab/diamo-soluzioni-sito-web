@@ -266,7 +266,7 @@ export const projects: Project[] = [
       solution: 'Stuccatura di tutte le crepe, trattamento antimuffa nelle zone umide, rasatura a gesso e applicazione di pittura lavabile traspirante in due mani con colori scelti dal cliente.',
       materials: ['Pittura lavabile traspirante', 'Stucco acrilico per crepe', 'Trattamento antimuffa', 'Primer consolidante'],
       duration: 'Circa 3–5 giorni lavorativi per appartamento di 80 mq',
-      costRange: 'Fascia indicativa per interventi analoghi: 8–18 €/mq manodopera e materiale inclusi.',
+      costRange: 'Fascia indicativa per interventi analoghi: pittura 10–13 €/mq, con rasatura circa 22 €/mq, manodopera e materiale inclusi, IVA esclusa.',
       result: 'Ambienti rinnovati con finiture uniformi e colori selezionati. Lavori completati senza necessità di sgomberare i mobili.',
       serviceSlug: 'tinteggiatura',
     },

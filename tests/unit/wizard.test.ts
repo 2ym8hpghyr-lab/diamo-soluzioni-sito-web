@@ -1,4 +1,4 @@
-import { SERVICE_SLUG_MAP } from '@/config/wizard'
+import { SERVICE_SLUG_MAP, ESTIMATE_SCOPE, estimateScope, formatQuantity } from '@/config/wizard'
 import { PRICING } from '@/config/pricing'
 import { services } from '@/data/services'
 
@@ -102,5 +102,26 @@ describe('SERVICE_SLUG_MAP — copertura bidirezionale', () => {
       expect(PRICING[serviceId]).toBeDefined()
       expect(WIZARD_SERVICE_IDS.has(serviceId)).toBe(true)
     }
+  })
+})
+
+describe('ESTIMATE_SCOPE — ogni servizio a listino spiega cosa comprende la stima', () => {
+  const ids = Array.from(WIZARD_SERVICE_IDS).filter(id => id !== 'altro')
+  test.each(ids)('%s', (id) => {
+    expect(ESTIMATE_SCOPE[id]).toMatch(/IVA esclusa$/)
+  })
+})
+
+describe('infissi — si contano le finestre, non i mq', () => {
+  test('testo della stima', () => {
+    expect(estimateScope('infissi', 'unknown')).toMatch(/^per singola finestra .*fornita e posata/)
+    expect(estimateScope('infissi', '4')).toMatch(/^4 finestre .*fornite e posate/)
+    expect(estimateScope('altro', '4')).toBe('')
+  })
+  test('quantità', () => {
+    expect(formatQuantity('infissi', '1')).toBe('1 finestra')
+    expect(formatQuantity('infissi', '4')).toBe('4 finestre')
+    expect(formatQuantity('tinteggiatura', '75')).toBe('75 mq')
+    expect(formatQuantity('tinteggiatura', 'unknown')).toBe('')
   })
 })

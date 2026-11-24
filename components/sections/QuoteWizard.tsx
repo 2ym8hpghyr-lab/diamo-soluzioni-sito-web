@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useId } from 'react'
 import { business, whatsappUrl } from '@/config/business'
 import { formatEur } from '@/config/pricing'
-import { SERVICE_SLUG_MAP } from '@/config/wizard'
+import { SERVICE_SLUG_MAP, estimateScope as scopeFor, formatQuantity } from '@/config/wizard'
 import { trackEvent } from '@/lib/analytics'
 
 /* ─────────────────────────────────────────────────────────────
@@ -153,6 +153,25 @@ const SIZE_PRESETS = [
   { label: '> 100 mq', value: '150' },
 ]
 
+/** Domanda sulla metratura coerente con l'unità di prezzo del servizio */
+const SIZE_QUESTIONS: Record<string, string> = {
+  ristrutturazione_completa: 'Quanti metri quadri ha l’immobile?',
+  bagno_piccolo: 'Quanti metri quadri ha il bagno?',
+  pavimento: 'Quanti metri quadri vanno pavimentati o rivestiti?',
+  tinteggiatura: 'Quanti metri quadri di pareti e soffitti vanno tinteggiati?',
+  impianto_idraulico: 'Quanti metri quadri ha l’immobile?',
+  impianto_elettrico: 'Quanti metri quadri ha l’immobile?',
+  infissi: 'Quante finestre vuoi sostituire?',
+  cappotto: 'Quanti metri quadri di facciata vanno isolati?',
+}
+
+const WINDOW_PRESETS = [
+  { label: '1', value: '1' },
+  { label: '3', value: '3' },
+  { label: '5', value: '5' },
+  { label: '8', value: '8' },
+]
+
 const TIMING_OPTIONS = [
   'Prima possibile',
   'Entro 1–2 mesi',
@@ -201,6 +220,7 @@ export default function QuoteWizard() {
   // Stima
   const [estimate, setEstimate] = useState<EstimateResult | null>(null)
   const [estimating, setEstimating] = useState(false)
+  const estimateRequest = useRef(0)
   const [estimateFailed, setEstimateFailed] = useState(false)
 
   // Contatti
@@ -244,14 +264,23 @@ export default function QuoteWizard() {
   }
 
   function selectService(opt: ServiceOption) {
-    update('serviceId', opt.id)
-    update('serviceLabel', opt.label)
+    setState(s => ({
+      ...s,
+      serviceId: opt.id,
+      serviceLabel: opt.label,
+      // La quantità ha significato diverso per ogni servizio (mq di bagno, di pareti, n. finestre)
+      size: s.serviceId && s.serviceId !== opt.id ? '' : s.size,
+    }))
   }
 
   const effectiveServiceLabel =
     state.serviceId === 'altro' && state.serviceOther.trim()
       ? state.serviceOther.trim()
       : state.serviceLabel
+
+  const isWindows = state.serviceId === 'infissi'
+  const estimateScope = scopeFor(state.serviceId, state.size)
+  const quantity = formatQuantity(state.serviceId, state.size)
 
   const step1Ready = state.serviceId !== '' && (state.serviceId !== 'altro' || state.serviceOther.trim().length > 1)
   const step2Ready = state.city.trim().length >= 2
@@ -262,6 +291,8 @@ export default function QuoteWizard() {
   /* ── Stima: chiama /api/chat mode=estimate (invariato) ──── */
 
   async function requestEstimate() {
+    const request = ++estimateRequest.current
+    const isStale = () => request !== estimateRequest.current
     setEstimating(true)
     setEstimateFailed(false)
     try {
@@ -283,6 +314,7 @@ export default function QuoteWizard() {
       })
       if (!res.ok) throw new Error('HTTP ' + res.status)
       const data = await res.json()
+      if (isStale()) return
       const min = Number(data?.minTotal) || 0
       const max = Number(data?.maxTotal) || 0
       if (min > 0 && max > 0) {
@@ -292,12 +324,21 @@ export default function QuoteWizard() {
         setEstimate(null)
       }
     } catch {
+      if (isStale()) return
       setEstimate(null)
       setEstimateFailed(true)
     } finally {
-      setEstimating(false)
+      if (!isStale()) setEstimating(false)
     }
   }
+
+  // Se cambiano i dati da cui dipende la stima, quella mostrata non vale più
+  useEffect(() => {
+    estimateRequest.current += 1
+    setEstimate(null)
+    setEstimateFailed(false)
+    setEstimating(false)
+  }, [state.serviceId, state.serviceOther, state.size, state.description])
 
   // Quando entriamo nel riepilogo, richiediamo la stima una volta sola
   useEffect(() => {
@@ -311,12 +352,12 @@ export default function QuoteWizard() {
 
   function buildWhatsAppMessage() {
     const range = estimate
-      ? `${formatEur(estimate.minTotal)} – ${formatEur(estimate.maxTotal)}${state.serviceId === 'infissi' ? ' per singola finestra in PVC (una o due ante), IVA esclusa' : ''}`
+      ? `${formatEur(estimate.minTotal)} – ${formatEur(estimate.maxTotal)}${estimateScope ? ` (${estimateScope})` : ''}`
       : 'da definire'
     return `Buongiorno Diamo Soluzioni, ho compilato il preventivatore del sito (rif. ${leadId}).
 Lavoro: ${effectiveServiceLabel}
 Zona: ${state.city || 'da definire'}
-Metratura: ${state.size && state.size !== 'unknown' ? state.size + ' mq' : 'da definire'}
+${isWindows ? 'Infissi' : 'Metratura'}: ${quantity || 'da definire'}
 Tempistica: ${state.timing}${state.timingNote ? ' — ' + state.timingNote : ''}
 Descrizione: ${state.description}
 Stima indicativa: ${range}
@@ -354,7 +395,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
           phone: phone.trim(),
           serviceLabel: effectiveServiceLabel,
           city: state.city,
-          size: state.size === 'unknown' ? '' : state.size,
+          size: quantity,
           description: [
             state.description,
             `Canale preferito: ${{ phone: 'Telefono', whatsapp: 'WhatsApp', email: 'Email' }[contactMethod] ?? contactMethod}`,
@@ -557,7 +598,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                 {step === 3 && (
                   <div className="motion-safe:animate-[fadeIn_.15s_ease-out]">
                     <label htmlFor="qw-size" className="block text-sm font-semibold text-graphite mb-2">
-                      Quanto è grande l’area?
+                      {SIZE_QUESTIONS[state.serviceId] ?? 'Quanto è grande l’area?'}
                     </label>
                     <p className="text-xs text-graphite/75 mb-3">Anche una stima approssimativa va bene.</p>
 
@@ -571,16 +612,16 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                         data-autofocus="true"
                         value={state.size === 'unknown' ? '' : state.size}
                         onChange={e => update('size', e.target.value)}
-                        placeholder="es. 75"
-                        className={inputCls + ' pr-14'}
+                        placeholder={isWindows ? 'es. 4' : 'es. 75'}
+                        className={inputCls + (isWindows ? ' pr-24' : ' pr-14')}
                       />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-graphite/75 pointer-events-none">
-                        mq
+                        {isWindows ? 'finestre' : 'mq'}
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
-                      {SIZE_PRESETS.map(p => {
+                      {(isWindows ? WINDOW_PRESETS : SIZE_PRESETS).map(p => {
                         const active = state.size === p.value
                         return (
                           <button
@@ -773,8 +814,8 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                       <SummaryRow label="Lavoro" value={effectiveServiceLabel} onEdit={() => goToStep(1)} />
                       <SummaryRow label="Zona" value={state.city} onEdit={() => goToStep(2)} />
                       <SummaryRow
-                        label="Metratura"
-                        value={state.size === 'unknown' || !state.size ? 'Da definire' : `${state.size} mq`}
+                        label={isWindows ? 'Infissi' : 'Metratura'}
+                        value={quantity || 'Da definire'}
                         onEdit={() => goToStep(3)}
                       />
                       <SummaryRow label="Situazione" value={state.description} onEdit={() => goToStep(4)} />
@@ -818,11 +859,16 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                         ) : estimate ? (
                           <>
                             <p className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(248,248,245,0.75)' }}>
-                              Fascia orientativa stimata dall&apos;AI{state.serviceId === 'infissi' ? ' · per singola finestra in PVC, una o due ante, IVA esclusa' : ''}
+                              Fascia orientativa stimata dall&apos;AI
                             </p>
                             <p className="font-extrabold" style={{ fontSize: '1.7rem', color: '#F4BE12', lineHeight: 1.1 }}>
                               {formatEur(estimate.minTotal)}&nbsp;–&nbsp;{formatEur(estimate.maxTotal)}
                             </p>
+                            {estimateScope && (
+                              <p className="mt-1.5 text-xs" style={{ color: 'rgba(248,248,245,0.85)' }}>
+                                {estimateScope}
+                              </p>
+                            )}
                             <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(248,248,245,0.08)' }}>
                               <p className="text-[11px] leading-relaxed" style={{ color: 'rgba(248,248,245,0.75)' }}>
                                 Questa stima è prodotta dall&apos;AI sulla base dei dati che hai fornito.

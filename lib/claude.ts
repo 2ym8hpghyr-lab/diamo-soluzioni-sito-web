@@ -1,5 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk'
-import { PRICING, calculateEstimate } from '@/config/pricing'
+import { PRICING, estimateForSize } from '@/config/pricing'
 
 export type Message = { role: 'user' | 'assistant'; content: string }
 
@@ -11,19 +11,19 @@ const CHAT_SYSTEM = `Sei l'assistente di Diamo Soluzioni, impresa edile a Merlin
 
 Compito: aiuta il visitatore a descrivere il suo progetto edilizio e fornisci una stima orientativa.
 
-FASCE ORIENTATIVE — prezzi reali Diamo Soluzioni (confermare con sopralluogo):
+FASCE ORIENTATIVE — IVA esclusa (confermare con sopralluogo):
 - Bagno completo fino 6 mq: €5.000–€6.000
 - Bagno completo 6–12 mq: €9.500–€11.000
-- Tinteggiatura sola pittura: €8–€12/mq
-- Tinteggiatura con rasatura: €11–€15/mq
-- Tinteggiatura rimozione carta da parati + rasatura: €14–€18/mq
-- Pavimento (posa+materiale base): €35–€70/mq
-- Rivestimenti/piastrelle: €35–€70/mq
+- Tinteggiatura sola pittura: €10–€13/mq di superficie
+- Tinteggiatura con rasatura: circa €22/mq di superficie
+- Tinteggiatura con rimozione carta da parati + rasatura: circa €25/mq di superficie
+- Pavimento, sola posa (materiale e demolizioni esclusi): €35–€70/mq
+- Rivestimenti/piastrelle, sola posa (materiale escluso): €35–€70/mq
 - Impianto idraulico (app. 70–90 mq): €4.000–€9.000
 - Impianto elettrico (app. 70–90 mq): €3.500–€8.000
 - Ristrutturazione completa: €500–€900/mq
-- Infissi PVC standard, fornitura e posa, IVA esclusa: €550–€850 a finestra a un'anta, €850–€1.300 a due ante
-- Cappotto termico: €80–€150/mq
+- Infissi PVC standard, fornitura e posa: €550–€850 a finestra a un'anta, €850–€1.300 a due ante
+- Cappotto termico: €80–€150/mq (ponteggi e ripristini da valutare)
 
 REGOLE:
 - Solo italiano
@@ -84,33 +84,15 @@ REGOLE:
 
 export async function buildEstimate(input: EstimateInput): Promise<EstimateOutput> {
   const size = parseFloat(input.size) || 0
-  const isComplexity = input.condition === 'Da ristrutturare' ? 'high'
-    : input.condition === 'Da rinnovare' ? 'medium'
-    : 'base'
-
-  const isForfait = PRICING[input.serviceId]?.unit === 'forfait'
-  // I forfait hanno prezzo fisso: la metratura NON moltiplica il prezzo
-  const quantity = isForfait ? 1 : (size > 0 ? size : 1)
-
-  const deterministicResult = calculateEstimate(input.serviceId, quantity, isComplexity)
-
-  // Per servizi a forfait usa sempre il deterministico (prezzo fisso indipendente dai mq)
-  if (deterministicResult && isForfait) {
-    return {
-      minTotal: deterministicResult.minTotal,
-      maxTotal: deterministicResult.maxTotal,
-    }
+  // Servizi a listino: calcolo deterministico, mai affidato all'AI
+  if (PRICING[input.serviceId]) {
+    const estimate = estimateForSize(input.serviceId, size)
+    return estimate
+      ? { minTotal: estimate.minTotal, maxTotal: estimate.maxTotal }
+      : { minTotal: 0, maxTotal: 0, notes: 'Metratura necessaria per la stima' }
   }
 
-  // Per servizi a mq con dimensione nota, usa deterministico
-  if (deterministicResult && size > 0 && PRICING[input.serviceId]?.unit === 'mq') {
-    return {
-      minTotal: deterministicResult.minTotal,
-      maxTotal: deterministicResult.maxTotal,
-    }
-  }
-
-  // Fallback AI per casi complessi o servizi non in pricing
+  // Fallback AI solo per i servizi non a listino ("Altro")
   try {
     const userMessage = `Progetto: ${input.serviceLabel}
 Immobile: ${input.propertyType}
