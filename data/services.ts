@@ -204,7 +204,7 @@ export const services: Service[] = [
       'Posa con kit di sigillatura e taglio termico',
       'Collaudo apertura/chiusura e consegna',
     ],
-    priceNote: 'Infisso in PVC standard (finestra singola): indicativamente da 400 a 800 € fornitura e posa. Alluminio con taglio termico: preventivo su misura.',
+    priceNote: 'Finestra in PVC standard, fornitura e posa, IVA esclusa: indicativamente da 550 a 850 € a un\'anta e da 850 a 1.300 € a due ante. Portefinestre e alluminio a taglio termico: preventivo su misura.',
     seoTitle: 'Infissi e Serramenti a Lodi e Milano Sud',
     seoDesc:
       'Fornitura e posa infissi PVC e alluminio a Lodi, Crema, Merlino e Milano Sud. Finestre, porte, zanzariere. Preventivo gratuito.',
@@ -308,7 +308,7 @@ export const services: Service[] = [
     name: 'Impianti Idraulici',
     shortDesc: 'Rifacimento, adeguamento e riparazione impianti.',
     description:
-      'Rifacimento e adeguamento impianti idraulici civili e commerciali: tubazioni, sanitari, caldaia, riscaldamento, scarichi. Certificazione rilasciata alla consegna.',
+      'Rifacimento e adeguamento impianti idraulici civili e commerciali: tubazioni, sanitari, caldaia, riscaldamento, scarichi. Lavori affidati a un\'impresa partner abilitata, che rilascia la dichiarazione di conformità; noi coordiniamo il cantiere.',
     benefit: 'Impianto a norma, senza perdite, con garanzia.',
     pricingRef: 'impianto_idraulico',
     icon: 'zap',
@@ -317,7 +317,7 @@ export const services: Service[] = [
       'Scarichi e colonne di caduta',
       'Sostituzione o installazione caldaia',
       'Impianto radiatori o a pavimento',
-      'Certificazione impianto',
+      'Dichiarazione di conformità rilasciata dall\'impresa partner abilitata',
       'Pronto intervento su guasti',
     ],
     exclusions: [
@@ -341,19 +341,19 @@ export const services: Service[] = [
       'Apertura tracce e posa delle tubazioni',
       'Installazione sanitari, caldaia e raccordi',
       'Collaudo pressione e tenuta dell\'impianto',
-      'Rilascio della certificazione di conformità',
+      'Dichiarazione di conformità rilasciata dall\'impresa partner abilitata',
     ],
     priceNote: 'Rifacimento impianto idraulico completo (appartamento 70–90 mq): indicativamente da 4.000 a 9.000 €. Preventivo scritto dopo sopralluogo gratuito.',
     seoTitle: 'Impianti Idraulici a Lodi e Milano Sud',
     seoDesc:
-      'Rifacimento e adeguamento impianti idraulici a Lodi, Merlino, Milano Sud. Certificazione inclusa. Sopralluogo gratuito.',
+      'Rifacimento e adeguamento impianti idraulici a Lodi, Merlino, Milano Sud. Impresa partner abilitata, dichiarazione di conformità. Sopralluogo gratuito.',
   },
   {
     slug: 'impianti-elettrici',
     name: 'Impianti Elettrici',
     shortDesc: 'Rifacimento, messa a norma, certificazione.',
     description:
-      'Adeguamento e rifacimento impianti elettrici civili e commerciali: quadro, cavi, prese, punti luce, domotica. Dichiarazione di conformità alla consegna.',
+      'Adeguamento e rifacimento impianti elettrici civili e commerciali: quadro, cavi, prese, punti luce, domotica. Lavori affidati a un\'impresa partner abilitata, che rilascia la dichiarazione di conformità; noi coordiniamo il cantiere.',
     benefit: 'Impianto sicuro, certificato e a norma CEI.',
     pricingRef: 'impianto_elettrico',
     icon: 'bolt',
@@ -363,7 +363,7 @@ export const services: Service[] = [
       'Punti luce, prese, interruttori',
       'Impianto domotica su richiesta',
       'Messa a terra e protezioni differenziali',
-      'Dichiarazione di conformità CEI',
+      'Dichiarazione di conformità rilasciata dall\'impresa partner abilitata',
     ],
     exclusions: [
       'Opere murarie di chiusura tracce (incluse nel preventivo standard, specificate caso per caso)',
@@ -377,7 +377,7 @@ export const services: Service[] = [
       },
       {
         q: 'È obbligatorio avere la dichiarazione di conformità?',
-        a: 'Sì, per ogni intervento sull\'impianto elettrico è obbligatoria per legge. La rilasciamo noi a fine lavori.',
+        a: 'Sì, il D.M. 37/2008 la prevede per nuovi impianti, trasformazioni, ampliamenti e manutenzioni straordinarie. A fine lavori la rilascia l\'impresa partner abilitata che esegue l\'impianto.',
       },
     ],
     process: [
@@ -386,12 +386,12 @@ export const services: Service[] = [
       'Apertura tracce e posa dei cavi a norma CEI',
       'Installazione quadro, prese, interruttori e punti luce',
       'Collaudo e verifica di messa a terra',
-      'Rilascio dichiarazione di conformità',
+      'Dichiarazione di conformità rilasciata dall\'impresa partner abilitata',
     ],
     priceNote: 'Rifacimento impianto elettrico completo (appartamento 70–90 mq): indicativamente da 3.500 a 8.000 €. Preventivo scritto dopo sopralluogo gratuito.',
     seoTitle: 'Impianti Elettrici a Lodi e Milano Sud',
     seoDesc:
-      'Rifacimento impianti elettrici a norma CEI a Lodi, Merlino, Milano Sud. Dichiarazione di conformità inclusa. Preventivo gratuito.',
+      'Rifacimento impianti elettrici a norma CEI a Lodi, Merlino, Milano Sud. Impresa partner abilitata, dichiarazione di conformità. Preventivo gratuito.',
   },
 ]
 

@@ -22,7 +22,7 @@ FASCE ORIENTATIVE — prezzi reali Diamo Soluzioni (confermare con sopralluogo):
 - Impianto idraulico (app. 70–90 mq): €4.000–€9.000
 - Impianto elettrico (app. 70–90 mq): €3.500–€8.000
 - Ristrutturazione completa: €500–€900/mq
-- Infissi/finestre: €400–€800 a finestra
+- Infissi PVC standard, fornitura e posa, IVA esclusa: €550–€850 a finestra a un'anta, €850–€1.300 a due ante
 - Cappotto termico: €80–€150/mq
 
 REGOLE:

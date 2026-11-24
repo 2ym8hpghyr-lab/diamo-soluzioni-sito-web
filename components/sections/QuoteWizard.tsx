@@ -311,7 +311,7 @@ export default function QuoteWizard() {
 
   function buildWhatsAppMessage() {
     const range = estimate
-      ? `${formatEur(estimate.minTotal)} – ${formatEur(estimate.maxTotal)}${state.serviceId === 'infissi' ? ' per singolo infisso' : ''}`
+      ? `${formatEur(estimate.minTotal)} – ${formatEur(estimate.maxTotal)}${state.serviceId === 'infissi' ? ' per singola finestra in PVC (una o due ante), IVA esclusa' : ''}`
       : 'da definire'
     return `Buongiorno Diamo Soluzioni, ho compilato il preventivatore del sito (rif. ${leadId}).
 Lavoro: ${effectiveServiceLabel}
@@ -818,7 +818,7 @@ Vorrei sapere quando è possibile un sopralluogo gratuito.`
                         ) : estimate ? (
                           <>
                             <p className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(248,248,245,0.75)' }}>
-                              Fascia orientativa stimata dall&apos;AI{state.serviceId === 'infissi' ? ' · per singolo infisso' : ''}
+                              Fascia orientativa stimata dall&apos;AI{state.serviceId === 'infissi' ? ' · per singola finestra in PVC, una o due ante, IVA esclusa' : ''}
                             </p>
                             <p className="font-extrabold" style={{ fontSize: '1.7rem', color: '#F4BE12', lineHeight: 1.1 }}>
                               {formatEur(estimate.minTotal)}&nbsp;–&nbsp;{formatEur(estimate.maxTotal)}

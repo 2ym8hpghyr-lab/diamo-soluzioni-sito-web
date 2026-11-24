@@ -32,7 +32,7 @@ export const territories: Territory[] = [
     h1Line1: 'Ristrutturazioni a Lodi',
     h1Line2Gold: 'e provincia.',
     subtitle: 'Un unico referente dal sopralluogo alla consegna — senza sorprese.',
-    intro: 'Operiamo a Lodi e provincia con cantieri attivi nel centro storico, nelle periferie residenziali e nei condomini. Conosciamo le specificità del patrimonio edilizio lodigiano: palazzi d\'epoca, appartamenti degli anni \'60-\'80 e ville degli anni \'90. Ogni progetto è gestito in proprio, senza subappalti.',
+    intro: 'Operiamo a Lodi e provincia con cantieri attivi nel centro storico, nelle periferie residenziali e nei condomini. Conosciamo le specificità del patrimonio edilizio lodigiano: palazzi d\'epoca, appartamenti degli anni \'60-\'80 e ville degli anni \'90. Ogni cantiere è seguito da un unico referente; gli impianti sono affidati a un\'impresa partner abilitata.',
     localContext: 'Lodi ha un centro storico di pregio con edifici d\'epoca e palazzi ottocenteschi che richiedono attenzione ai materiali e alle normative di tutela. Le periferie residenziali sono composte prevalentemente da appartamenti costruiti tra il 1960 e il 1990, con impianti spesso da rifare e finiture datate. La richiesta più frequente a Lodi è la ristrutturazione completa — bagno, pavimenti, impianti — spesso abbinata alla sostituzione degli infissi.',
     mainServices: [
       { slug: 'ristrutturazioni-chiavi-in-mano', label: 'Ristrutturazioni Chiavi in Mano', localNote: 'Il servizio più richiesto a Lodi: un unico referente coordina demolizioni, impianti, finiture e consegna.' },
@@ -77,12 +77,12 @@ export const territories: Territory[] = [
       { slug: 'ristrutturazioni-chiavi-in-mano', label: 'Ristrutturazioni Complete', localNote: 'Ristrutturiamo appartamenti e ville a Lodi con un unico contratto, dalla demolizione alla consegna.' },
       { slug: 'facciate-cappotto-termico', label: 'Facciate e Cappotto Termico', localNote: 'Risanamento facciate condominiali e applicazione cappotto termico a Lodi e provincia.' },
       { slug: 'impianti-idraulici', label: 'Impianti Idraulici', localNote: 'Rifacimento impianti negli edifici residenziali lodigiani degli anni \'70–\'90.' },
-      { slug: 'impianti-elettrici', label: 'Impianti Elettrici', localNote: 'Messa a norma degli impianti elettrici con dichiarazione di conformità CEI.' },
+      { slug: 'impianti-elettrici', label: 'Impianti Elettrici', localNote: 'Messa a norma degli impianti elettrici con impresa partner abilitata, che rilascia la dichiarazione di conformità.' },
     ],
     localKnowledge: [
       {
         heading: 'Edilizia per privati a Lodi',
-        body: 'Lavoriamo principalmente con privati che vogliono ristrutturare casa propria o un immobile in affitto. Il nostro approccio è quello del contratto unico: un solo interlocutore, un preventivo scritto, un cronoprogramma rispettato. Nessun subappalto, nessuna sorpresa finale.',
+        body: 'Lavoriamo principalmente con privati che vogliono ristrutturare casa propria o un immobile in affitto. Il nostro approccio è quello del contratto unico: un solo interlocutore, un preventivo scritto, un cronoprogramma rispettato. Gli impianti sono affidati a un\'impresa partner abilitata, sempre coordinata da noi: nessuna sorpresa finale.',
       },
       {
         heading: 'Condomini e parti comuni',
@@ -90,7 +90,7 @@ export const territories: Territory[] = [
       },
       {
         heading: 'Certificazioni e documentazione',
-        body: 'Al termine di ogni intervento rilasciamo la documentazione obbligatoria per legge: dichiarazione di conformità per gli impianti elettrici (CEI 64-8), certificazione degli impianti idraulici e dossier fotografico del cantiere.',
+        body: 'Al termine dei lavori ti consegniamo la documentazione del cantiere: per gli impianti elettrici e idraulici, la dichiarazione di conformità rilasciata dall\'impresa partner abilitata nei casi previsti dal D.M. 37/2008, oltre al dossier fotografico.',
       },
     ],
     faq: [

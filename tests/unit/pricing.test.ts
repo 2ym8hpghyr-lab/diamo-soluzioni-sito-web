@@ -13,7 +13,7 @@ const EXPECTED_RANGES: Record<string, { min: number; max: number }> = {
   ristrutturazione_completa: { min: 500,  max: 900   },
   cappotto:                  { min: 80,   max: 150   },
   tinteggiatura:             { min: 8,    max: 18    },
-  infissi:                   { min: 400,  max: 800   },
+  infissi:                   { min: 550,  max: 1300  },
 }
 
 const COMPLEXITIES = ['base', 'medium', 'high'] as const
@@ -112,6 +112,13 @@ describe('calculateEstimate — output sempre entro fascia dichiarata', () => {
       const b = calculateEstimate(key, qty, 'base')!
       expect(b.minTotal).toBe(PRICING[key].minPerUnit * qty)
     }
+  })
+})
+
+describe('infissi — fascia intera indipendente dallo stato dell\'immobile', () => {
+  test.each(COMPLEXITIES)('%s → 550–1.300 € per finestra', (complexity) => {
+    const r = calculateEstimate('infissi', 1, complexity)!
+    expect([r.minTotal, r.maxTotal]).toEqual([550, 1300])
   })
 })
 

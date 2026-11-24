@@ -32,8 +32,8 @@ const faqs = [
     a: 'Sì, operiamo a Merlino, Lodi, Melegnano, San Donato Milanese, Paullo, Crema e nei comuni limitrofi. Contattaci per verificare la disponibilità nella tua zona.',
   },
   {
-    q: 'Rilasciate certificazioni e dichiarazioni di conformità?',
-    a: 'Sì. Per gli impianti elettrici rilasciamo la dichiarazione di conformità CEI. Per gli impianti idraulici la certificazione dell\'impianto. Tutto documentato e consegnato insieme alle chiavi.',
+    q: 'Chi rilascia le dichiarazioni di conformità degli impianti?',
+    a: 'Gli impianti elettrici e idraulici sono affidati a un\'impresa partner abilitata ai sensi del D.M. 37/2008, che a fine lavori rilascia la dichiarazione di conformità nei casi previsti. Noi coordiniamo il cantiere e ti consegniamo i documenti insieme alle chiavi.',
   },
   {
     q: 'Posso fornire io i materiali?',

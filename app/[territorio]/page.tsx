@@ -119,7 +119,7 @@ export default async function TerritorioPage({ params }: Props) {
                 { label: 'Sopralluogo', value: 'Gratuito' },
                 { label: 'Preventivo', value: 'Entro 48h' },
                 { label: 'Referente', value: 'Unico' },
-                { label: 'Subappalti', value: 'Zero' },
+                { label: 'Impianti', value: 'Partner abilitato' },
               ].map(item => (
                 <div
                   key={item.label}

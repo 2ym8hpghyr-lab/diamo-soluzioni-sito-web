@@ -12,6 +12,8 @@ export interface ServicePricing {
   minPerUnit: number
   /** Prezzo massimo per unità (fascia alta, lavoro complesso) */
   maxPerUnit: number
+  /** Stato dell'immobile irrilevante per il prezzo: restituisce sempre la fascia intera */
+  fullRange?: boolean
   notes: string
 }
 
@@ -90,11 +92,12 @@ export const PRICING: Record<string, ServicePricing> = {
   },
   infissi: {
     id: 'infissi',
-    label: 'Sostituzione infissi (per finestra)',
+    label: 'Sostituzione infissi (per finestra in PVC a una o due ante)',
     unit: 'forfait',
-    minPerUnit: 400,
-    maxPerUnit: 800,
-    notes: 'PVC standard fornitura e posa. Alluminio con taglio termico o su misura: fuori fascia. Allineato al priceNote pubblico.',
+    minPerUnit: 550,
+    maxPerUnit: 1300,
+    fullRange: true,
+    notes: 'PVC standard fornitura e posa, IVA esclusa: 550–850 € a un\'anta, 850–1.300 € a due ante. Fonti (24/11/2026): preventivo reale 2 finestre = €1.500 → €750/finestra; Prezzario Lombardia 2026 LOM261 Pa02.C3330.D0017.0000 = 614,72 €/mq; confronto di mercato. Portefinestre e alluminio a taglio termico: fuori fascia. Allineato al priceNote pubblico.',
   },
 }
 
@@ -131,7 +134,11 @@ export function calculateEstimate(
   // Finestre di complessità — sempre entro [lo, hi]
   let windowMin: number
   let windowMax: number
-  switch (complexity) {
+  switch (pricing.fullRange ? 'full' : complexity) {
+    case 'full':
+      windowMin = lo
+      windowMax = hi
+      break
     case 'medium':
       windowMin = Math.round(lo + span * 0.3)
       windowMax = Math.round(lo + span * 0.7)

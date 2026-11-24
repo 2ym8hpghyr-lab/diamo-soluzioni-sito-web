@@ -11,8 +11,8 @@ export const impiantoIdraulicoCrema: BlogPost = {
   author: 'Pellumb Murgu — Diamo Soluzioni',
   primaryKeyword: 'rifacimento impianto idraulico Crema costi',
   coverImage: '/blog/rifacimento-impianto-idraulico-crema-costi-2026.webp',
-  coverAlt: 'Collettore Caleffi con distribuzione idraulica a zone installato da Diamo Soluzioni',
-  coverCaption: 'Collettore con distribuzione a zone installato da Diamo Soluzioni in un progetto a Lodi. Immagine illustrativa del servizio.',
+  coverAlt: 'Collettore Caleffi con distribuzione idraulica a zone in un cantiere Diamo Soluzioni',
+  coverCaption: 'Collettore con distribuzione a zone in un cantiere Diamo Soluzioni a Lodi. Immagine illustrativa del servizio.',
   ogImage: '/blog/og/rifacimento-impianto-idraulico-crema-costi-2026.jpg',
   excerpt: 'Quanto costa rifare l’impianto idraulico a Crema? Prezzi 2026, punti acqua, tubazioni, tempi, DiCo e voci da controllare nel preventivo.',
   linkText: 'Rifacimento impianto idraulico: costi e tempi',
@@ -99,13 +99,13 @@ export const impiantoIdraulicoCrema: BlogPost = {
 <h2>Multistrato, PPR o rame: cosa scegliamo?</h2>
 <p>Non esiste un materiale migliore in assoluto.</p>
 <p>Il multistrato è molto utilizzato nelle ristrutturazioni perché è flessibile, rapido da posare e permette una distribuzione ordinata tramite collettori. Il PPR non soffre la corrosione, ma la qualità dipende molto dalla corretta saldatura. Il rame è robusto e adatto anche a tratti a vista, ma costa di più e richiede una posa accurata.</p>
-<p>Nel nostro <a href="/progetti/impianti">progetto reale dedicato agli impianti</a> abbiamo utilizzato tubazioni multistrato Pexal e collettori Caleffi con distribuzione a zone. Il progetto è a Lodi, non a Crema: lo colleghiamo per mostrare materiali e lavorazione realmente eseguiti, senza cambiare città a un cantiere che non è avvenuto lì.</p>
+<p>Nel nostro <a href="/progetti/impianti">progetto reale dedicato agli impianti</a> sono state utilizzate tubazioni multistrato Pexal e collettori Caleffi con distribuzione a zone. Il progetto è a Lodi, non a Crema: lo colleghiamo per mostrare materiali e lavorazione realmente eseguiti, senza cambiare città a un cantiere che non è avvenuto lì.</p>
 <h2>Quanto durano i lavori?</h2>
 <p>Per rifare la parte idraulica di un appartamento da 70–90 m² servono indicativamente 5–10 giorni lavorativi.</p>
 <p>Il cantiere completo può durare di più perché entrano in gioco demolizioni, asciugature, massetti, pavimenti, rivestimenti, sanitari e tinteggiatura. Un intervento che comprende anche riscaldamento e climatizzazione può arrivare a diverse settimane.</p>
 <p>Decidere prima posizione di sanitari, cucina, lavatrice e radiatori evita modifiche durante i lavori e riduce i tempi morti.</p>
 <h2>Dichiarazione di conformità e prove finali</h2>
-<p>L’impianto deve essere realizzato da un’impresa abilitata. Al termine dei lavori, nei casi previsti, viene rilasciata la Dichiarazione di conformità con gli allegati obbligatori, secondo il <a href="https://www.gazzettaufficiale.it/eli/id/2008/03/12/008G0060/sg" target="_blank" rel="noopener noreferrer">D.M. 37/2008</a>.</p>
+<p>L’impianto deve essere realizzato da un’impresa abilitata. Nei nostri cantieri lo affidiamo a un’impresa partner abilitata: noi coordiniamo i lavori, la dichiarazione la rilascia l’impresa che esegue l’impianto. Al termine dei lavori, nei casi previsti, viene rilasciata la Dichiarazione di conformità con gli allegati obbligatori, secondo il <a href="https://www.gazzettaufficiale.it/eli/id/2008/03/12/008G0060/sg" target="_blank" rel="noopener noreferrer">D.M. 37/2008</a>.</p>
 <p>Prima della consegna vanno inoltre eseguite le prove previste, compresa la verifica della tenuta. La certificazione non sostituisce il collaudo: documenta un lavoro eseguito e verificato secondo il perimetro dichiarato.</p>
 <h2>Checklist del preventivo</h2>
 <p>Controlla che siano specificati:</p>

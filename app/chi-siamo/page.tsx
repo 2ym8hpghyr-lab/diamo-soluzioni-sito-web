@@ -25,7 +25,7 @@ const principi = [
   'Un cantiere ordinato: puliamo ogni giorno, rispettiamo i tuoi spazi.',
   'Aggiornamenti costanti: sai cosa sta succedendo senza dover chiamare.',
   'Materiali di qualità selezionati insieme, con fornitori locali fidati.',
-  'Dichiarazioni di conformità per ogni impianto realizzato.',
+  'Impianti affidati a un\'impresa partner abilitata, che rilascia la dichiarazione di conformità.',
 ]
 
 export default function ChiSiamoPage() {

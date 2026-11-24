@@ -63,7 +63,7 @@ export const infissiPvcAlluminio: BlogPost = {
 </table>
 </div>
 <div class="disclaimer">Sono valori orientativi di mercato, non il listino Diamo Soluzioni e non un preventivo. Misure fuori standard, vetri speciali, scorrevoli, colore, ferramenta, cassonetti, tapparelle, smaltimento e difficoltà di posa possono cambiare molto il totale. Anche IVA e opere murarie devono essere indicate chiaramente.</div>
-<p>Il nostro <a href="/?service=infissi-serramenti#preventivatore">Preventivatore AI</a> può dare una prima stima orientativa: per un infisso standard in PVC parte dalla fascia 400–800 € indicata nella nostra <a href="/servizi/infissi-serramenti">pagina Infissi e Serramenti</a> ed è riferita a un singolo infisso. Le fasce della tabella sono invece valori di mercato, non il nostro listino. Il prezzo reale arriva solo dopo un sopralluogo gratuito, la verifica delle aperture e un preventivo scritto.</p>
+<p>Il nostro <a href="/?service=infissi-serramenti#preventivatore">Preventivatore AI</a> può dare una prima stima orientativa: per una singola finestra standard in PVC usa le fasce 550–850 € a un’anta e 850–1.300 € a due ante, IVA esclusa, le stesse indicate nella nostra <a href="/servizi/infissi-serramenti">pagina Infissi e Serramenti</a>. Portefinestre e alluminio si valutano a parte. Il prezzo reale arriva solo dopo un sopralluogo gratuito, la verifica delle aperture e un preventivo scritto.</p>
 <h2>Le differenze che contano davvero</h2>
 <h3>Isolamento termico</h3>
 <p>Il PVC isola bene per natura. Nell’alluminio moderno, la barriera isolante interna interrompe la trasmissione del calore: è il cosiddetto taglio termico.</p>

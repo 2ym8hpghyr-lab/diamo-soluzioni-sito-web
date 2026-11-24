@@ -93,9 +93,9 @@ export const impiantoElettricoMilanoSud: BlogPost = {
 <h3>Funzioni smart</h3>
 <p>Non serve trasformare ogni abitazione in una casa domotica. Però predisporre corrugati, spazio nel quadro e neutro nei punti necessari può evitare lavori invasivi in seguito.</p>
 <h2>Dichiarazione di conformità: cosa deve arrivare a fine lavori</h2>
-<p>Il rifacimento deve essere eseguito da un’impresa abilitata. Al termine dei lavori, nei casi previsti, viene rilasciata la Dichiarazione di conformità (DiCo) con gli allegati obbligatori.</p>
+<p>Il rifacimento deve essere eseguito da un’impresa abilitata. Nei nostri cantieri lo affidiamo a un’impresa partner abilitata: noi coordiniamo i lavori, la dichiarazione la rilascia l’impresa che esegue l’impianto. Al termine dei lavori, nei casi previsti, viene rilasciata la Dichiarazione di conformità (DiCo) con gli allegati obbligatori.</p>
 <p>Il riferimento è il <a href="https://www.gazzettaufficiale.it/eli/id/2008/03/12/008G0060/sg" target="_blank" rel="noopener noreferrer">Decreto Ministeriale 37/2008 pubblicato in Gazzetta Ufficiale</a>. La DiCo non è una frase aggiunta al preventivo: è un documento da conservare insieme a progetto o schema, relazione sui materiali e allegati applicabili.</p>
-<p>Sul nostro sito puoi vedere un <a href="/progetti/impianti-elettrici-appartamento">impianto elettrico realizzato da Diamo Soluzioni</a>, con nuovo quadro, differenziali, cavi, prese e punti luce.</p>
+<p>Sul nostro sito puoi vedere un <a href="/progetti/impianti-elettrici-appartamento">impianto elettrico di un cantiere Diamo Soluzioni</a>, con nuovo quadro, differenziali, cavi, prese e punti luce.</p>
 <h2>Quanto durano i lavori?</h2>
 <p>Per un appartamento di 70–90 m², la parte elettrica richiede indicativamente 4–8 giorni lavorativi. Se il lavoro comprende molte tracce, chiusure, rasature e tinteggiatura, il cantiere completo può arrivare a 7–14 giorni lavorativi.</p>
 <p>I tempi cambiano con la complessità, la possibilità di riutilizzare i passaggi esistenti e le decisioni prese prima dell’apertura del cantiere. Una lista completa dei punti evita modifiche mentre i lavori sono già iniziati.</p>
