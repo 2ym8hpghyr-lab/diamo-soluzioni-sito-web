@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { services, getServiceBySlug } from '@/data/services'
 import { projects } from '@/data/projects'
 import { business } from '@/config/business'
+import { getPostsByService } from '@/data/blog'
+import RelatedGuides from '@/components/blog/RelatedGuides'
 
 const servicePhotos: Record<string, string> = {
   'ristrutturazioni-chiavi-in-mano': '/illustrazioni/ristrutturazioni.png',
@@ -60,6 +62,7 @@ export default async function ServizioPage({ params }: Props) {
   if (!service) notFound()
 
   const heroBg = servicePhotos[slug]
+  const guides = getPostsByService(slug)
   const relatedProject = projects.find(p => p.caseStudy?.serviceSlug === slug && p.isReal)
 
   const breadcrumbSchema = {
@@ -301,6 +304,13 @@ export default async function ServizioPage({ params }: Props) {
               ))}
             </div>
           </div>
+        </section>
+      )}
+
+      {/* Guide del blog */}
+      {guides.length > 0 && (
+        <section className="py-14" style={{ backgroundColor: '#F8F8F5' }}>
+          <RelatedGuides posts={guides} title="Guide utili" className="max-w-7xl mx-auto px-4 sm:px-6" />
         </section>
       )}
 

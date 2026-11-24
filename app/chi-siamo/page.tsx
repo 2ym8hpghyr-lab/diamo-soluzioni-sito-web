@@ -138,6 +138,13 @@ export default function ChiSiamoPage() {
                 Operiamo in provincia di Lodi e nell&apos;area di Milano Sud: Melegnano, San Donato, Paullo, Crema e zone limitrofe.
                 La nostra crescita è avvenuta attraverso il passaparola — la testimonianza più concreta del lavoro fatto bene.
               </p>
+              <p>
+                Stai valutando a chi affidare i lavori? Abbiamo scritto una guida su{' '}
+                <Link href="/blog/impresa-edile-milano-sud-come-scegliere" className="font-semibold underline underline-offset-4" style={{ color: '#1F4852' }}>
+                  come scegliere un&apos;impresa edile locale
+                </Link>
+                : i controlli che suggeriamo valgono anche per noi.
+              </p>
             </div>
           </div>
         </div>

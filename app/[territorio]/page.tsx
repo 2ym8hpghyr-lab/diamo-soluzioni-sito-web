@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { business } from '@/config/business'
 import { territories, getTerritoryBySlug } from '@/data/territories'
 import { getProjectBySlug } from '@/data/projects'
+import { getPostsByTerritory } from '@/data/blog'
+import RelatedGuides from '@/components/blog/RelatedGuides'
 
 export const dynamicParams = false
 
@@ -36,6 +38,8 @@ export default async function TerritorioPage({ params }: Props) {
   const { territorio } = await params
   const t = getTerritoryBySlug(territorio)
   if (!t) notFound()
+
+  const guides = getPostsByTerritory(territorio)
 
   const relatedProjects = t.relatedProjectSlugs
     .map(s => getProjectBySlug(s))
@@ -246,6 +250,13 @@ export default async function TerritorioPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Guide del blog */}
+      {guides.length > 0 && (
+        <section className="py-14 bg-white">
+          <RelatedGuides posts={guides} title="Guide utili" className="max-w-7xl mx-auto px-4 sm:px-6" />
+        </section>
+      )}
 
       {/* CTA finale */}
       <section className="py-16" style={{ backgroundColor: '#1E2A2E' }}>

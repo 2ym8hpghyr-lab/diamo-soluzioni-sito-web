@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { projects, getProjectBySlug } from '@/data/projects'
 import { business } from '@/config/business'
+import { getPostsByProject } from '@/data/blog'
+import RelatedGuides from '@/components/blog/RelatedGuides'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -40,6 +42,7 @@ export default async function ProgettoPage({ params }: Props) {
   const project = getProjectBySlug(slug)
   if (!project || !project.isReal) notFound()
 
+  const guides = getPostsByProject(project.slug)
   const gallery = project.gallery ?? [project.cover]
   const galleryAlts = project.galleryAlts ?? gallery.map((_, i) => i === 0 ? project.coverAlt : `${project.title} — immagine ${i + 1}`)
 
@@ -267,6 +270,13 @@ export default async function ProgettoPage({ params }: Props) {
               </svg>
             </Link>
           </div>
+        </section>
+      )}
+
+      {/* Altre guide del blog */}
+      {guides.length > 0 && (
+        <section className="py-10" style={{ backgroundColor: '#F8F8F5' }}>
+          <RelatedGuides posts={guides} title="Guide utili" className="max-w-7xl mx-auto px-4 sm:px-6" />
         </section>
       )}
 

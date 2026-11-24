@@ -39,7 +39,7 @@ test.describe('Navigazione', () => {
 
   test('pagina blog carica e mostra almeno un articolo', async ({ page }) => {
     await page.goto('/blog')
-    await expect(page.locator('article')).toHaveCount(1)
+    await expect(page.locator('article').first()).toBeVisible()
   })
 
   test('link a articolo blog funzionante', async ({ page }) => {

@@ -7,12 +7,13 @@ import { projects } from '@/data/projects'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = business.siteUrl
+  const latestPost = posts.map(p => p.dateModified).sort().at(-1)!
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: base, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/servizi`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/progetti`, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${base}/blog`, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${base}/blog`, lastModified: new Date(latestPost), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${base}/contatti`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/chi-siamo`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${base}/faq`, changeFrequency: 'monthly', priority: 0.6 },

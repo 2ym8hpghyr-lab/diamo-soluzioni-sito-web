@@ -8,7 +8,7 @@ interface Service {
   shortDesc: string
 }
 
-export default function RelatedServices({ services }: { services: Service[] }) {
+export default function RelatedServices({ services, articleSlug }: { services: Service[]; articleSlug: string }) {
   if (services.length === 0) return null
   return (
     <div className="mt-14 pt-10" style={{ borderTop: '1px solid #ECEDE9' }}>
@@ -18,7 +18,7 @@ export default function RelatedServices({ services }: { services: Service[] }) {
           <Link
             key={s.slug}
             href={`/servizi/${s.slug}`}
-            onClick={() => trackEvent('service_view_from_blog', { service_slug: s.slug })}
+            onClick={() => trackEvent('service_view_from_blog', { service_slug: s.slug, article_slug: articleSlug })}
             className="rounded-xl p-4 border transition-all hover:border-teal hover:shadow-sm"
             style={{ borderColor: '#ECEDE9', backgroundColor: '#ffffff' }}
           >

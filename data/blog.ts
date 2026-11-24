@@ -1,3 +1,5 @@
+import { importedPosts } from './blog-posts'
+
 export interface BlogPost {
   slug: string
   title: string
@@ -12,9 +14,28 @@ export interface BlogPost {
   excerpt: string
   content: string
   relatedServices: string[]
+  /** Didascalia della foto: se presente, l'immagine compare anche nel corpo */
+  coverCaption?: string
+  /** Immagine Open Graph 1200×630 (default: coverImage) */
+  ogImage?: string
+  /** Testo breve per i link interni (default: title) */
+  linkText?: string
+  relatedPosts?: string[]
+  relatedProjects?: string[]
+  relatedTerritories?: string[]
+  /** CTA finale specifica (default: quella storica di BlogCTAs) */
+  cta?: BlogCta
+}
+
+export interface BlogCta {
+  title: string
+  text: string
+  estimatorHref: string
+  whatsappMessage: string
 }
 
 export const posts: BlogPost[] = [
+  ...importedPosts,
   {
     slug: 'ristrutturazione-appartamento-lodi-prezzi-2026',
     title: 'Ristrutturazione appartamento Lodi: prezzi al mq e costi reali nel 2026',
@@ -326,4 +347,17 @@ export const posts: BlogPost[] = [
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return posts.find(p => p.slug === slug)
+}
+
+/** Guide il cui servizio principale è quello indicato */
+export function getPostsByService(serviceSlug: string): BlogPost[] {
+  return posts.filter(p => p.relatedServices[0] === serviceSlug)
+}
+
+export function getPostsByProject(projectSlug: string): BlogPost[] {
+  return posts.filter(p => p.relatedProjects?.includes(projectSlug))
+}
+
+export function getPostsByTerritory(territorySlug: string): BlogPost[] {
+  return posts.filter(p => p.relatedTerritories?.includes(territorySlug))
 }

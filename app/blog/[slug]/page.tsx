@@ -7,6 +7,12 @@ import { posts, getPostBySlug } from '@/data/blog'
 import { services } from '@/data/services'
 import BlogCTAs from '@/components/blog/BlogCTAs'
 import RelatedServices from '@/components/blog/RelatedServices'
+import RelatedGuides from '@/components/blog/RelatedGuides'
+import BlogBodyTracker from '@/components/blog/BlogBodyTracker'
+
+const ARTICLE_BODY_ID = 'article-body'
+/** Il template del layout aggiunge " | Diamo Soluzioni" (18 caratteri): oltre 70 totali il title resta senza suffisso */
+const MAX_TITLE_WITH_SUFFIX = 52
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -22,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {}
   const canonical = `${business.siteUrl}/blog/${post.slug}`
   return {
-    title: post.seoTitle,
+    title: post.seoTitle.length > MAX_TITLE_WITH_SUFFIX ? { absolute: post.seoTitle } : post.seoTitle,
     description: post.description,
     alternates: { canonical },
     openGraph: {
@@ -34,7 +40,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       modifiedTime: post.dateModified,
       authors: [post.author],
-      images: [{ url: `${business.siteUrl}${post.coverImage}`, alt: post.coverAlt }],
+      images: [
+        post.ogImage
+          ? { url: `${business.siteUrl}${post.ogImage}`, width: 1200, height: 630, alt: post.coverAlt }
+          : { url: `${business.siteUrl}${post.coverImage}`, alt: post.coverAlt },
+      ],
     },
   }
 }
@@ -52,6 +62,10 @@ export default async function BlogPostPage({ params }: Props) {
     .map(s => services.find(sv => sv.slug === s))
     .filter(Boolean)
     .slice(0, 3) as typeof services
+
+  const relatedGuides = (post.relatedPosts ?? [])
+    .map(getPostBySlug)
+    .filter(p => p !== undefined)
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -141,17 +155,39 @@ export default async function BlogPostPage({ params }: Props) {
       <section className="py-14" style={{ backgroundColor: '#FAFAF7' }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
+          {/* Foto con didascalia */}
+          {post.coverCaption && (
+            <figure className="mb-8">
+              <Image
+                src={post.coverImage}
+                alt={post.coverAlt}
+                width={1600}
+                height={900}
+                className="w-full h-auto rounded-2xl"
+                sizes="(max-width: 768px) 100vw, 720px"
+              />
+              <figcaption className="mt-2 text-xs leading-relaxed" style={{ color: '#4A5568' }}>
+                {post.coverCaption}
+              </figcaption>
+            </figure>
+          )}
+
           {/* Contenuto */}
+          <BlogBodyTracker targetId={ARTICLE_BODY_ID} articleSlug={post.slug} />
           <div
-            className="blog-content"
+            id={ARTICLE_BODY_ID}
+            className={post.cta ? 'blog-content blog-content--markers' : 'blog-content'}
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
           {/* CTA client component */}
-          <BlogCTAs />
+          <BlogCTAs articleSlug={post.slug} cta={post.cta} />
 
           {/* Leggi anche */}
-          <RelatedServices services={relatedServiceObjects.map(s => ({ slug: s.slug, name: s.name, shortDesc: s.shortDesc }))} />
+          <RelatedServices services={relatedServiceObjects.map(s => ({ slug: s.slug, name: s.name, shortDesc: s.shortDesc }))} articleSlug={post.slug} />
+
+          {/* Guide correlate */}
+          <RelatedGuides posts={relatedGuides} className="mt-10" />
 
           {/* Torna al blog */}
           <div className="mt-10 pt-8" style={{ borderTop: '1px solid #ECEDE9' }}>
