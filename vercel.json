@@ -1,5 +1,11 @@
 {
   "redirects": [
+    {
+      "source": "/:path((?!googlec974361f3a8a9a89\\.html$).*)",
+      "has": [{ "type": "host", "value": "diamo-soluzioni-sito-web.vercel.app" }],
+      "destination": "https://www.diamosoluzioni.com/:path",
+      "permanent": true
+    },
     { "source": "/privacy/", "destination": "/privacy-policy", "permanent": true },
     { "source": "/privacy", "destination": "/privacy-policy", "permanent": true }
   ],
